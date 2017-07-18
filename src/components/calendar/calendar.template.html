@@ -1,0 +1,6 @@
+
+<ul *ngFor="let week of weeks" class="week">
+  <li *ngFor="let day of week.days" class="day">
+    {{day.date()}}
+  </li>
+</ul>

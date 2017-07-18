@@ -1,5 +1,15 @@
 // http://ionicframework.com/docs/v2/theming/
 
+.week {
+  width :100%;
+  display: flex;
+}
+.day {
+  width: 15%;
+  height: 50px;
+  display: block;
+  border: 1px solid red;
+}
 
 // App Global Sass
 // --------------------------------------------------
