@@ -1,4 +1,6 @@
-<button (click)="showPrev()">Prev</button><button (click)="showNext()">Next</button>
+<button ion-button (click)="showPrev()">Prev</button>
+<button ion-button (click)="showNext()">Next</button>
+
 <ul *ngFor="let week of weeks" class="week">
   <li *ngFor="let day of week.days" class="day day-{{day.className}}" >
     {{day.date.date()}}
