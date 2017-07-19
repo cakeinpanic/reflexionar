@@ -11,24 +11,28 @@ export class Calendar implements OnInit {
   weeks: any[];
 
   WEEKS_NUM = 6;
-  currentMonth: any;
-  daysInMonth: any;
-  currentYear: any;
+  currentDate: moment.Moment;
 
   ngOnInit() {
-    this.currentMonth = moment().month();
-    this.currentYear = moment().year();
-
-    this.daysInMonth = moment().daysInMonth();
-
-    this.fillWeeks(this.currentYear, this.currentMonth);
+    this.currentDate = moment();
+    this.fillWeeks(this.currentDate);
   }
 
-  fillWeeks(year: number, month: number) {
+  showNext() {
+    this.currentDate.add(1, 'month');
+    this.fillWeeks(this.currentDate);
+  }
+
+  showPrev() {
+    this.currentDate.subtract(1, 'month');
+    this.fillWeeks(this.currentDate);
+  }
+
+  private fillWeeks(date: moment.Moment) {
 
     this.weeks = _.times(this.WEEKS_NUM, ()=>({days: []}));
 
-    const thisMonth = moment().year(year).month(month);
+    const thisMonth = moment(date);
     const prevMonth = moment(thisMonth).subtract(1, 'month');
     const nextMonth = moment(thisMonth).add(1, 'month');
 
