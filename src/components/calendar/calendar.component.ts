@@ -36,10 +36,9 @@ export class Calendar implements OnInit {
     const prevMonth = moment(thisMonth).subtract(1, 'month');
     const nextMonth = moment(thisMonth).add(1, 'month');
 
-
-    const thisDays = this.getDaysOfMonth(thisMonth);
-    const prevDays = this.getDaysOfMonth(prevMonth);
-    const nextDays = this.getDaysOfMonth(nextMonth);
+    const thisDays = this.getDaysOfMonth(thisMonth, {className: 'current'});
+    const prevDays = this.getDaysOfMonth(prevMonth,{className: 'prev'});
+    const nextDays = this.getDaysOfMonth(nextMonth,{className: 'next'});
 
     const startsWith = moment(thisMonth).date(1).day();
     const endsWith = this.WEEKS_NUM * DAYS_IN_WEEK - thisDays.length - startsWith;
@@ -55,10 +54,14 @@ export class Calendar implements OnInit {
     }
   }
 
-  private getDaysOfMonth(date: moment.Moment) {
+  private getDaysOfMonth(date: moment.Moment, additionalData: any) {
     const year = date.year();
     const month = date.month();
     const daysInMonth = moment().year(year).month(month).daysInMonth();
-    return _.times(daysInMonth, i => moment().year(year).month(month).date(i + 1));
+    return _.times(daysInMonth, i => {
+      return _.assign({
+        date: moment().year(year).month(month).date(i + 1)
+      }, additionalData);
+    });
   }
 }
