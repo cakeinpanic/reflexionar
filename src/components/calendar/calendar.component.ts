@@ -12,23 +12,25 @@ export class Calendar implements OnInit {
 
   WEEKS_NUM = 6;
   currentDate: moment.Moment;
+  currentMonthName: string;
 
   ngOnInit() {
     this.currentDate = moment();
-    this.fillWeeks(this.currentDate);
+    this.fillWeeks();
   }
 
   showNext() {
     this.currentDate.add(1, 'month');
-    this.fillWeeks(this.currentDate);
+    this.fillWeeks();
   }
 
   showPrev() {
     this.currentDate.subtract(1, 'month');
-    this.fillWeeks(this.currentDate);
+    this.fillWeeks();
   }
 
-  private fillWeeks(date: moment.Moment) {
+  private fillWeeks(date: moment.Moment = this.currentDate) {
+    this.currentMonthName = date.format('MMMM YYYY');
 
     this.weeks = _.times(this.WEEKS_NUM, ()=>({days: []}));
 
@@ -37,8 +39,8 @@ export class Calendar implements OnInit {
     const nextMonth = moment(thisMonth).add(1, 'month');
 
     const thisDays = this.getDaysOfMonth(thisMonth, {className: 'current'});
-    const prevDays = this.getDaysOfMonth(prevMonth,{className: 'prev'});
-    const nextDays = this.getDaysOfMonth(nextMonth,{className: 'next'});
+    const prevDays = this.getDaysOfMonth(prevMonth, {className: 'prev'});
+    const nextDays = this.getDaysOfMonth(nextMonth, {className: 'next'});
 
     const startsWith = moment(thisMonth).date(1).day();
     const endsWith = this.WEEKS_NUM * DAYS_IN_WEEK - thisDays.length - startsWith;
@@ -55,12 +57,10 @@ export class Calendar implements OnInit {
   }
 
   private getDaysOfMonth(date: moment.Moment, additionalData: any) {
-    const year = date.year();
-    const month = date.month();
-    const daysInMonth = moment().year(year).month(month).daysInMonth();
+    const daysInMonth = moment().daysInMonth();
     return _.times(daysInMonth, i => {
       return _.assign({
-        date: moment().year(year).month(month).date(i + 1)
+        date: moment(date).date(i + 1)
       }, additionalData);
     });
   }
