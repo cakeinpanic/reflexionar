@@ -1,7 +1,9 @@
 export class Event {
-  info: string;
+  id: number;
+  comment: string;
 
   constructor(text: string) {
-    this.info = text;
+    this.id = Date.now();
+    this.comment = text;
   }
 }

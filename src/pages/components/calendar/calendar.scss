@@ -2,7 +2,7 @@
 
 $daySize: 100px;
 calendar {
-  width: $daySize*7;
+  width :100%;
   display: flex;
   align-items: flex-start;
   flex-direction: row;
@@ -11,13 +11,25 @@ calendar {
 
 .datesContainer {
   width: 100%;
+
+}
+
+day-view {
+  flex-basis: 14.2857143%;
+  &:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
 }
 
 .week {
   width: 100%;
-  height: $daySize;
   padding: 0;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
 }
 
 .monthName {

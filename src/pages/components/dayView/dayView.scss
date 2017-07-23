@@ -1,11 +1,18 @@
 @import '../../../theme/variables.scss';
-
-.day {
-  width: 90px;
-  height: 90px;
+.day-container {
   position: relative;
-  border-radius: 50px;
-  margin: 5px;
+  width: 100%;
+  height: 100%;
+}
+.day {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top:0;
+  left:0;
+
+  border-radius: 50%;
+  margin: 5%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -33,10 +40,8 @@
 
 .events {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  dispaly: block;
-  width: 10px;
-  height: 10px;
-  background: black;
+  top: 0;
+  right: 0;
+  font-size: 50px;
+  color: #ffba7d;
 }

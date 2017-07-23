@@ -1,0 +1,11 @@
+<ion-card *ngFor="let event of info.events">
+
+  <ion-card-header>
+    {{info.date.format('DD MMMM YYYY')}}
+  </ion-card-header>
+
+  <ion-card-content>
+    {{event.comment}}
+  </ion-card-content>
+
+</ion-card>

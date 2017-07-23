@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
 
 
-interface IDateInfo {
+export interface IDateInfo {
   date: moment.Moment;
   events: Event[]
 }
@@ -34,7 +34,11 @@ export class CalendarStore {
 
   addEvent(date: any, event: Event) {
     const dateAsUTC = moment(date).valueOf();
-    this.store[dateAsUTC] = {date: moment(date), events: [event]};
+    if (this.store[dateAsUTC]) {
+      this.store[dateAsUTC].events.push(event);
+    } else {
+      this.store[dateAsUTC] = {date: moment(date), events: [event]};
+    }
     this.stream.next(dateAsUTC);
   }
 

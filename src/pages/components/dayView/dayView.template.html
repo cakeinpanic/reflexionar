@@ -1,6 +1,8 @@
+<div class="day-container">
 <div class="day day-{{className}}" (click)="addEvent()">
   <div class="date">{{day}}</div>
-  <div class="events" *ngIf="showEvents()"></div>
+  <ion-icon name="star" class="events" *ngIf="showEvents()"></ion-icon>
+</div>
 </div>
 
 
