@@ -8,19 +8,20 @@
 </ion-header>
 
 <ion-content padding>
+
   <form (ngSubmit)="addType()">
-    <ion-item>
-      <ion-label color="primary" fixed>New event type</ion-label>
-      <ion-input placeholder="Text Input" [(ngModel)]="typeName" name="title"></ion-input>
-      <button ion-button type="submit">add</button>
+    <ion-item class="typeInput">
+      <ion-input placeholder="Title" [(ngModel)]="typeName" name="title"></ion-input>
     </ion-item>
+    <button ion-button type="submit">add</button>
   </form>
 
-    <ion-label>Types:</ion-label>
-    <ion-list>
-      <div ion-item *ngFor="let type of types">
-        {{ type }}
-      </div>
-    </ion-list>
+  <ion-title>Types:</ion-title>
+  <ion-list>
+    <div ion-item *ngFor="let type of types">
+      {{ type.title }}
+      <div float-right class="color-sample" [style.background]="type.color"></div>
+    </div>
+  </ion-list>
 
 </ion-content>

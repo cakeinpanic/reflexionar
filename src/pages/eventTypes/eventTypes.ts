@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {TypeService} from "../components/models/type.service";
+import {TypeService, IEventType} from "../components/models/type.service";
 
 @Component({
   selector: 'page-eventTypes',
@@ -7,7 +7,7 @@ import {TypeService} from "../components/models/type.service";
 })
 export class EventTypesPage implements  OnInit{
 
-  types: string[];
+  types: IEventType[];
   typeName: string = '';
   constructor(@Inject(TypeService) private typeService: TypeService) {
 
@@ -16,6 +16,7 @@ export class EventTypesPage implements  OnInit{
   ngOnInit() {
     this.updateTypes();
   }
+
   updateTypes() {
     this.types = this.typeService.getTypes();
   }

@@ -6,9 +6,10 @@
     <ion-label color="primary" fixed>Event type</ion-label>
     <ion-select [(ngModel)]="eventType" name="types" interface="action-sheet">
       <ion-option
-        *ngFor="let type of types" value="{{type}}">{{type}}
+        *ngFor="let type of types" value="{{type}}">{{type.title}}
       </ion-option>
     </ion-select>
+
     <button float-right class="add-button" [navPush]="eventTypesPage" ion-button>
       <ion-icon name="add"></ion-icon>
     </button>
@@ -30,7 +31,8 @@
     </ion-card-header>
 
     <ion-card-content>
-      {{event.type}}
+      {{event.type.title}}
+      <div float-right class="color-sample" [style.background]="event.type.color"></div>
       {{event.comment}}
     </ion-card-content>
 
