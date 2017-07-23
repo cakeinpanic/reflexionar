@@ -24,7 +24,7 @@ export class Calendar implements OnInit {
   ngOnInit() {
     this.currentDate = moment();
     this.fillWeeks();
-    this.daySize = this.el.nativeElement.clientWidth/7;
+    this.daySize = this.el.nativeElement.offsetWidth/7 || 40;
   }
 
   showNext() {

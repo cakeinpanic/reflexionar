@@ -4,19 +4,23 @@
 <form (ngSubmit)="addEvent()">
   <ion-item>
     <ion-label color="primary" fixed>Event type</ion-label>
-    <ion-select [(ngModel)]="eventType" name="types">
+    <ion-select [(ngModel)]="eventType" name="types" interface="action-sheet">
       <ion-option
         *ngFor="let type of types" value="{{type}}">{{type}}
       </ion-option>
     </ion-select>
+    <button float-right class="add-button" [navPush]="eventTypesPage" ion-button>
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-item>
   <ion-item>
     <ion-label color="primary" fixed>Text</ion-label>
     <ion-input placeholder="Text Input" [(ngModel)]="eventTitle" name="title"></ion-input>
   </ion-item>
-  <ion-item>
-    <button ion-button type="submit">add</button>
-  </ion-item>
+
+  <button ion-button type="submit">Add event</button>
+  <button ion-button float-right [navPush]="eventTypesPage">New type</button>
+
 </form>
 <div *ngIf="!!info">
   <ion-card *ngFor="let event of info.events">
@@ -26,6 +30,7 @@
     </ion-card-header>
 
     <ion-card-content>
+      {{event.type}}
       {{event.comment}}
     </ion-card-content>
 
