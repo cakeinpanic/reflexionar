@@ -27,12 +27,15 @@
 
     <ion-card-header>
       {{info.date.format('DD MMMM YYYY')}}
+      <ion-icon float-right class="trash-btn" name="trash" float-right (click)="removeEvent(event)"></ion-icon>
     </ion-card-header>
 
     <ion-card-content>
-      {{event.type.title}}
+
       <color-sample float-right [color]="event.type.color"></color-sample>
+      {{event.type.title}}
       {{event.comment}}
+
     </ion-card-content>
 
   </ion-card>

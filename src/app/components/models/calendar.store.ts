@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-
+import * as _ from 'lodash';
 import {DayEvent} from './dayEvent.model';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
@@ -34,6 +34,10 @@ export class CalendarStore {
     return this.getInfo(date) ? this.getInfo(date).events : [];
   }
 
+  removeEvent(date: moment.Moment, eventToDelete: DayEvent) {
+    const dateAsUTC = date.valueOf();
+    _.remove(this.store[dateAsUTC].events, {id:eventToDelete.id});
+  }
   addEvent(date: any, event: DayEvent) {
     const dateAsUTC = moment(date).valueOf();
     if (this.store[dateAsUTC]) {
@@ -44,7 +48,7 @@ export class CalendarStore {
     this.stream.next(dateAsUTC);
   }
 
-  clearInfo(date: any, event: DayEvent) {
+  clearInfo(date: any) {
     const dateAsUTC = moment(date).valueOf();
     this.store[dateAsUTC] = null;
     this.stream.next(dateAsUTC);

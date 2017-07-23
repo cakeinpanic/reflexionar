@@ -48,4 +48,7 @@ export class DayDetails implements OnInit {
     this.info = this.calendarStore.getInfo(this.date);
   }
 
+  removeEvent(event: DayEvent) {
+    this.calendarStore.removeEvent(this.date, event);
+  }
 }
