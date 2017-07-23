@@ -7,6 +7,7 @@ import {DayView} from "../dayView/dayView.component";
 import {CalendarStore} from "../models/calendar.store";
 import {DetailsPage} from "../../details/details";
 import {DayInfo} from "../dayInfo/dayInfo.component";
+import {TypeService} from "../models/type.service";
 
 @NgModule({
   imports: [CommonModule,IonicModule],
@@ -19,6 +20,6 @@ import {DayInfo} from "../dayInfo/dayInfo.component";
     DayView,
     DayInfo
   ],
-  providers: [CalendarStore]
+  providers: [CalendarStore, TypeService]
 })
 export class CalendarModule {}

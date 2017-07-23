@@ -8,11 +8,13 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {CalendarModule} from '../pages/components/calendar/calendar.module';
 import {DetailsPage} from "../pages/details/details";
+import {EventTypesPage} from "../pages/eventTypes/eventTypes";
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    DetailsPage
+    DetailsPage,
+    EventTypesPage
   ],
   imports: [
     BrowserModule,
@@ -23,7 +25,8 @@ import {DetailsPage} from "../pages/details/details";
   entryComponents: [
     MyApp,
     HomePage,
-    DetailsPage
+    DetailsPage,
+    EventTypesPage
   ],
   providers: [
     StatusBar,

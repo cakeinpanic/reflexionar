@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Reflectar
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="addType()">
+    <ion-item>
+      <ion-label color="primary" fixed>New event type</ion-label>
+      <ion-input placeholder="Text Input" [(ngModel)]="typeName" name="title"></ion-input>
+      <button ion-button type="submit">add</button>
+    </ion-item>
+  </form>
+
+    <ion-label>Types:</ion-label>
+    <ion-list>
+      <div ion-item *ngFor="let type of types">
+        {{ type }}
+      </div>
+    </ion-list>
+
+</ion-content>

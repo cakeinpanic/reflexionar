@@ -11,7 +11,9 @@ export interface IDateInfo {
 }
 @Injectable()
 export class CalendarStore {
+  types: string[];
   private store: {[key: string]: IDateInfo} = {};
+
 
   private stream = new Subject<number>();
 
@@ -46,5 +48,13 @@ export class CalendarStore {
     const dateAsUTC = moment(date).valueOf();
     this.store[dateAsUTC] = null;
     this.stream.next(dateAsUTC);
+  }
+
+  addType(name: string) {
+    this.types.push(name);
+  }
+
+  getTypes(): string[] {
+    return this.types;
   }
 }
