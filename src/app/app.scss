@@ -1,26 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-.week {
-  width :100%;
-  padding:0;
-  display: flex;
-}
-.day {
-  width: 15%;
-  height: 50px;
-  display: block;
-  border: 1px solid red;
-  &-current {
-    background: rgba(red, .3);
-  }
-  &-next {
-    background: rgba(green, .3);
-  }
-  &-prev {
-    background: rgba(blue, .3);
-  }
-}
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

@@ -1,8 +1,0 @@
-<button ion-button (click)="showPrev()">Prev</button>
-<button ion-button (click)="showNext()">Next</button>
-<ion-title>{{currentMonthName}}</ion-title>
-<ul *ngFor="let week of weeks" class="week">
-  <li *ngFor="let day of week.days" class="day day-{{day.className}}" >
-    {{day.date.date()}}
-  </li>
-</ul>
