@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import * as moment from 'moment';
 import * as _ from 'lodash';
+
 const DAYS_IN_WEEK = 7;
 @Component({
   selector: 'calendar',

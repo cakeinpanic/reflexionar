@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {Calendar} from './calendar.component';
 import { IonicModule } from 'ionic-angular';
 import {DayView} from "../dayView/dayView.component";
+import {CalendarStore} from "../models/calendar.store";
 
 @NgModule({
   imports: [CommonModule,IonicModule],
@@ -13,6 +14,7 @@ import {DayView} from "../dayView/dayView.component";
   declarations: [
     Calendar,
     DayView
-  ]
+  ],
+  providers: [CalendarStore]
 })
 export class CalendarModule {}

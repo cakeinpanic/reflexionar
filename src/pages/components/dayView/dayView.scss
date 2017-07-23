@@ -1,6 +1,5 @@
 @import '../../../theme/variables.scss';
 
-
 .day {
   width: 90px;
   height: 90px;
@@ -30,4 +29,14 @@
   font-size: 20px;
   display: inline-block;
   position: relative;
+}
+
+.events {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  dispaly: block;
+  width: 10px;
+  height: 10px;
+  background: black;
 }

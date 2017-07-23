@@ -1,6 +1,6 @@
-<div class="day day-{{className}}">
-  <div class="date">{{day}}
-  </div>
+<div class="day day-{{className}}" (click)="addEvent()">
+  <div class="date">{{day}}</div>
+  <div class="events" *ngIf="showEvents()"></div>
 </div>
 
 
