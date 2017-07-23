@@ -17,21 +17,23 @@ day-view {
   margin: 5%;
   box-sizing: border-box;
   cursor: pointer;
+  &-today {
+    background: rgba(0,0,0,.3);
+  }
   &-current {
-    background: map-get($colors, primary);
+    //background: map-get($colors, primary);
   }
-  &-next {
-    background: map-get($colors, secondary);
+  &-next, &-prev {
+    .date {
+      opacity: .2;
+    }
   }
-  &-prev {
-    background: map-get($colors, danger);
-  }
+
 }
 
 .date {
   font-family: inherit;
-  color: white;
-  font-weight: bold;;
+  color: black;
   font-size: 20px;
   display: inline-block;
   position: relative;

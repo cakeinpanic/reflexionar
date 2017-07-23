@@ -13,9 +13,12 @@ export class DayView implements OnInit {
   @Input() date: moment.Moment;
   @Input() className: string;
   @Input() size: number;
+
+  isToday = false;
   events: Event[] = [];
   day: number;
   elementSize: string;
+
   constructor(@Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
     this.calendarStore.eventStream()
@@ -30,7 +33,11 @@ export class DayView implements OnInit {
     this.day = this.date.date();
     this.elementSize = this.size + 'px';
     this.updateEvents();
+
+    const diff = moment().diff(this.date, 'hours');
+    this.isToday = diff < 24 && diff >= 0;
   }
+
 
   showEvents(): boolean {
     return this.events.length > 0
