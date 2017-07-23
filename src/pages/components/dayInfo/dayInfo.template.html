@@ -1,11 +1,33 @@
-<ion-card *ngFor="let event of info.events">
+<ion-title>
+  Add new event
+</ion-title>
+<form (ngSubmit)="addEvent()">
+  <ion-item>
+    <ion-label color="primary" fixed>Event type</ion-label>
+    <ion-select [(ngModel)]="eventType" name="types">
+      <ion-option
+        *ngFor="let type of types" value="{{type}}">{{type}}
+      </ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" fixed>Text</ion-label>
+    <ion-input placeholder="Text Input" [(ngModel)]="eventTitle" name="title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <button ion-button type="submit">add</button>
+  </ion-item>
+</form>
+<div *ngIf="!!info">
+  <ion-card *ngFor="let event of info.events">
 
-  <ion-card-header>
-    {{info.date.format('DD MMMM YYYY')}}
-  </ion-card-header>
+    <ion-card-header>
+      {{info.date.format('DD MMMM YYYY')}}
+    </ion-card-header>
 
-  <ion-card-content>
-    {{event.comment}}
-  </ion-card-content>
+    <ion-card-content>
+      {{event.comment}}
+    </ion-card-content>
 
-</ion-card>
+  </ion-card>
+</div>

@@ -37,12 +37,9 @@ export class DayView implements OnInit {
 
   updateEvents() {
     this.events = this.calendarStore.getEvents(this.date);
-
-
   }
 
-  addEvent() {
-    this.calendarStore.addEvent(this.date, new Event('ololo'));
+  openDetails() {
     this.navController.push(DetailsPage, {date: this.date});
   }
 

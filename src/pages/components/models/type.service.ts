@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class TypeService {
-  private types: string[] = [];
+  private types: string[] = ['defaultType', 'defaultType2'];
 
   addType(name: string) {
     if (this.types.indexOf(name) === -1) {
