@@ -3,9 +3,7 @@
 <ion-title class="monthName">{{currentMonthName}}</ion-title>
 <div class="datesContainer">
 <div *ngFor="let week of weeks" class="week">
-  <div *ngFor="let day of week.days" class="day day-{{day.className}}" >
-    <div class="date">{{day.date.date()}}
-      </div>
-  </div>
+  <day-view *ngFor="let day of week.days" [date]="day.date" [className]="day.className" >
+  </day-view>
 </div>
 </div>

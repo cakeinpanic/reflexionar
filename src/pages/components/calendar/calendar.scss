@@ -20,37 +20,6 @@ calendar {
   display: flex;
 }
 
-.day {
-  width: 90px;
-  height: 90px;
-  position: relative;
-  border-radius: 50px;
-  margin: 5px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  &-current {
-    background: map-get($colors, primary);
-  }
-  &-next {
-    background: map-get($colors, secondary);
-  }
-  &-prev {
-    background: map-get($colors, danger);
-  }
-}
-
-.date {
-  font-family: inherit;
-  color: white;
-  font-weight: bold;;
-  font-size: 20px;
-  display: inline-block;
-  position: relative;
-}
-
 .monthName {
   align-self: flex-end;
   margin: 20px 0;
