@@ -12,10 +12,10 @@ import {DetailsPage} from "../../details/details";
 export class DayView implements OnInit {
   @Input() date: moment.Moment;
   @Input() className: string;
-
+  @Input() size: number;
   events: Event[] = [];
   day: number;
-
+  elementSize: string;
   constructor(@Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
     this.calendarStore.eventStream()
@@ -28,6 +28,7 @@ export class DayView implements OnInit {
 
   ngOnInit() {
     this.day = this.date.date();
+    this.elementSize = this.size + 'px';
     this.updateEvents();
   }
 

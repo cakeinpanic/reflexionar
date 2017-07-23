@@ -5,7 +5,6 @@ import {Calendar} from './calendar.component';
 import { IonicModule } from 'ionic-angular';
 import {DayView} from "../dayView/dayView.component";
 import {CalendarStore} from "../models/calendar.store";
-import {DetailsPage} from "../../details/details";
 import {DayInfo} from "../dayInfo/dayInfo.component";
 import {TypeService} from "../models/type.service";
 

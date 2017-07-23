@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ElementRef} from "@angular/core";
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -15,9 +15,16 @@ export class Calendar implements OnInit {
   currentDate: moment.Moment;
   currentMonthName: string;
 
+  daySize: number;
+
+  constructor(private el: ElementRef) {
+
+  }
+
   ngOnInit() {
     this.currentDate = moment();
     this.fillWeeks();
+    this.daySize = this.el.nativeElement.clientWidth/7;
   }
 
   showNext() {
@@ -40,8 +47,8 @@ export class Calendar implements OnInit {
     const prevMonth = moment(thisMonth).subtract(1, 'month');
     const nextMonth = moment(thisMonth).add(1, 'month');
 
-    const thisDays = this.getDaysOfMonth(thisMonth, {className: 'current'});
     const prevDays = this.getDaysOfMonth(prevMonth, {className: 'prev'});
+    const thisDays = this.getDaysOfMonth(thisMonth, {className: 'current'});
     const nextDays = this.getDaysOfMonth(nextMonth, {className: 'next'});
 
     const startsWith = moment(thisMonth).date(1).day();
@@ -53,12 +60,13 @@ export class Calendar implements OnInit {
 
 
     for (let i = 0; i < datesCapacity; i++) {
-      this.weeks[ Math.floor(i / DAYS_IN_WEEK)].days.push(days[i]);
+      this.weeks[Math.floor(i / DAYS_IN_WEEK)].days.push(days[i]);
     }
   }
 
   private getDaysOfMonth(date: moment.Moment, additionalData: any) {
-    const daysInMonth = moment().daysInMonth();
+    const daysInMonth = date.daysInMonth();
+
     return _.times(daysInMonth, i => {
       return _.assign({
         date: moment(date).date(i + 1)

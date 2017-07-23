@@ -1,40 +1,22 @@
 @import '../../../theme/variables.scss';
 
-$daySize: 100px;
 calendar {
   width :100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .datesContainer {
   width: 100%;
-
-}
-
-day-view {
-  flex-basis: 14.2857143%;
-  &:after {
-    content: '';
-    display: block;
-    padding-bottom: 100%;
-  }
 }
 
 .week {
   width: 100%;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   position: relative;
 }
 
 .monthName {
-  align-self: flex-end;
   margin: 20px 0;
+  width: 100%;
 }
 
 .nav {

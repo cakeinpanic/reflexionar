@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {TypeService} from "../components/models/type.service";
 import {EventTypesPage} from "../eventTypes/eventTypes";
 
 @Component({

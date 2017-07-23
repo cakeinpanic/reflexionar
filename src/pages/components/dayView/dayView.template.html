@@ -1,4 +1,4 @@
-<div class="day-container">
+<div class="day-container" [style.width]="elementSize" [style.height]="elementSize">
 <div class="day day-{{className}}" (click)="openDetails()">
   <div class="date">{{day}}</div>
   <ion-icon name="star" class="events" *ngIf="showEvents()"></ion-icon>
