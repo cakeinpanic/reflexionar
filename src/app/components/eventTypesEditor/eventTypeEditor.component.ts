@@ -9,6 +9,7 @@ export class EventTypeEditor implements OnInit {
 
   types: IEventType[];
   typeName: string = '';
+
   constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
 
   }
@@ -23,6 +24,11 @@ export class EventTypeEditor implements OnInit {
 
   addType() {
     this.typeService.addType(this.typeName);
+    this.updateTypes();
+  }
+
+  removeType(type: IEventType) {
+    this.typeService.removeType(type);
     this.updateTypes();
   }
 }

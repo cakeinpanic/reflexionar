@@ -2,7 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore, IDateInfo} from '../models/calendar.store';
-import {NavParams} from 'ionic-angular';
+import {NavParams, NavController} from 'ionic-angular';
 import {EventTypeService, IEventType} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
@@ -22,6 +22,7 @@ export class DayDetails implements OnInit {
   eventTypesPage: any;
 
   constructor(@Inject(NavParams) private navParams: NavParams,
+              @Inject(NavController) private navController: NavController,
               @Inject(EventTypeService) private typeService: EventTypeService,
               @Inject(CalendarStore) private calendarStore: CalendarStore) {
     this.eventTypesPage = EventTypesPage;
@@ -29,6 +30,13 @@ export class DayDetails implements OnInit {
 
   ngOnInit() {
     this.date = this.navParams.get('date');
+    this.updateEvents();
+    this.navController.viewWillEnter.subscribe(() => {
+      this.updateEvents();
+    });
+  }
+
+  private updateEvents() {
     this.info = this.calendarStore.getInfo(this.date);
     this.types = this.typeService.getTypes();
     this.eventTypeTitle = _.get(this.types[0], 'title');

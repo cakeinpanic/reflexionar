@@ -23,6 +23,11 @@ export class EventTypeService {
   getTypes(): IEventType[] {
     return this.types;
   }
+
+  removeType(typeToRemove: IEventType) {
+    _.remove(this.types, (type) => type.title === typeToRemove.title);
+  }
+
   getEventByTitle(title: string): IEventType {
     return _.find(this.types, (type)=>type.title === title);
   }

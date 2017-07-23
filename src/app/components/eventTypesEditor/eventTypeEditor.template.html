@@ -10,6 +10,8 @@
 <ion-list>
   <div ion-item *ngFor="let type of types">
     {{ type.title }}
+    <ion-icon class="trash-btn" name="trash" float-right (click)="removeType(type)"></ion-icon>
     <color-sample float-right [color]="type.color" ></color-sample>
+
   </div>
 </ion-list>

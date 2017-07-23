@@ -2,7 +2,7 @@
   Add new event
 </ion-title>
 <form (ngSubmit)="addEvent()">
-  <ion-item>
+  <ion-item *ngIf="types.length">
     <ion-label color="primary" fixed>Event type</ion-label>
     <ion-select [(ngModel)]="eventTypeTitle" name="types" interface="action-sheet">
       <ion-option
@@ -13,13 +13,13 @@
 
   </ion-item>
 
-  <ion-item>
+  <ion-item *ngIf="types.length">
     <ion-label color="primary" fixed>Text</ion-label>
     <ion-input placeholder="Text Input" [(ngModel)]="eventTitle" name="title"></ion-input>
   </ion-item>
 
-  <button ion-button type="submit">Add event</button>
-  <button ion-button float-right [navPush]="eventTypesPage">New type</button>
+  <button *ngIf="types.length" ion-button type="submit">Add event</button>
+  <button ion-button float-right [navPush]="eventTypesPage">Manage types</button>
 
 </form>
 <div *ngIf="!!info">
