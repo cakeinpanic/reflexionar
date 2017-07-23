@@ -1,5 +1,6 @@
 import {Component, OnInit, Inject} from "@angular/core";
 import * as moment from 'moment';
+import * as _ from 'lodash';
 import {CalendarStore, IDateInfo} from "../models/calendar.store";
 import {NavParams} from "ionic-angular";
 import {TypeService, IEventType} from "../models/type.service";
@@ -16,7 +17,7 @@ export class DayInfo implements OnInit {
   types: IEventType[];
   date: moment.Moment;
 
-  eventType: IEventType;
+  eventTypeTitle: string;
   eventTitle: string;
   eventTypesPage: any;
 
@@ -30,12 +31,13 @@ export class DayInfo implements OnInit {
     this.date = this.navParams.get('date');
     this.info = this.calendarStore.getInfo(this.date);
     this.types = this.typeService.getTypes();
-    this.eventType = this.types[0];
+    this.eventTypeTitle = _.get(this.types[0], 'title');
   }
 
   addEvent() {
-    this.calendarStore.addEvent(this.date, new Event(this.eventType, this.eventTitle));
+    this.calendarStore.addEvent(this.date, new Event(this.typeService.getEventByTitle(this.eventTypeTitle), this.eventTitle));
     this.info = this.calendarStore.getInfo(this.date);
+    console.log(this.info.events);
   }
 
 }

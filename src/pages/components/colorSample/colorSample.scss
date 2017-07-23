@@ -1,0 +1,12 @@
+color-sample {
+  display: inline-block;
+  .inner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    &.small {
+      width: 7px;
+      height: 7px;
+    }
+  }
+}

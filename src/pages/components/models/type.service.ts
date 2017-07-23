@@ -14,14 +14,17 @@ export class TypeService {
     this.addType('defaultType2');
   }
 
-  addType(name: string) {
-    if (name && !_.find(this.types, (type)=>type.title === name)) {
-      this.types.push({title: name, color: this.getColor()});
+  addType(title: string) {
+    if (title && !this.getEventByTitle(title)) {
+      this.types.push({title: title, color: this.getColor()});
     }
   }
 
   getTypes(): IEventType[] {
     return this.types;
+  }
+  getEventByTitle(title: string): IEventType {
+    return _.find(this.types, (type)=>type.title === title);
   }
 
   private getColor() {
@@ -30,6 +33,7 @@ export class TypeService {
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
+    console.log(color)
     return color;
   }
 }

@@ -20,7 +20,7 @@
   <ion-list>
     <div ion-item *ngFor="let type of types">
       {{ type.title }}
-      <div float-right class="color-sample" [style.background]="type.color"></div>
+      <color-sample float-right [color]="type.color" ></color-sample>
     </div>
   </ion-list>
 

@@ -1,24 +1,25 @@
 @import '../../../theme/variables.scss';
+
 day-view {
   display: inline-block;
 }
+
 .day-container {
-   position: relative;
+  position: relative;
 }
 
 .day {
   width: 90%;
   height: 90%;
   position: absolute;
-  top:0;
-  left:0;
-  text-align: center;
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  border-radius: 10%;
   margin: 5%;
   box-sizing: border-box;
   cursor: pointer;
   &-today {
-    background: rgba(0,0,0,.3);
+    background: rgba(0, 0, 0, .3);
   }
   &-current {
     //background: map-get($colors, primary);
@@ -34,11 +35,12 @@ day-view {
 .date {
   font-family: inherit;
   color: black;
-  font-size: 20px;
+  font-size: 12px;
   display: inline-block;
   position: relative;
-  vertical-align: middle;
   height: 0;
+  top: 5%;
+  left: 7%;
 }
 
 .events {

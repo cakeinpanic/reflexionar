@@ -7,17 +7,20 @@ import {DayView} from "../dayView/dayView.component";
 import {CalendarStore} from "../models/calendar.store";
 import {DayInfo} from "../dayInfo/dayInfo.component";
 import {TypeService} from "../models/type.service";
+import {ColorSample} from "../colorSample/colorSample.component";
 
 @NgModule({
   imports: [CommonModule,IonicModule],
   exports: [
     Calendar,
-    DayInfo
+    DayInfo,
+    ColorSample
   ],
   declarations: [
     Calendar,
     DayView,
-    DayInfo
+    DayInfo,
+    ColorSample
   ],
   providers: [CalendarStore, TypeService]
 })
