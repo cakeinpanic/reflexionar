@@ -4,6 +4,6 @@ import {Component} from '@angular/core';
   selector: 'page-edit-event-types',
   templateUrl: './editEventTypes.html'
 })
-export class EventTypesPage {
+export class EventTypesPage  {
 
 }
