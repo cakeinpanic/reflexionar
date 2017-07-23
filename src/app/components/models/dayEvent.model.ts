@@ -1,5 +1,5 @@
-import {IEventType} from "./type.service";
-export class Event {
+import {IEventType} from './eventType.service';
+export class DayEvent {
   id: number;
   comment: string;
   type: IEventType;

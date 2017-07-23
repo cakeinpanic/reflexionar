@@ -1,13 +1,13 @@
-import {Component, OnInit, ElementRef} from "@angular/core";
+import {Component, OnInit, ElementRef} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
 const DAYS_IN_WEEK = 7;
 @Component({
-  selector: 'calendar',
-  templateUrl: './calendar.template.html'
+  selector: 'month-view',
+  templateUrl: './monthView.template.html'
 })
-export class Calendar implements OnInit {
+export class MonthView implements OnInit {
   days: any[];
   weeks: any[];
 

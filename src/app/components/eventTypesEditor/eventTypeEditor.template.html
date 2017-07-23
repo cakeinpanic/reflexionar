@@ -1,0 +1,15 @@
+
+<form (ngSubmit)="addType()">
+  <ion-item class="typeInput">
+    <ion-input placeholder="Title" [(ngModel)]="typeName" name="title"></ion-input>
+  </ion-item>
+  <button ion-button type="submit">add</button>
+</form>
+
+<ion-title>Types:</ion-title>
+<ion-list>
+  <div ion-item *ngFor="let type of types">
+    {{ type.title }}
+    <color-sample float-right [color]="type.color" ></color-sample>
+  </div>
+</ion-list>

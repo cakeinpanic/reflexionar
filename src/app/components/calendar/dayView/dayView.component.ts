@@ -1,9 +1,9 @@
-import {Component, OnInit, Input, Inject} from "@angular/core";
+import {Component, OnInit, Input, Inject} from '@angular/core';
 import * as moment from 'moment';
-import {CalendarStore} from "../models/calendar.store";
-import {Event} from "../models/event.model";
-import {NavController} from "ionic-angular";
-import {DetailsPage} from "../../details/details";
+import {CalendarStore} from '../../models/calendar.store';
+import {DayEvent} from '../../models/dayEvent.model';
+import {NavController} from 'ionic-angular';
+import {DetailsPage} from '../../../../pages/details/details';
 
 @Component({
   selector: 'day-view',
@@ -15,7 +15,7 @@ export class DayView implements OnInit {
   @Input() size: number;
 
   isToday = false;
-  events: Event[] = [];
+  events: DayEvent[] = [];
   day: number;
   elementSize: string;
 

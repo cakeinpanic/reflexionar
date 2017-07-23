@@ -1,13 +1,13 @@
 import * as moment from 'moment';
 
-import {Event} from "./event.model";
-import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
+import {DayEvent} from './dayEvent.model';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 
 export interface IDateInfo {
   date: moment.Moment;
-  events: Event[]
+  events: DayEvent[]
 }
 @Injectable()
 export class CalendarStore {
@@ -30,11 +30,11 @@ export class CalendarStore {
     return this.store[dateAsUTC] || null;
   }
 
-  getEvents(date: any): Event[] {
+  getEvents(date: any): DayEvent[] {
     return this.getInfo(date) ? this.getInfo(date).events : [];
   }
 
-  addEvent(date: any, event: Event) {
+  addEvent(date: any, event: DayEvent) {
     const dateAsUTC = moment(date).valueOf();
     if (this.store[dateAsUTC]) {
       this.store[dateAsUTC].events.push(event);
@@ -44,7 +44,7 @@ export class CalendarStore {
     this.stream.next(dateAsUTC);
   }
 
-  clearInfo(date: any, event: Event) {
+  clearInfo(date: any, event: DayEvent) {
     const dateAsUTC = moment(date).valueOf();
     this.store[dateAsUTC] = null;
     this.stream.next(dateAsUTC);

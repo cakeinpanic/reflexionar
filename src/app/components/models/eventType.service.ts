@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
 
 export interface IEventType {
@@ -6,7 +6,7 @@ export interface IEventType {
   color: string
 }
 @Injectable()
-export class TypeService {
+export class EventTypeService {
   private types: IEventType[] = [];
 
   constructor() {
