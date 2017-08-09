@@ -18,6 +18,8 @@ day-view {
   margin: 5%;
   box-sizing: border-box;
   cursor: pointer;
+  background: rgba(0, 0, 0, .04);
+
   &-today {
     background: rgba(0, 0, 0, .3);
   }
@@ -28,6 +30,7 @@ day-view {
     .date {
       opacity: .2;
     }
+
   }
 
 }

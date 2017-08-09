@@ -1,4 +1,4 @@
-###Reflexionar
+###Reflexory
 
 Universal calendar with manageable event types and analytics.
 

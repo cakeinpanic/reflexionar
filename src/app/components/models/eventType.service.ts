@@ -1,44 +1,43 @@
 import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
 
-export interface IEventType {
-  title: string
-  color: string
+export class EventType {
+  title: string = '';
+  color: string = '#000000';
+  inputs: any[];
+
+  constructor(params = {}) {
+    _.merge(this, params);
+  }
 }
 @Injectable()
 export class EventTypeService {
-  private types: IEventType[] = [];
+  private types: EventType[] = [];
 
   constructor() {
-    this.addType('defaultType');
-    this.addType('defaultType2');
+    this.saveType(new EventType({title: 'defaultType', color: '#000099'}));
+    this.saveType(new EventType({title: 'secondType', color: '#AAA332'}));
   }
 
-  addType(title: string) {
-    if (title && !this.getEventByTitle(title)) {
-      this.types.push({title: title, color: this.getColor()});
+  saveType(type: EventType) {
+    let existingType = _.find(this.types, {title: type.title});
+    if (!existingType) {
+      this.types.push(type);
+      return;
     }
+    _.merge(existingType, type);
   }
 
-  getTypes(): IEventType[] {
+  getTypes(): EventType[] {
     return this.types;
   }
 
-  removeType(typeToRemove: IEventType) {
+  removeType(typeToRemove: EventType) {
     _.remove(this.types, (type) => type.title === typeToRemove.title);
   }
 
-  getEventByTitle(title: string): IEventType {
+  getEventByTitle(title: string): EventType {
     return _.find(this.types, (type)=>type.title === title);
   }
 
-  private getColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    console.log(color)
-    return color;
-  }
 }

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore, IDateInfo} from '../models/calendar.store';
 import {NavParams, NavController} from 'ionic-angular';
-import {EventTypeService, IEventType} from '../models/eventType.service';
+import {EventTypeService, EventType} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
 
@@ -14,7 +14,7 @@ import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
 export class DayDetails implements OnInit {
 
   info: IDateInfo;
-  types: IEventType[];
+  types: EventType[];
   date: moment.Moment;
 
   eventTypeTitle: string;

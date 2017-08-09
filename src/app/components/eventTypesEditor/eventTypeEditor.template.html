@@ -1,17 +1,13 @@
+<div padding>
+  <div *ngIf="creatingNew">Creating new</div>
+  <div *ngIf="!creatingNew">Editing existent</div>
+  <form (ngSubmit)="saveType()">
+    <ion-item class="typeInput">
+      <ion-input placeholder="Event title" [(ngModel)]="type.title" name="title"></ion-input>
+    </ion-item>
 
-<form (ngSubmit)="addType()">
-  <ion-item class="typeInput">
-    <ion-input placeholder="Title" [(ngModel)]="typeName" name="title"></ion-input>
-  </ion-item>
-  <button ion-button type="submit">add</button>
-</form>
+    <button padding ion-button type="submit">Save</button>
+    <button padding ion-button (click)="close()">Cancel</button>
+  </form>
 
-<ion-title>Types:</ion-title>
-<ion-list>
-  <div ion-item *ngFor="let type of types">
-    {{ type.title }}
-    <ion-icon class="trash-btn" name="trash" float-right (click)="removeType(type)"></ion-icon>
-    <color-sample float-right [color]="type.color" ></color-sample>
-
-  </div>
-</ion-list>
+</div>

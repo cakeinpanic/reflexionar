@@ -1,34 +1,39 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {EventTypeService, IEventType} from '../models/eventType.service';
+import {Component, OnInit, Inject, Input, Output, EventEmitter} from '@angular/core';
+import {EventTypeService, EventType} from '../models/eventType.service';
 
 @Component({
   selector: 'event-type-editor',
   templateUrl: './eventTypeEditor.template.html'
 })
 export class EventTypeEditor implements OnInit {
+  @Input() type: EventType;
+  @Input() creatingNew = false;
 
-  types: IEventType[];
-  typeName: string = '';
+  @Output() onClose = new EventEmitter<void>();
 
   constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
-
   }
 
   ngOnInit() {
-    this.updateTypes();
+
   }
 
-  updateTypes() {
-    this.types = this.typeService.getTypes();
+  close() {
+    this.onClose.emit();
   }
 
-  addType() {
-    this.typeService.addType(this.typeName);
-    this.updateTypes();
+  saveType() {
+    this.type.color = this.type.color || this.getColor();
+    this.typeService.saveType(this.type);
   }
 
-  removeType(type: IEventType) {
-    this.typeService.removeType(type);
-    this.updateTypes();
+  private getColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
   }
 }

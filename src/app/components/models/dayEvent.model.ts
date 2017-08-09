@@ -1,10 +1,10 @@
-import {IEventType} from './eventType.service';
+import {EventType} from './eventType.service';
 export class DayEvent {
   id: number;
   comment: string;
-  type: IEventType;
+  type: EventType;
 
-  constructor(type: IEventType, text: string) {
+  constructor(type: EventType, text: string) {
     this.id = Date.now();
     this.comment = text;
     this.type = type;

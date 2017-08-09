@@ -10,6 +10,7 @@ import {EventTypesPage} from '../pages/editEventTypes/editEventTypes';
 
 import {MonthViewModule} from './components/calendar/calendar.module';
 import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.component';
+import {EventTypeList} from './components/eventTypesList/eventTypeList.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.com
     HomePage,
     DetailsPage,
     EventTypesPage,
-    EventTypeEditor
+    EventTypeEditor,
+    EventTypeList
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,9 @@ import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.com
     MyApp,
     HomePage,
     DetailsPage,
-    EventTypesPage
+    EventTypesPage,
+    EventTypeEditor,
+    EventTypeList
   ],
   providers: [
     StatusBar,

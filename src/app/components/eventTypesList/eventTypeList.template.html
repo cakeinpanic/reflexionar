@@ -1,0 +1,12 @@
+<div padding>
+  <ion-title>Types:</ion-title>
+  <ion-list>
+    <div ion-item *ngFor="let type of types" (click)="edit(type)">
+      {{ type.title }}
+      <ion-icon class="trash-btn" name="trash" float-right (click)="removeType(type)"></ion-icon>
+      <color-sample float-right [color]="type.color"></color-sample>
+    </div>
+  </ion-list>
+  <button ion-button (click)="addNew()">add new type</button>
+</div>
+<event-type-editor *ngIf="isEditing" [type]="editingType" [creatingNew]="creatingNew" (onClose)="isEditing = false"></event-type-editor>
