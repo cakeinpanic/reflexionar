@@ -1,5 +1,5 @@
 import {Component, Inject, Input, Output, EventEmitter, OnChanges} from '@angular/core';
-import {EventTypeService, EventType, INPUTS, IEventInput, INPUT_TYPES} from '../models/eventType.service';
+import {EventTypeService, EventType, INPUTS, EventInput, INPUT_TYPES} from '../models/eventType.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -12,7 +12,7 @@ export class EventTypeEditor implements OnChanges {
 
   @Output() onClose = new EventEmitter<void>();
 
-  inputs: IEventInput[];
+  inputs: EventInput[];
 
   inputTypeDetails = INPUT_TYPES.map((inputType) => this.getTypeDetails(inputType));
 
@@ -21,7 +21,7 @@ export class EventTypeEditor implements OnChanges {
   }
 
   get availableInputs(): any[] {
-    return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.input))
+    return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind))
   }
 
   ngOnChanges() {
@@ -40,7 +40,7 @@ export class EventTypeEditor implements OnChanges {
   }
 
   addInput(inputType: INPUTS) {
-    this.inputs.push({input: inputType, title: this.inputTypeDetails[inputType].placeholder});
+    this.inputs.push({inputKind: inputType, title: this.inputTypeDetails[inputType].placeholder});
   }
 
   removeInput(input) {

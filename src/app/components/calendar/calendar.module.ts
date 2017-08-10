@@ -7,19 +7,22 @@ import {CalendarStore} from '../models/calendar.store';
 import {DayDetails} from '../dayDetails/dayDetails.component';
 import {EventTypeService} from '../models/eventType.service';
 import {ColorSample} from '../colorSample/colorSample.component';
+import {CreateEventFormComponent} from '../eventSelector/createEventForm.component';
 
 @NgModule({
   imports: [CommonModule, IonicModule],
   exports: [
     MonthView,
     DayDetails,
-    ColorSample
+    ColorSample,
+    CreateEventFormComponent
   ],
   declarations: [
     MonthView,
     DayView,
     DayDetails,
-    ColorSample
+    ColorSample,
+    CreateEventFormComponent
   ],
   providers: [CalendarStore, EventTypeService]
 })

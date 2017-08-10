@@ -1,30 +1,5 @@
-<ion-title>
-  Add new event
-</ion-title>
-<form (ngSubmit)="addEvent()">
-  <ion-item *ngIf="types.length">
-    <ion-label color="primary" fixed>Event type</ion-label>
-    <ion-select class="select-event" [(ngModel)]="eventTypeTitle" name="types" interface="action-sheet"
-                (ngModelChange)="makeInputs()">
-      <ion-option
-        *ngFor="let type of types" value="{{type.title}}">{{type.title}}
-      </ion-option>
+<create-event-form></create-event-form>
 
-    </ion-select>
-
-  </ion-item>
-
-  <ion-item *ngFor="let input of eventInputs">
-    <ion-input placeholder="title" [(ngModel)]="input.value" name="{{input.title}}Title"></ion-input>
-    <ion-label fixed>
-      {{input.title}}
-    </ion-label>
-  </ion-item>
-
-  <button *ngIf="types.length" ion-button type="submit">Add event</button>
-  <button ion-button float-right [navPush]="eventTypesPage">Manage types</button>
-
-</form>
 <div *ngIf="!!info">
   <ion-card *ngFor="let event of info.events">
 
@@ -36,7 +11,7 @@
     <ion-card-content>
 
       <color-sample float-right [color]="event.type.color"></color-sample>
-      {{event.type.title}}
+      {{ event.type.title}}
 
       <div *ngFor="let key of getEventDataInfo(event)">
         {{event.type.inputs[key].title}}

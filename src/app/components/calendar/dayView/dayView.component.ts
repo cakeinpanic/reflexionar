@@ -21,7 +21,8 @@ export class DayView implements OnInit {
 
   constructor(@Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
-    this.calendarStore.eventStream()
+
+    this.calendarStore.eventStream
       .subscribe((timestamp: number)=> {
         if (+this.date.utc() === timestamp) {
           this.updateEvents();

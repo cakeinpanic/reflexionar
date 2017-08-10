@@ -11,6 +11,7 @@ import {EventTypesPage} from '../pages/editEventTypes/editEventTypes';
 import {MonthViewModule} from './components/calendar/calendar.module';
 import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.component';
 import {EventTypeList} from './components/eventTypesList/eventTypeList.component';
+import {CreateEventFormComponent} from './components/eventSelector/createEventForm.component';
 
 @NgModule({
   declarations: [

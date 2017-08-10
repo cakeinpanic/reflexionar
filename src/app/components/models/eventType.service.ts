@@ -5,15 +5,20 @@ export enum INPUTS { Time, Story };
 
 export const INPUT_TYPES = [INPUTS.Time, INPUTS.Story];
 
-export interface IEventInput {
-  input: INPUTS,
-  title: string
+export class EventInput {
+  inputKind: INPUTS;
+  title: string;
+
+  constructor({inputKind, title}: EventInput) {
+    this.inputKind = inputKind;
+    this.title = title;
+  }
 }
 
 export class EventType {
   title: string = '';
   color: string = '#000000';
-  inputs: IEventInput[] = [];
+  inputs: EventInput[] = [];
 
   constructor(params = {}) {
     _.merge(this, params);
@@ -27,12 +32,12 @@ export class EventTypeService {
   constructor() {
     this.saveType(new EventType({title: 'Running', color: '#991824'}))
       .inputs.push(
-      {input: INPUTS.Time, title: 'Time'},
-      {input: INPUTS.Story, title: 'Distance'}
+      new EventInput({inputKind: INPUTS.Time, title: 'Time'}),
+      new EventInput({inputKind: INPUTS.Story, title: 'Distance'})
     );
 
     this.saveType(new EventType({title: 'Saw airplane', color: '#0caa37'}))
-      .inputs.push({input: INPUTS.Time, title: 'When'});
+      .inputs.push(new EventInput({inputKind: INPUTS.Time, title: 'When'}));
 
   }
 

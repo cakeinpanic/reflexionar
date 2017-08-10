@@ -1,4 +1,4 @@
-import {EventType, IEventInput} from './eventType.service';
+import {EventType, EventInput} from './eventType.service';
 
 export class DayEvent {
   id: number;
@@ -13,8 +13,8 @@ export class DayEvent {
   }
 
   private makeDataFields() {
-    this.type.inputs.forEach((input: IEventInput) => {
-      this.data[input.input] = '';
+    this.type.inputs.forEach((input: EventInput) => {
+      this.data[input.inputKind] = '';
     });
   }
 

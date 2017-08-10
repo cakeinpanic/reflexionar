@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import {DayEvent} from './dayEvent.model';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 
 
 export interface IDateInfo {
@@ -21,7 +22,7 @@ export class CalendarStore {
 
   }
 
-  eventStream() {
+  get eventStream(): Observable<number> {
     return this.stream.asObservable();
   }
 
