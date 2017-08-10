@@ -4,7 +4,8 @@
 <form (ngSubmit)="addEvent()">
   <ion-item *ngIf="types.length">
     <ion-label color="primary" fixed>Event type</ion-label>
-    <ion-select class="select-event" [(ngModel)]="eventTypeTitle" name="types" interface="action-sheet">
+    <ion-select class="select-event" [(ngModel)]="eventTypeTitle" name="types" interface="action-sheet"
+                (ngModelChange)="makeInputs()">
       <ion-option
         *ngFor="let type of types" value="{{type.title}}">{{type.title}}
       </ion-option>
@@ -13,9 +14,11 @@
 
   </ion-item>
 
-  <ion-item *ngIf="types.length">
-    <ion-label color="primary" fixed>Text</ion-label>
-    <ion-input placeholder="Text Input" [(ngModel)]="eventTitle" name="title"></ion-input>
+  <ion-item *ngFor="let input of eventInputs">
+    <ion-input placeholder="title" [(ngModel)]="input.value" name="{{input.title}}Title"></ion-input>
+    <ion-label fixed>
+      {{input.title}}
+    </ion-label>
   </ion-item>
 
   <button *ngIf="types.length" ion-button type="submit">Add event</button>

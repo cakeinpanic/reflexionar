@@ -25,11 +25,14 @@ export class EventTypeService {
   private types: EventType[] = [];
 
   constructor() {
-    this.saveType(new EventType({title: 'defaultType', color: '#000099'}))
-      .inputs.push({input:INPUTS.Time, title:'Start'});
+    this.saveType(new EventType({title: 'Running', color: '#991824'}))
+      .inputs.push(
+      {input: INPUTS.Time, title: 'Time'},
+      {input: INPUTS.Story, title: 'Distance'}
+    );
 
-    this.saveType(new EventType({title: 'secondType', color: '#AAA332'}))
-      .inputs.push({input:INPUTS.Story, title:'Story'});
+    this.saveType(new EventType({title: 'Saw airplane', color: '#0caa37'}))
+      .inputs.push({input: INPUTS.Time, title: 'When'});
 
   }
 
