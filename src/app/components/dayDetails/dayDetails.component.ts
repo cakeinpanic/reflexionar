@@ -7,9 +7,10 @@ import {EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
 
-interface IEventInputAndValue extends EventInput{
+interface IEventInputAndValue extends EventInput {
   value: string;
 }
+
 @Component({
   selector: 'day-details',
   templateUrl: './dayDetails.template.html'
@@ -32,12 +33,14 @@ export class DayDetails implements OnInit {
 
   ngOnInit() {
     this.date = this.navParams.get('date');
+
     this.info = this.calendarStore.getInfo(this.date);
 
-    // todo filter by date
-    this.calendarStore.eventStream.subscribe(()=>{
-      this.info = this.calendarStore.getInfo(this.date);
-    });
+    this.calendarStore.eventStream
+      .filter((date) => date !== this.date.valueOf())
+      .subscribe(() => {
+        this.info = this.calendarStore.getInfo(this.date);
+      });
   }
 
 

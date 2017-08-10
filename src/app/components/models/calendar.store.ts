@@ -10,10 +10,11 @@ export interface IDateInfo {
   date: moment.Moment;
   events: DayEvent[]
 }
+
 @Injectable()
 export class CalendarStore {
   types: string[];
-  private store: {[key: string]: IDateInfo} = {};
+  private store: { [key: string]: IDateInfo } = {};
 
 
   private stream = new Subject<number>();
@@ -37,10 +38,14 @@ export class CalendarStore {
 
   removeEvent(date: moment.Moment, eventToDelete: DayEvent) {
     const dateAsUTC = date.valueOf();
-    _.remove(this.store[dateAsUTC].events, {id:eventToDelete.id});
+    _.remove(this.store[dateAsUTC].events, {id: eventToDelete.id});
+    this.stream.next(dateAsUTC);
   }
+
   addEvent(date: any, event: DayEvent) {
+
     const dateAsUTC = moment(date).valueOf();
+
     if (this.store[dateAsUTC]) {
       this.store[dateAsUTC].events.push(event);
     } else {
