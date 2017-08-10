@@ -38,12 +38,12 @@ export class DayDetails implements OnInit {
 
   private updateEvents() {
     this.info = this.calendarStore.getInfo(this.date);
-    this.types = this.typeService.getTypes();
+    this.types = this.typeService.getAllTypes();
     this.eventTypeTitle = _.get(this.types[0], 'title');
   }
 
   addEvent() {
-    const event = new DayEvent(this.typeService.getEventByTitle(this.eventTypeTitle), this.eventTitle)
+    const event = new DayEvent(this.typeService.getType(this.eventTypeTitle), this.eventTitle)
     this.calendarStore.addEvent(this.date, event);
     this.info = this.calendarStore.getInfo(this.date);
   }

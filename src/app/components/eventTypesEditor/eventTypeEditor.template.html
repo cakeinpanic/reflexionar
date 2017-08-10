@@ -2,12 +2,37 @@
   <div *ngIf="creatingNew">Creating new</div>
   <div *ngIf="!creatingNew">Editing existent</div>
   <form (ngSubmit)="saveType()">
-    <ion-item class="typeInput">
-      <ion-input placeholder="Event title" [(ngModel)]="type.title" name="title"></ion-input>
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <color-sample item-right [color]="type.color"></color-sample>
+        <ion-input placeholder="Event title" [(ngModel)]="type.title" name="title"></ion-input>
+      </ion-item>
 
-    <button padding ion-button type="submit">Save</button>
-    <button padding ion-button (click)="close()">Cancel</button>
+      <ion-item *ngFor="let input of inputs">
+        <button item-right type="button" (click)="removeInput(input)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+
+        <ion-input placeholder="title" [(ngModel)]="input.title" name="{{input.title}}Title"></ion-input>
+        <ion-label fixed>
+          <ion-icon [name]="inputTypeDetails[input.input].icon"></ion-icon>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+    <button padding ion-button [disabled]="!type.title" type="submit">Save</button>
+    <button padding ion-button (click)="close()" type="reset">Cancel</button>
+
   </form>
+
+  <button *ngFor="let inputType of availableInputs"
+          (click)="addInput(inputType)"
+          ion-button
+          small
+          color="light" >
+    <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
+    {{inputTypeDetails[inputType].addTitle}}
+  </button>
 
 </div>

@@ -33,6 +33,6 @@ export class EventTypeList implements OnInit {
   }
 
   updateTypes() {
-    this.types = this.typeService.getTypes();
+    this.types = this.typeService.getAllTypes();
   }
 }
