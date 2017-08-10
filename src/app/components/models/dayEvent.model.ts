@@ -1,13 +1,21 @@
-import {EventType} from './eventType.service';
+import {EventType, IEventInput} from './eventType.service';
+
 export class DayEvent {
   id: number;
-  comment: string;
   type: EventType;
 
-  constructor(type: EventType, text: string) {
+  data = {};
+
+  constructor(type: EventType) {
     this.id = Date.now();
-    this.comment = text;
     this.type = type;
+    this.makeDataFields();
+  }
+
+  private makeDataFields() {
+    this.type.inputs.forEach((input: IEventInput) => {
+      this.data[input.input] = '';
+    });
   }
 
 }

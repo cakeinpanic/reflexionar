@@ -7,6 +7,9 @@ import {EventTypeService, EventType, IEventInput} from '../models/eventType.serv
 import {DayEvent} from '../models/dayEvent.model';
 import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
 
+interface IEventInputAndValue extends IEventInput{
+  value: string;
+}
 @Component({
   selector: 'day-details',
   templateUrl: './dayDetails.template.html'
@@ -17,10 +20,9 @@ export class DayDetails implements OnInit {
   types: EventType[];
   date: moment.Moment;
 
-  eventInputs: any[];
+  eventInputs: IEventInputAndValue[];
 
   eventTypeTitle: string;
-  eventTitle: string;
   eventTypesPage: any;
 
   constructor(@Inject(NavParams) private navParams: NavParams,
@@ -46,7 +48,11 @@ export class DayDetails implements OnInit {
   }
 
   addEvent() {
-    const event = new DayEvent(this.typeService.getType(this.eventTypeTitle), this.eventTitle)
+    const event = new DayEvent(this.typeService.getType(this.eventTypeTitle));
+    this.eventInputs.forEach((eventInput: IEventInputAndValue)=>{
+      event.data[eventInput.input] = eventInput.value;
+    });
+
     this.calendarStore.addEvent(this.date, event);
     this.info = this.calendarStore.getInfo(this.date);
   }
@@ -58,6 +64,10 @@ export class DayDetails implements OnInit {
 
   removeEvent(event: DayEvent) {
     this.calendarStore.removeEvent(this.date, event);
+  }
+
+  getEventDataInfo(event: DayEvent) {
+    return _.keys(event.data)
   }
 
 }
