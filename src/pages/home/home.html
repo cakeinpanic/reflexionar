@@ -6,6 +6,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <month-view></month-view>
+<ion-content padding (ionScroll)="scrollHandler($event)">
+<div #container>
+  <month-view *ngFor="let month of months" [month]="month"></month-view>
+</div>
 </ion-content>

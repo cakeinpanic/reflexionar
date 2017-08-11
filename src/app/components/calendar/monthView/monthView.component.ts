@@ -1,18 +1,20 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef, Input} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
 const DAYS_IN_WEEK = 7;
+
 @Component({
   selector: 'month-view',
   templateUrl: './monthView.template.html'
 })
 export class MonthView implements OnInit {
+  @Input('month') currentDate: moment.Moment;
   days: any[];
   weeks: any[];
 
   WEEKS_NUM = 5;
-  currentDate: moment.Moment;
+
   currentMonthName: string;
 
   daySize: number;
@@ -22,9 +24,8 @@ export class MonthView implements OnInit {
   }
 
   ngOnInit() {
-    this.currentDate = moment();
     this.fillWeeks();
-    this.daySize = this.el.nativeElement.offsetWidth/7 || 40;
+    this.daySize = this.el.nativeElement.offsetWidth / 7 || 40;
   }
 
   showNext() {
@@ -41,7 +42,7 @@ export class MonthView implements OnInit {
     const datesCapacity = this.WEEKS_NUM * DAYS_IN_WEEK;
     this.currentMonthName = date.format('MMMM YYYY');
 
-    this.weeks = _.times(this.WEEKS_NUM, ()=>({days: []}));
+    this.weeks = _.times(this.WEEKS_NUM, () => ({days: []}));
 
     const thisMonth = moment(date);
     const prevMonth = moment(thisMonth).subtract(1, 'month');

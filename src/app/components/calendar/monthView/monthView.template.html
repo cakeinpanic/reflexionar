@@ -1,9 +1,10 @@
-<button class="nav"  ion-button (click)="showPrev()">Prev</button>
-<button class="nav" ion-button (click)="showNext()">Next</button>
+<!--<button class="nav" ion-button (click)="showPrev()">Prev</button>-->
+<!--<button class="nav" ion-button (click)="showNext()">Next</button>-->
 <ion-title class="monthName">{{currentMonthName}}</ion-title>
 <div class="datesContainer">
-<div *ngFor="let week of weeks" class="week">
-  <day-view *ngFor="let day of week.days" [date]="day.date" [className]="day.className" [size]="daySize" >
-  </day-view>
-</div>
+
+  <div *ngFor="let week of weeks" class="week">
+    <day-view *ngFor="let day of week.days" [date]="day.date" [className]="day.className" [size]="daySize">
+    </day-view>
+  </div>
 </div>

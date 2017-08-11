@@ -1,6 +1,5 @@
 import {Component, OnInit, Inject, Input} from '@angular/core';
 import * as moment from 'moment';
-import * as _ from 'lodash';
 import {CalendarStore, IDateInfo} from '../models/calendar.store';
 import {EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
@@ -31,7 +30,6 @@ export class DayDetails implements OnInit {
   }
 
   ngOnInit() {
-
     this.info = this.calendarStore.getInfo(this.date);
 
     this.calendarStore.eventStream
@@ -41,13 +39,11 @@ export class DayDetails implements OnInit {
       });
   }
 
-
   removeEvent(event: DayEvent) {
     this.calendarStore.removeEvent(this.date, event);
   }
 
   getInputsList(dayEvent: DayEvent) {
-    console.log(dayEvent.getInputs())
     return dayEvent.getInputs();
   }
 
