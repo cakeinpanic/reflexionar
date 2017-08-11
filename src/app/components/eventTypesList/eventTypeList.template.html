@@ -7,6 +7,4 @@
       <color-sample float-right [color]="type.color"></color-sample>
     </div>
   </ion-list>
-  <button ion-button (click)="addNew()">add new type</button>
 </div>
-<event-type-editor *ngIf="isEditing" [type]="editingType" [creatingNew]="creatingNew" (onClose)="isEditing = false"></event-type-editor>

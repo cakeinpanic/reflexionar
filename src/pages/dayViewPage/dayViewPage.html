@@ -1,12 +1,13 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Manage event types
+      Editing {{displayDate}}
     </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <event-type-list></event-type-list>
+  <create-event-form></create-event-form>
+  <day-details-list [date]="date"></day-details-list>
 </ion-content>

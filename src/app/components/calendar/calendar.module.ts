@@ -4,10 +4,10 @@ import {MonthView} from './monthView/monthView.component';
 import {IonicModule} from 'ionic-angular';
 import {DayView} from './dayView/dayView.component';
 import {CalendarStore} from '../models/calendar.store';
-import {DayDetails} from '../dayDetails/dayDetails.component';
+import {DayDetails} from '../dayDetailsList/dayDetails.component';
 import {EventTypeService} from '../models/eventType.service';
 import {ColorSample} from '../colorSample/colorSample.component';
-import {CreateEventFormComponent} from '../eventSelector/createEventForm.component';
+import {CreateEventFormComponent} from '../createEventForm/createEventForm.component';
 
 @NgModule({
   imports: [CommonModule, IonicModule],

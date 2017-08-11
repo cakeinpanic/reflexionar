@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {CalendarStore} from '../../models/calendar.store';
 import {DayEvent} from '../../models/dayEvent.model';
 import {NavController} from 'ionic-angular';
-import {DetailsPage} from '../../../../pages/details/details';
+import {DayViewPage} from '../../../../pages/dayViewPage/dayViewPage';
 
 @Component({
   selector: 'day-view',
@@ -49,7 +49,7 @@ export class DayView implements OnInit {
   }
 
   openDetails() {
-    this.navController.push(DetailsPage, {date: this.date});
+    this.navController.push(DayViewPage, {date: this.date});
   }
 
 }

@@ -8,14 +8,11 @@ import * as _ from 'lodash';
 })
 export class EventTypeEditor implements OnChanges {
   @Input() type: EventType;
-  @Input() creatingNew = false;
-
   @Output() onClose = new EventEmitter<void>();
 
+  creatingNew = false;
   inputs: EventInput[];
-
   inputTypeDetails = INPUT_TYPES.map((inputType) => this.getTypeDetails(inputType));
-
 
   constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
   }
@@ -25,6 +22,7 @@ export class EventTypeEditor implements OnChanges {
   }
 
   ngOnChanges() {
+    this.creatingNew = !this.type.title;
     this.inputs = _.clone(this.type.inputs);
   }
 
@@ -39,12 +37,16 @@ export class EventTypeEditor implements OnChanges {
     this.close();
   }
 
+  removeInput(input) {
+    _.remove(this.inputs, input);
+  }
+
   addInput(inputType: INPUTS) {
     this.inputs.push({inputKind: inputType, title: this.inputTypeDetails[inputType].placeholder});
   }
 
-  removeInput(input) {
-    _.remove(this.inputs, input);
+  getInputIcon(input: EventInput){
+    return this.inputTypeDetails[input.inputKind].icon;
   }
 
   private getColor() {

@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
 import {EventTypeService, EventType} from '../models/eventType.service';
 
 @Component({
@@ -7,10 +7,8 @@ import {EventTypeService, EventType} from '../models/eventType.service';
 })
 export class EventTypeList implements OnInit {
 
+  @Output() onTypeSelect = new EventEmitter<EventType>();
   types: EventType[];
-  isEditing = false;
-  editingType: EventType;
-  creatingNew = false;
 
   constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
 
@@ -18,18 +16,13 @@ export class EventTypeList implements OnInit {
 
   ngOnInit() {
     this.updateTypes();
-  }
-
-  addNew() {
-    this.isEditing = true;
-    this.creatingNew = true;
-    this.editingType = new EventType();
+    this.typeService.updateStream.subscribe(() => {
+      this.updateTypes();
+    })
   }
 
   edit(type: EventType) {
-    this.isEditing = true;
-    this.creatingNew = false;
-    this.editingType = type;
+    this.onTypeSelect.emit(type)
   }
 
   updateTypes() {

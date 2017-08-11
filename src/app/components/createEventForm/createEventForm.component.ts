@@ -1,11 +1,11 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import {CalendarStore, IDateInfo} from '../models/calendar.store';
+import {CalendarStore} from '../models/calendar.store';
 import {NavParams, NavController} from 'ionic-angular';
 import {EventTypeService, EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
-import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
+import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 
 interface IEventInputAndValue extends EventInput {
   value: string;
@@ -28,7 +28,7 @@ export class CreateEventFormComponent implements OnInit {
     @Inject(NavController) private navController: NavController,
     @Inject(EventTypeService) private typeService: EventTypeService,
     @Inject(CalendarStore) private calendarStore: CalendarStore) {
-    this.eventTypesPage = EventTypesPage;
+    this.eventTypesPage = EventEditorPage;
   }
 
   ngOnInit() {

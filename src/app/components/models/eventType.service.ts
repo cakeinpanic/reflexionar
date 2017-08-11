@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
 export enum INPUTS { Time, Story };
 
@@ -28,6 +30,7 @@ export class EventType {
 @Injectable()
 export class EventTypeService {
   private types: EventType[] = [];
+  private stream = new Subject<void>();
 
   constructor() {
     this.saveType(new EventType({title: 'Running', color: '#991824'}))
@@ -41,15 +44,22 @@ export class EventTypeService {
 
   }
 
+  get updateStream(): Observable<void> {
+    return this.stream.asObservable()
+  }
+
+
   saveType(type: EventType) {
     let existingType = _.find(this.types, {title: type.title});
+
     if (!existingType) {
       this.types.push(type);
-      return type;
+    } else {
+      _.merge(existingType, type);
     }
-    _.merge(existingType, type);
 
-    return existingType;
+    this.stream.next();
+    return existingType || type;
   }
 
   getAllTypes(): EventType[] {
@@ -58,6 +68,7 @@ export class EventTypeService {
 
   removeType(typeToRemove: EventType) {
     _.remove(this.types, (type) => type.title === typeToRemove.title);
+    this.stream.next();
   }
 
   getType(title: string): EventType {

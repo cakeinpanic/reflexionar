@@ -1,43 +1,41 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, Input} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore, IDateInfo} from '../models/calendar.store';
-import {NavParams} from 'ionic-angular';
 import {EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
-import {EventTypesPage} from '../../../pages/editEventTypes/editEventTypes';
+import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 
 interface IEventInputAndValue extends EventInput {
   value: string;
 }
 
 @Component({
-  selector: 'day-details',
+  selector: 'day-details-list',
   templateUrl: './dayDetails.template.html'
 })
 export class DayDetails implements OnInit {
 
+  @Input() date: moment.Moment;
+
   info: IDateInfo;
   types: EventType[];
-  date: moment.Moment;
 
   eventInputs: IEventInputAndValue[];
 
   eventTypeTitle: string;
   eventTypesPage: any;
 
-  constructor(@Inject(NavParams) private navParams: NavParams,
-    @Inject(CalendarStore) private calendarStore: CalendarStore) {
-    this.eventTypesPage = EventTypesPage;
+  constructor(@Inject(CalendarStore) private calendarStore: CalendarStore) {
+    this.eventTypesPage = EventEditorPage;
   }
 
   ngOnInit() {
-    this.date = this.navParams.get('date');
 
     this.info = this.calendarStore.getInfo(this.date);
 
     this.calendarStore.eventStream
-      .filter((date) => date !== this.date.valueOf())
+      .filter((date) => date === this.date.valueOf())
       .subscribe(() => {
         this.info = this.calendarStore.getInfo(this.date);
       });

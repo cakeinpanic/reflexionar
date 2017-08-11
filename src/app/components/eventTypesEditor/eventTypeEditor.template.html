@@ -15,7 +15,7 @@
 
         <ion-input placeholder="title" [(ngModel)]="input.title" name="{{input.title}}Title"></ion-input>
         <ion-label fixed>
-          <ion-icon [name]="inputTypeDetails[input.input].icon"></ion-icon>
+          <ion-icon [name]="getInputIcon(input)"></ion-icon>
         </ion-label>
       </ion-item>
 
@@ -26,6 +26,7 @@
 
   </form>
 
+  <!--adding new inputs-->
   <button *ngFor="let inputType of availableInputs"
           (click)="addInput(inputType)"
           ion-button
