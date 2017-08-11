@@ -48,7 +48,7 @@ export class CreateEventFormComponent implements OnInit {
   addEvent() {
     const event = new DayEvent(this.typeService.getType(this.eventTypeTitle));
     this.eventInputs.forEach((eventInput: IEventInputAndValue) => {
-      event.data[eventInput.inputKind] = eventInput.value;
+      event.changeInputData(eventInput.inputKind, eventInput.value);
     });
 
     this.calendarStore.addEvent(this.date, event);

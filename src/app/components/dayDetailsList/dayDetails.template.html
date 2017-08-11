@@ -11,9 +11,9 @@
       <color-sample float-right [color]="event.type.color"></color-sample>
       {{ event.type.title}}
 
-      <div *ngFor="let key of getEventDataInfo(event)">
-        {{event.type.inputs[key].title}}
-        {{event.data[key]}}
+      <div *ngFor="let input of getInputsList(event)">
+        {{input.title}}
+        {{event.getInputData(input.inputKind)}}
       </div>
 
     </ion-card-content>

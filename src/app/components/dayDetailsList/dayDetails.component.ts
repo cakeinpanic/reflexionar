@@ -46,8 +46,9 @@ export class DayDetails implements OnInit {
     this.calendarStore.removeEvent(this.date, event);
   }
 
-  getEventDataInfo(event: DayEvent) {
-    return _.keys(event.data)
+  getInputsList(dayEvent: DayEvent) {
+    console.log(dayEvent.getInputs())
+    return dayEvent.getInputs();
   }
 
 }

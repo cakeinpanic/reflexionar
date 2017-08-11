@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 
-export enum INPUTS { Time, Story };
+export enum INPUTS { Time, Story }
 
 export const INPUT_TYPES = [INPUTS.Time, INPUTS.Story];
 
