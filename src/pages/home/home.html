@@ -1,13 +1,17 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-       Reflexory
+      Reflexory
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding (ionScroll)="scrollHandler($event)">
-<div #container>
+
   <month-view *ngFor="let month of months" [month]="month"></month-view>
-</div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

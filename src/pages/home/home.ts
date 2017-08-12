@@ -10,7 +10,6 @@ import * as _ from 'lodash';
 export class HomePage implements OnInit, AfterViewChecked {
   months: moment.Moment[] = [];
   @ViewChild(Content) content: Content;
-  @ViewChild('container') container: ElementRef;
 
   private once = false;
 
@@ -31,20 +30,28 @@ export class HomePage implements OnInit, AfterViewChecked {
   }
 
   scrollHandler(event: ScrollEvent) {
-    console.log(`ScrollEvent: ${event.scrollTop}, ${event.scrollHeight}, ${event.contentHeight}, ${event.contentTop}`);
+    // console.log(`ScrollEvent: ${event.scrollTop}, ${event.scrollHeight}, ${event.contentHeight}, ${event.contentTop}`);
 
-    this.zone.run(() => {
-      if (event.directionY === 'up' && event.scrollTop < 50) {
-        this.addPrev();
-        this.removeNext();
-      }
-      if (event.directionY === 'down' && event.scrollTop > 350) {
-        this.addNext();
-        this.removePrev();
-      }
-    })
+    // this.zone.run(() => {
+    //   if (event.directionY === 'up' && event.scrollTop < 50) {
+    //     this.addPrev();
+    //     this.removeNext();
+    //   }
+    //   if (event.directionY === 'down' && event.scrollTop > 350) {
+    //     this.addNext();
+    //     this.removePrev();
+    //   }
+    // })
   }
 
+  doInfinite(infiniteScroll) {
+
+    this.zone.run(() => {
+
+      this.addNext();
+      infiniteScroll.complete();
+    });
+  }
 
   private addNext() {
     this.months.push(moment(_.last(this.months)).add(1, 'month'));
