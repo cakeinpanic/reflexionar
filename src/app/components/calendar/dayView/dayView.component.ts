@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import {Component, OnInit, Input, Inject, ElementRef} from '@angular/core';
 import * as moment from 'moment';
 import {CalendarStore} from '../../models/calendar.store';
 import {DayEvent} from '../../models/dayEvent.model';
@@ -12,18 +12,19 @@ import {DayViewPage} from '../../../../pages/dayViewPage/dayViewPage';
 export class DayView implements OnInit {
   @Input() date: moment.Moment;
   @Input() className: string;
-  @Input() size: number;
+  @Input() yearView: boolean = false;
 
   isToday = false;
   events: DayEvent[] = [];
   day: number;
   elementSize: string;
 
-  constructor(@Inject(CalendarStore) private calendarStore: CalendarStore,
+  constructor(private el: ElementRef,
+              @Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
 
     this.calendarStore.eventStream
-      .subscribe((timestamp: number)=> {
+      .subscribe((timestamp: number) => {
         if (+this.date.utc() === timestamp) {
           this.updateEvents();
         }
@@ -32,16 +33,13 @@ export class DayView implements OnInit {
 
   ngOnInit() {
     this.day = this.date.date();
-    this.elementSize = this.size + 'px';
+
     this.updateEvents();
 
     const diff = moment().diff(this.date, 'hours');
     this.isToday = diff < 24 && diff >= 0;
-  }
 
-
-  showEvents(): boolean {
-    return this.events.length > 0
+    this.elementSize = this.el.nativeElement.offsetWidth + 'px';
   }
 
   updateEvents() {
@@ -49,7 +47,9 @@ export class DayView implements OnInit {
   }
 
   openDetails() {
-    this.navController.push(DayViewPage, {date: this.date});
+    if (!this.yearView) {
+      this.navController.push(DayViewPage, {date: this.date});
+    }
   }
 
 }

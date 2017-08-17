@@ -3,13 +3,21 @@
     <ion-title>
       Reflexory
     </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="gotoYearView()">
+        <ion-icon  name="arrow-back"></ion-icon> 2017
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding (ionScroll)="scrollHandler($event)">
-
+  <div *ngIf="monthView">
   <month-view *ngFor="let month of months" [month]="month"></month-view>
-
+  </div>
+  <div *ngIf="!monthView">
+    <year-view *ngFor="let year of years" [year]="year"></year-view>
+  </div>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

@@ -30,6 +30,7 @@
   <button *ngFor="let inputType of availableInputs"
           (click)="addInput(inputType)"
           ion-button
+          icon-only
           small
           color="light" >
     <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>

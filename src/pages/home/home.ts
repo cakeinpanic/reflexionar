@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Content, ScrollEvent} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -7,8 +7,11 @@ import * as _ from 'lodash';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit, AfterViewChecked {
+export class HomePage implements OnInit {
   months: moment.Moment[] = [];
+  years: moment.Moment[] = [];
+  monthView = true;
+
   @ViewChild(Content) content: Content;
 
   private once = false;
@@ -21,13 +24,15 @@ export class HomePage implements OnInit, AfterViewChecked {
     this.months.push(moment());
     this.addPrev();
     this.addNext();
+
+    this.years.push(moment());
   }
 
-  ngAfterViewChecked() {
-    if (!this.once && this.content.contentHeight > 0) {
-      this.once = true;
-    }
-  }
+  // ngAfterViewChecked() {
+  //   // if (!this.once && this.content.contentHeight > 0) {
+  //   //   this.once = true;
+  //   // }
+  // }
 
   scrollHandler(event: ScrollEvent) {
     // console.log(`ScrollEvent: ${event.scrollTop}, ${event.scrollHeight}, ${event.contentHeight}, ${event.contentTop}`);
@@ -42,6 +47,10 @@ export class HomePage implements OnInit, AfterViewChecked {
     //     this.removePrev();
     //   }
     // })
+  }
+
+  gotoYearView() {
+    this.monthView = false;
   }
 
   doInfinite(infiniteScroll) {

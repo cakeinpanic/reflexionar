@@ -8,6 +8,7 @@ import {DayDetails} from '../dayDetailsList/dayDetails.component';
 import {EventTypeService} from '../models/eventType.service';
 import {ColorSample} from '../colorSample/colorSample.component';
 import {CreateEventFormComponent} from '../createEventForm/createEventForm.component';
+import {YearViewComponent} from './yearView/yearView.component';
 
 @NgModule({
   imports: [CommonModule, IonicModule],
@@ -15,6 +16,7 @@ import {CreateEventFormComponent} from '../createEventForm/createEventForm.compo
     MonthView,
     DayDetails,
     ColorSample,
+    YearViewComponent,
     CreateEventFormComponent
   ],
   declarations: [
@@ -22,6 +24,7 @@ import {CreateEventFormComponent} from '../createEventForm/createEventForm.compo
     DayView,
     DayDetails,
     ColorSample,
+    YearViewComponent,
     CreateEventFormComponent
   ],
   providers: [CalendarStore, EventTypeService]

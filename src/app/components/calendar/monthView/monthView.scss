@@ -11,6 +11,13 @@ calendar {
 
 .datesContainer {
   width: 100%;
+  .no-background {
+    day-view{
+      .day {
+        background: none;
+      }
+    }
+  }
 }
 
 .week {
@@ -22,6 +29,9 @@ calendar {
 .monthName {
   margin: 20px 0;
   width: 100%;
+  &-small {
+    margin: 7px 0;
+  }
 }
 
 .nav {

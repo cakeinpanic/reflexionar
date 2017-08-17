@@ -1,5 +1,6 @@
 <div class="day-container" [style.width]="elementSize" [style.height]="elementSize">
-  <div class="day day-{{className}}" [class.day-today]="isToday" (click)="openDetails()">
+  <div class="day day-{{className}}" [class.day-background]="!yearView"
+       [class.day-today]="isToday" (click)="openDetails()">
     <div class="date">{{day}}</div>
     <color-sample *ngFor="let event of events" small="true" [color]="event.type.color"></color-sample>
   </div>

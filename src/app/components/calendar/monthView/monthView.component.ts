@@ -1,6 +1,8 @@
-import {Component, OnInit, ElementRef, Input} from '@angular/core';
+import {Component, OnInit, Input, Inject} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {NavController} from 'ionic-angular';
+import {HomePage} from '../../../../pages/home/home';
 
 const DAYS_IN_WEEK = 7;
 
@@ -10,6 +12,8 @@ const DAYS_IN_WEEK = 7;
 })
 export class MonthView implements OnInit {
   @Input('month') currentDate: moment.Moment;
+  @Input() yearView = false;
+
   days: any[];
   weeks: any[];
 
@@ -17,30 +21,26 @@ export class MonthView implements OnInit {
 
   currentMonthName: string;
 
-  daySize: number;
 
-  constructor(private el: ElementRef) {
+  constructor(  @Inject(NavController) private navController: NavController) {
 
   }
 
   ngOnInit() {
     this.fillWeeks();
-    this.daySize = this.el.nativeElement.offsetWidth / 7 || 40;
   }
 
-  showNext() {
-    this.currentDate.add(1, 'month');
-    this.fillWeeks();
+  goToMonth(){
+    if (this.yearView) {
+      // TODO move to some navservice
+      this.navController.push(HomePage);
+    }
   }
-
-  showPrev() {
-    this.currentDate.subtract(1, 'month');
-    this.fillWeeks();
-  }
-
   private fillWeeks(date: moment.Moment = this.currentDate) {
     const datesCapacity = this.WEEKS_NUM * DAYS_IN_WEEK;
-    this.currentMonthName = date.format('MMMM YYYY');
+    this.currentMonthName = this.yearView
+      ? date.format('MMMM')
+      : date.format('MMMM YYYY');
 
     this.weeks = _.times(this.WEEKS_NUM, () => ({days: []}));
 
