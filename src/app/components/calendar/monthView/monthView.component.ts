@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Inject} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {NavController} from 'ionic-angular';
-import {HomePage} from '../../../../pages/home/home';
+import {MonthViewPage} from '../../../../pages/monthViewPage/monthViewPage';
 
 const DAYS_IN_WEEK = 7;
 
@@ -33,7 +33,7 @@ export class MonthView implements OnInit {
   goToMonth(){
     if (this.yearView) {
       // TODO move to some navservice
-      this.navController.push(HomePage);
+      this.navController.push(MonthViewPage);
     }
   }
   private fillWeeks(date: moment.Moment = this.currentDate) {

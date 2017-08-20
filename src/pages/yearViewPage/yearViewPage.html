@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Reflexory
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding (ionScroll)="scrollHandler($event)">
+
+  <year-view *ngFor="let year of years" [year]="year"></year-view>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

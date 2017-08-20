@@ -4,7 +4,8 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {MyApp} from './app.component';
-import {HomePage} from '../pages/home/home';
+import {MonthViewPage} from '../pages/monthViewPage/monthViewPage';
+import {YearViewPage} from '../pages/yearViewPage/yearViewPage';
 import {DayViewPage} from '../pages/dayViewPage/dayViewPage';
 import {EventEditorPage} from '../pages/eventEditorPage/eventEditorPage';
 
@@ -16,7 +17,8 @@ import {EventTypeList} from './components/eventTypesList/eventTypeList.component
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    MonthViewPage,
+    YearViewPage,
     DayViewPage,
     EventEditorPage,
     EventTypeEditor,
@@ -30,7 +32,8 @@ import {EventTypeList} from './components/eventTypesList/eventTypeList.component
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
+    MonthViewPage,
+    YearViewPage,
     DayViewPage,
     EventEditorPage,
     EventTypeEditor,

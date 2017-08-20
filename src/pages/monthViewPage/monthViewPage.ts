@@ -1,22 +1,19 @@
-import {AfterViewChecked, Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import {Content, ScrollEvent} from 'ionic-angular';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Content, NavController, ScrollEvent} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'month-view-page',
+  templateUrl: 'monthViewPage.html'
 })
-export class HomePage implements OnInit {
+export class MonthViewPage implements OnInit {
   months: moment.Moment[] = [];
-  years: moment.Moment[] = [];
-  monthView = true;
 
   @ViewChild(Content) content: Content;
 
-  private once = false;
 
-  constructor(public zone: NgZone) {
+  constructor(public zone: NgZone, public navController: NavController) {
 
   }
 
@@ -24,15 +21,10 @@ export class HomePage implements OnInit {
     this.months.push(moment());
     this.addPrev();
     this.addNext();
-
-    this.years.push(moment());
+    this.navController.viewWillEnter.subscribe(() => {
+      this.setBackButton();
+    });
   }
-
-  // ngAfterViewChecked() {
-  //   // if (!this.once && this.content.contentHeight > 0) {
-  //   //   this.once = true;
-  //   // }
-  // }
 
   scrollHandler(event: ScrollEvent) {
     // console.log(`ScrollEvent: ${event.scrollTop}, ${event.scrollHeight}, ${event.contentHeight}, ${event.contentTop}`);
@@ -47,10 +39,6 @@ export class HomePage implements OnInit {
     //     this.removePrev();
     //   }
     // })
-  }
-
-  gotoYearView() {
-    this.monthView = false;
   }
 
   doInfinite(infiniteScroll) {
@@ -70,12 +58,16 @@ export class HomePage implements OnInit {
     this.months.unshift(moment(this.months[0]).subtract(1, 'month'));
   }
 
-  private removePrev() {
-    this.months.shift();
+  private setBackButton() {
+    this.navController.getActive().getNavbar().setBackButtonText(this.months[0].format('YYYY'));
   }
 
-  private removeNext() {
-    this.months.pop();
-  }
+  // private removePrev() {
+  //   this.months.shift();
+  // }
+  //
+  // private removeNext() {
+  //   this.months.pop();
+  // }
 }
 
