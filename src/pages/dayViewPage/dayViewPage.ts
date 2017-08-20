@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {NavParams} from "ionic-angular";
+import {NavController, NavParams} from "ionic-angular";
 import * as moment from 'moment';
 
 @Component({
@@ -10,7 +10,8 @@ export class DayViewPage implements OnInit {
   date: moment.Moment;
   displayDate: string;
 
-  constructor(@Inject(NavParams) private navParams: NavParams) {
+  constructor(@Inject(NavParams) private navParams: NavParams,
+              @Inject(NavController) private navController: NavController) {
 
   }
 
@@ -18,5 +19,14 @@ export class DayViewPage implements OnInit {
     this.date = this.navParams.get('date');
     this.displayDate = this.date.format('DD MMMM');
 
+    this.setBackButton();
+    this.navController.viewWillEnter.subscribe(() => {
+      this.setBackButton();
+    });
+
+  }
+
+  private setBackButton() {
+    this.navController.getActive().getNavbar().setBackButtonText(this.date.format('MMMM'));
   }
 }

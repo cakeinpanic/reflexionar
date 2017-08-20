@@ -1,5 +1,5 @@
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import {Content, NavController, ScrollEvent} from 'ionic-angular';
+import {Component, Inject, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Content, NavController, NavParams, ScrollEvent} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -10,44 +10,41 @@ import * as _ from 'lodash';
 export class MonthViewPage implements OnInit {
   months: moment.Moment[] = [];
 
+
+  private current: moment.Moment;
   @ViewChild(Content) content: Content;
 
 
-  constructor(public zone: NgZone, public navController: NavController) {
+  constructor(public navController: NavController,
+              @Inject(NavParams) private navParams: NavParams) {
 
   }
 
   ngOnInit() {
-    this.months.push(moment());
-    this.addPrev();
-    this.addNext();
+    this.current = moment();
+    this.setMonths(this.navParams['year']);
+
     this.navController.viewWillEnter.subscribe(() => {
-      this.setBackButton();
+      this.setMonths(this.navParams['year']);
+
     });
   }
 
-  scrollHandler(event: ScrollEvent) {
-    // console.log(`ScrollEvent: ${event.scrollTop}, ${event.scrollHeight}, ${event.contentHeight}, ${event.contentTop}`);
-
-    // this.zone.run(() => {
-    //   if (event.directionY === 'up' && event.scrollTop < 50) {
-    //     this.addPrev();
-    //     this.removeNext();
-    //   }
-    //   if (event.directionY === 'down' && event.scrollTop > 350) {
-    //     this.addNext();
-    //     this.removePrev();
-    //   }
-    // })
+  showNext() {
+    this.current.add(1, 'year');
+    this.setMonths(this.current.year())
   }
 
-  doInfinite(infiniteScroll) {
+  showPrev() {
+    this.current.subtract(1, 'year');
+    this.setMonths(this.current.year());
+  }
 
-    this.zone.run(() => {
-
-      this.addNext();
-      infiniteScroll.complete();
+  private setMonths(year: number = this.current.year()) {
+    this.months = _.times(12, (i) => {
+      return moment().year(year).month(i);
     });
+    this.setBackButton();
   }
 
   private addNext() {

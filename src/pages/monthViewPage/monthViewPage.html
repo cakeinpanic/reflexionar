@@ -8,11 +8,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding (ionScroll)="scrollHandler($event)">
-
+<ion-content padding>
+  <button ion-button (click)="showPrev()">Previous year</button>
   <month-view *ngFor="let month of months" [month]="month"></month-view>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
+  <button ion-button (click)="showNext()">Next year</button>
 </ion-content>

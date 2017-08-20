@@ -1,10 +1,10 @@
 <div (click)="goToMonth()">
-<ion-title class="monthName" [class.monthName-small]="yearView">{{currentMonthName}}</ion-title>
-<div class="datesContainer">
+  <ion-title class="monthName" [class.monthName-small]="yearView">{{currentMonthName}}</ion-title>
+  <div class="datesContainer">
 
-  <div *ngFor="let week of weeks" class="week">
-    <day-view *ngFor="let day of week.days" [date]="day.date" [yearView]="yearView">
-    </day-view>
+    <div *ngFor="let week of weeks" class="week">
+      <day-view *ngFor="let day of week.days" [date]="day.date" [yearView]="yearView">
+      </day-view>
+    </div>
   </div>
-</div>
 </div>
