@@ -6,6 +6,7 @@ import {NavParams, NavController} from 'ionic-angular';
 import {EventTypeService, EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
+import {CurrentCalendarViewService} from '../models/currentClendarView.service';
 
 interface IEventInputAndValue extends EventInput {
   value: string;
@@ -26,13 +27,14 @@ export class CreateEventFormComponent implements OnInit {
 
   constructor(@Inject(NavParams) private navParams: NavParams,
     @Inject(NavController) private navController: NavController,
+    @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
     @Inject(EventTypeService) private typeService: EventTypeService,
     @Inject(CalendarStore) private calendarStore: CalendarStore) {
     this.eventTypesPage = EventEditorPage;
   }
 
   ngOnInit() {
-    this.date = this.navParams.get('date');
+    this.date = this.currentCalendarView.currentDate;
     this.updateEvents();
     this.navController.viewWillEnter.subscribe(() => {
       this.updateEvents();

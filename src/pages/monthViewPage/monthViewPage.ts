@@ -2,6 +2,7 @@ import {Component, Inject, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Content, NavController, NavParams, ScrollEvent} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
 @Component({
   selector: 'month-view-page',
@@ -10,37 +11,34 @@ import * as _ from 'lodash';
 export class MonthViewPage implements OnInit {
   months: moment.Moment[] = [];
 
-
-  private current: moment.Moment;
   @ViewChild(Content) content: Content;
 
 
   constructor(public navController: NavController,
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(NavParams) private navParams: NavParams) {
-
   }
 
   ngOnInit() {
-    this.current = moment();
-    this.setMonths(this.navParams['year']);
+    this.setMonths();
 
     this.navController.viewWillEnter.subscribe(() => {
-      this.setMonths(this.navParams['year']);
-
+      this.setMonths();
     });
   }
 
   showNext() {
-    this.current.add(1, 'year');
-    this.setMonths(this.current.year())
+    this.currentCalendarView.currentDate.add(1, 'year');
+    this.setMonths()
   }
 
   showPrev() {
-    this.current.subtract(1, 'year');
-    this.setMonths(this.current.year());
+    this.currentCalendarView.currentDate.subtract(1, 'year');
+    this.setMonths();
   }
 
-  private setMonths(year: number = this.current.year()) {
+  private setMonths() {
+    const year = this.currentCalendarView.currentDate.year();
     this.months = _.times(12, (i) => {
       return moment().year(year).month(i);
     });

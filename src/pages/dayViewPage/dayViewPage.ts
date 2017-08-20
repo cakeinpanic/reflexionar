@@ -1,6 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {NavController, NavParams} from "ionic-angular";
 import * as moment from 'moment';
+import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
 @Component({
   selector: 'day-view-page',
@@ -11,12 +12,13 @@ export class DayViewPage implements OnInit {
   displayDate: string;
 
   constructor(@Inject(NavParams) private navParams: NavParams,
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(NavController) private navController: NavController) {
 
   }
 
   ngOnInit() {
-    this.date = this.navParams.get('date');
+    this.date = this.currentCalendarView.currentDate;
     this.displayDate = this.date.format('DD MMMM');
 
     this.setBackButton();

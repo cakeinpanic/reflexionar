@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {EventType} from '../../app/components/models/eventType.service';
 import {NavController, NavParams} from 'ionic-angular';
+import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
 @Component({
   selector: 'page-edit-event-types',
@@ -10,6 +11,7 @@ export class EventEditorPage implements OnInit {
   editingType: EventType;
 
   constructor(@Inject(NavParams) private navParams: NavParams,
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(NavController) private navController: NavController) {
 
   }
@@ -36,7 +38,7 @@ export class EventEditorPage implements OnInit {
 
 
   private setBackButton() {
-    const date = this.navParams.get('date');
+    const date = this.currentCalendarView.currentDate;
     this.navController.getActive().getNavbar().setBackButtonText(`${date.format('DD.MM')}`);
   }
 

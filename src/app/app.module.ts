@@ -12,6 +12,7 @@ import {EventEditorPage} from '../pages/eventEditorPage/eventEditorPage';
 import {MonthViewModule} from './components/calendar/calendar.module';
 import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.component';
 import {EventTypeList} from './components/eventTypesList/eventTypeList.component';
+import {CurrentCalendarViewService} from './components/models/currentClendarView.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {EventTypeList} from './components/eventTypesList/eventTypeList.component
     EventEditorPage,
     EventTypeEditor,
     EventTypeList
+
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import {EventTypeList} from './components/eventTypesList/eventTypeList.component
     EventTypeList
   ],
   providers: [
+    CurrentCalendarViewService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

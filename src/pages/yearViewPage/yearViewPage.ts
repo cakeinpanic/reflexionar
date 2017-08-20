@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Content, NavController, NavParams} from 'ionic-angular';
 import * as moment from 'moment';
+import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
 @Component({
   selector: 'year-view-page',
@@ -8,26 +9,25 @@ import * as moment from 'moment';
 })
 export class YearViewPage implements OnInit {
   years: moment.Moment[] = [];
-  current: moment.Moment;
 
   @ViewChild(Content) content: Content;
 
-  constructor(public navController: NavController,
+  constructor(@Inject(NavController) public navController: NavController,
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(NavParams) private navParams: NavParams) {
 
   }
 
   ngOnInit() {
-    this.current = moment();
-    this.setYear(this.navParams['year']);
+    this.setYear();
     this.navController.viewWillEnter.subscribe(() => {
-      this.setYear(this.navParams['year']);
+      this.setYear();
     });
   }
 
-  private setYear(year: number = moment().year()) {
+  private setYear() {
+    const year = this.currentCalendarView.currentDate.year();
     this.years = [moment().year(year)];
-
   }
 }
 
