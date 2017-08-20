@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, Input} from '@angular/core';
+import {Component, OnInit, ElementRef, Input, Inject} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -12,15 +12,15 @@ export class YearViewComponent implements OnInit {
   months: any[];
   monthRows: any[];
   currentYearName: string;
-  constructor(private el: ElementRef) {
+  constructor(@Inject(ElementRef) private el: ElementRef) {
 
   }
 
   ngOnInit() {
     this.currentYearName = this.currentDate.format('YYYY');
     let counter = 0;
-    this.monthRows = _.times(4, (i)=> {
-      return _.times(3, (j)=> {
+    this.monthRows = _.times(4, ()=> {
+      return _.times(3, ()=> {
         return moment(this.currentDate).month(counter++);
       });
     });

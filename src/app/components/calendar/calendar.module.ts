@@ -27,7 +27,10 @@ import {YearViewComponent} from './yearView/yearView.component';
     YearViewComponent,
     CreateEventFormComponent
   ],
-  providers: [CalendarStore, EventTypeService]
+  providers: [
+    CalendarStore,
+    EventTypeService
+  ]
 })
 export class MonthViewModule {
 }

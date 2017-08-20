@@ -13,13 +13,14 @@ export class DayView implements OnInit {
   @Input() date: moment.Moment;
   @Input() className: string;
   @Input() yearView: boolean = false;
+  @Input() notThisMonth: boolean = false;
 
   isToday = false;
   events: DayEvent[] = [];
   day: number;
   elementSize: string;
 
-  constructor(private el: ElementRef,
+  constructor(@Inject(ElementRef) private el: ElementRef,
               @Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
 

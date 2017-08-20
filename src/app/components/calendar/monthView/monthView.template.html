@@ -3,7 +3,10 @@
   <div class="datesContainer">
 
     <div *ngFor="let week of weeks" class="week">
-      <day-view *ngFor="let day of week.days" [date]="day.date" [yearView]="yearView">
+      <day-view *ngFor="let day of week.days"
+                [notThisMonth]="day.notCurrentMonth"
+                [date]="day.date"
+                [yearView]="yearView">
       </day-view>
     </div>
   </div>

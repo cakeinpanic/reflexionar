@@ -42,6 +42,7 @@ export class MonthViewPage implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.onDestroy.next();
   }
+
   showNext() {
     this.currentCalendarView.currentDate.add(1, 'year');
     this.setMonths()

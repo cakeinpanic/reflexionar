@@ -7,8 +7,9 @@ day-view {
 .day-container {
   position: relative;
 }
+
 day-view {
-  width:14.25%;
+  width: 14.25%;
 }
 
 .day {
@@ -28,14 +29,12 @@ day-view {
   &-today {
     background: rgba(0, 0, 0, .3);
   }
-  &-current {
-    //background: map-get($colors, primary);
-  }
-  &-next, &-prev {
-    .date {
-      opacity: .2;
-    }
 
+  &-anotherMonth {
+    background: rgba(0, 0, 0, .01);
+    .date {
+      opacity: .3;
+    }
   }
 
 }

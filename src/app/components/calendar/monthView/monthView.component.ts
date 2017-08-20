@@ -7,6 +7,11 @@ import {CurrentCalendarViewService} from '../../models/currentClendarView.servic
 
 const DAYS_IN_WEEK = 7;
 
+interface IDayViewInfo {
+  date: moment.Moment;
+  notCurrentMonth?: boolean;
+}
+
 @Component({
   selector: 'month-view',
   templateUrl: './monthView.template.html'
@@ -52,9 +57,9 @@ export class MonthView implements OnInit {
     const prevMonth = moment(thisMonth).subtract(1, 'month');
     const nextMonth = moment(thisMonth).add(1, 'month');
 
-    const prevDays = this.getDaysOfMonth(prevMonth, {className: 'prev'});
-    const thisDays = this.getDaysOfMonth(thisMonth, {className: 'current'});
-    const nextDays = this.getDaysOfMonth(nextMonth, {className: 'next'});
+    const prevDays = this.getDaysOfMonth(prevMonth);
+    const thisDays = this.getDaysOfMonth(thisMonth);
+    const nextDays = this.getDaysOfMonth(nextMonth);
 
     const startsWith = moment(thisMonth).date(1).day();
     const endsWith = this.WEEKS_NUM * DAYS_IN_WEEK - thisDays.length - startsWith + 1;
@@ -69,13 +74,15 @@ export class MonthView implements OnInit {
     }
   }
 
-  private getDaysOfMonth(date: moment.Moment, additionalData: any) {
+  private getDaysOfMonth(date: moment.Moment): IDayViewInfo[] {
     const daysInMonth = date.daysInMonth();
 
     return _.times(daysInMonth, i => {
-      return _.assign({
-        date: moment(date).date(i + 1)
-      }, additionalData);
+      const momentDate = moment(date).date(i + 1);
+      return {
+        date: momentDate,
+        notCurrentMonth: this.currentDate.month() !== momentDate.month()
+      };
     });
   }
 }
