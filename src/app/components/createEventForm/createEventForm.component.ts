@@ -7,6 +7,7 @@ import {EventTypeService, EventType, EventInput} from '../models/eventType.servi
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 import {CurrentCalendarViewService} from '../models/currentClendarView.service';
+import {DayViewPage} from '../../../pages/dayViewPage/dayViewPage';
 
 interface IEventInputAndValue extends EventInput {
   value: string;
@@ -26,17 +27,19 @@ export class CreateEventFormComponent implements OnInit {
   eventTypesPage: any;
 
   constructor(@Inject(NavParams) private navParams: NavParams,
-    @Inject(NavController) private navController: NavController,
-    @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-    @Inject(EventTypeService) private typeService: EventTypeService,
-    @Inject(CalendarStore) private calendarStore: CalendarStore) {
+              @Inject(NavController) private navController: NavController,
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
+              @Inject(EventTypeService) private typeService: EventTypeService,
+              @Inject(CalendarStore) private calendarStore: CalendarStore) {
     this.eventTypesPage = EventEditorPage;
   }
 
   ngOnInit() {
     this.date = this.currentCalendarView.currentDate;
     this.updateEvents();
-    this.navController.viewWillEnter.subscribe(() => {
+    this.navController.viewWillEnter
+      .filter(({component}) => component === DayViewPage)
+      .subscribe(() => {
       this.updateEvents();
     });
   }

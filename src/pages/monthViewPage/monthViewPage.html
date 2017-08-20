@@ -10,6 +10,6 @@
 
 <ion-content padding>
   <button ion-button (click)="showPrev()">Previous year</button>
-  <month-view *ngFor="let month of months" [month]="month"></month-view>
+  <month-view *ngFor="let month of months" [month]="month" [attr.month-number]="month.month()"></month-view>
   <button ion-button (click)="showNext()">Next year</button>
 </ion-content>

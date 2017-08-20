@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import {NavController} from 'ionic-angular';
 import {MonthViewPage} from '../../../../pages/monthViewPage/monthViewPage';
+import {CurrentCalendarViewService} from '../../models/currentClendarView.service';
 
 const DAYS_IN_WEEK = 7;
 
@@ -22,7 +23,8 @@ export class MonthView implements OnInit {
   currentMonthName: string;
 
 
-  constructor(  @Inject(NavController) private navController: NavController) {
+  constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
+              @Inject(NavController) private navController: NavController) {
 
   }
 
@@ -30,12 +32,14 @@ export class MonthView implements OnInit {
     this.fillWeeks();
   }
 
-  goToMonth(){
+  goToMonth() {
     if (this.yearView) {
       // TODO move to some navservice
+      this.currentCalendarView.currentDate.month(this.currentDate.month());
       this.navController.push(MonthViewPage);
     }
   }
+
   private fillWeeks(date: moment.Moment = this.currentDate) {
     const datesCapacity = this.WEEKS_NUM * DAYS_IN_WEEK;
     this.currentMonthName = this.yearView

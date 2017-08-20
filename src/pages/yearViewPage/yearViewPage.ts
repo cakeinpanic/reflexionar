@@ -20,9 +20,11 @@ export class YearViewPage implements OnInit {
 
   ngOnInit() {
     this.setYear();
-    this.navController.viewWillEnter.subscribe(() => {
-      this.setYear();
-    });
+    this.navController.viewWillEnter
+      .filter(({component}) => component === YearViewPage)
+      .subscribe(() => {
+        this.setYear();
+      });
   }
 
   private setYear() {

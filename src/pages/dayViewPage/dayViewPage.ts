@@ -22,9 +22,11 @@ export class DayViewPage implements OnInit {
     this.displayDate = this.date.format('DD MMMM');
 
     this.setBackButton();
-    this.navController.viewWillEnter.subscribe(() => {
-      this.setBackButton();
-    });
+    this.navController.viewWillEnter
+      .filter(({component}) => component === DayViewPage)
+      .subscribe(() => {
+        this.setBackButton();
+      });
 
   }
 

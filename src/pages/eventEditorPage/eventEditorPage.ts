@@ -18,9 +18,11 @@ export class EventEditorPage implements OnInit {
 
   ngOnInit() {
     this.setBackButton();
-    this.navController.viewWillEnter.subscribe(() => {
-      this.setBackButton();
-    });
+    this.navController.viewWillEnter
+      .filter(({component}) => component === EventEditorPage)
+      .subscribe(() => {
+        this.setBackButton();
+      });
 
   }
 
