@@ -8,7 +8,6 @@ Universal calendar with manageable event types and analytics.
 * different input fields for each input
 * colorpicker input
 
-* year-view
 * infinite scroll for month view
 
 id a2df080a in IonicView app
