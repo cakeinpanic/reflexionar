@@ -31,7 +31,7 @@ export class MonthViewPage implements OnInit, OnDestroy {
         this.setMonths();
       });
 
-    this.navController.viewWillEnter
+    this.navController.viewDidEnter
       .takeUntil(this.onDestroy)
       .filter(({component}) => component === MonthViewPage)
       .subscribe(() => {
@@ -80,7 +80,7 @@ export class MonthViewPage implements OnInit, OnDestroy {
       const monthPosition = element.getBoundingClientRect();
       const containerPosition = this.content.getElementRef().nativeElement.getBoundingClientRect();
       // todo get number offset from layout
-      this.content.scrollTo(0, monthPosition.top - containerPosition.top - 10);
+      this.content.scrollTo(0, monthPosition.top - containerPosition.top - 60);
     }
   }
 
