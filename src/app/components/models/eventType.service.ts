@@ -10,8 +10,10 @@ export const INPUT_TYPES = [INPUTS.Time, INPUTS.Story];
 export class EventInput {
   inputKind: INPUTS;
   title: string;
+  private id: number;
 
-  constructor({inputKind, title}: EventInput) {
+  constructor({inputKind, title}) {
+    this.id = Date.now();
     this.inputKind = inputKind;
     this.title = title;
   }
@@ -69,10 +71,6 @@ export class EventTypeService {
   removeType(typeToRemove: EventType) {
     _.remove(this.types, (type) => type.title === typeToRemove.title);
     this.stream.next();
-  }
-
-  getType(title: string): EventType {
-    return _.find(this.types, (type) => type.title === title);
   }
 
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit, Inject, Input} from '@angular/core';
 import * as moment from 'moment';
-import {CalendarStore, IDateInfo} from '../models/calendar.store';
+import {CalendarStore} from '../models/calendar.store';
 import {EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
@@ -17,7 +17,7 @@ export class DayDetails implements OnInit {
 
   @Input() date: moment.Moment;
 
-  info: IDateInfo;
+  events: DayEvent[];
   types: EventType[];
 
   eventInputs: IEventInputAndValue[];
@@ -30,13 +30,15 @@ export class DayDetails implements OnInit {
   }
 
   ngOnInit() {
-    this.info = this.calendarStore.getInfo(this.date);
+    const dayId = this.calendarStore.getDateId(this.date);
+
+    this.events = this.calendarStore.getEventsById(dayId);
 
     this.calendarStore.eventStream
-      .filter((date) => date === this.date.valueOf())
+      .filter((timestamp) => timestamp === dayId)
       .subscribe(() => {
-        this.info = this.calendarStore.getInfo(this.date);
-      });
+        this.events = this.calendarStore.getEventsById(dayId);
+      })
   }
 
   removeEvent(event: DayEvent) {

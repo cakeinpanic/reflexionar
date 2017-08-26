@@ -23,7 +23,7 @@ export class CreateEventFormComponent implements OnInit {
 
   eventInputs: IEventInputAndValue[];
 
-  eventTypeTitle: string;
+  selectedType: EventType;
   eventTypesPage: any;
 
   constructor(@Inject(NavParams) private navParams: NavParams,
@@ -46,12 +46,12 @@ export class CreateEventFormComponent implements OnInit {
 
   private updateEvents() {
     this.types = this.typeService.getAllTypes();
-    this.eventTypeTitle = _.get(this.types[0], 'title');
+    this.selectedType = this.types[0];
     this.makeInputs();
   }
 
   addEvent() {
-    const event = new DayEvent(this.typeService.getType(this.eventTypeTitle));
+    const event = new DayEvent(this.selectedType);
     this.eventInputs.forEach((eventInput: IEventInputAndValue) => {
       event.changeInputData(eventInput.inputKind, eventInput.value);
     });
@@ -60,7 +60,7 @@ export class CreateEventFormComponent implements OnInit {
   }
 
   makeInputs() {
-    const type = this.typeService.getType(this.eventTypeTitle);
+    const type = this.selectedType;
     this.eventInputs = type.inputs.map((input: EventInput) => _.assign({}, input, {value: ''}));
   }
 

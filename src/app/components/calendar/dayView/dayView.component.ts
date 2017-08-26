@@ -4,6 +4,7 @@ import {CalendarStore} from '../../models/calendar.store';
 import {DayEvent} from '../../models/dayEvent.model';
 import {NavController} from 'ionic-angular';
 import {DayViewPage} from '../../../../pages/dayViewPage/dayViewPage';
+import {CurrentCalendarViewService} from '../../models/currentClendarView.service';
 
 @Component({
   selector: 'day-view',
@@ -21,36 +22,46 @@ export class DayView implements OnInit {
   elementSize: string;
 
   constructor(@Inject(ElementRef) private el: ElementRef,
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
-
-    this.calendarStore.eventStream
-      .subscribe((timestamp: number) => {
-        if (+this.date.utc() === timestamp) {
-          this.updateEvents();
-        }
-      })
   }
 
   ngOnInit() {
     this.day = this.date.date();
-
     this.updateEvents();
-
-    const diff = moment().diff(this.date, 'hours');
-    this.isToday = diff < 24 && diff >= 0;
+    this.setToday();
 
     this.elementSize = this.el.nativeElement.offsetWidth + 'px';
   }
 
-  updateEvents() {
-    this.events = this.calendarStore.getEvents(this.date);
-  }
-
   openDetails() {
     if (!this.yearView) {
-      this.navController.push(DayViewPage, {date: this.date});
+      this.currentCalendarView.currentDate.date(this.day).month(this.date.month());
+      this.navController.push(DayViewPage);
     }
   }
 
+  updateEvents() {
+
+    const dayId = this.calendarStore.getDateId(this.date);
+
+    this.events = this.calendarStore.getEventsById(dayId);
+
+    if (!this.yearView) {
+      this.calendarStore.eventStream
+        .filter((timestamp) => timestamp === dayId)
+        .subscribe(() => {
+          this.events = this.calendarStore.getEventsById(dayId);
+        });
+    }
+
+  }
+  private setToday() {
+    if (!this.yearView) {
+      const diff = moment().diff(this.date, 'hours');
+      this.isToday = diff < 24 && diff >= 0;
+    }
+
+  }
 }

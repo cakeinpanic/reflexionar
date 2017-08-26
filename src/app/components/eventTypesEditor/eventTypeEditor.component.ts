@@ -42,10 +42,13 @@ export class EventTypeEditor implements OnChanges {
   }
 
   addInput(inputType: INPUTS) {
-    this.inputs.push({inputKind: inputType, title: this.inputTypeDetails[inputType].placeholder});
+    this.inputs.push(new EventInput({
+      inputKind: inputType,
+      title: this.inputTypeDetails[inputType].placeholder
+    }));
   }
 
-  getInputIcon(input: EventInput){
+  getInputIcon(input: EventInput) {
     return this.inputTypeDetails[input.inputKind].icon;
   }
 

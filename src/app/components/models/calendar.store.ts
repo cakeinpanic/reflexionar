@@ -6,65 +6,54 @@ import {Subject} from 'rxjs';
 import {Observable} from 'rxjs/Observable';
 
 
-export interface IDateInfo {
-  date: moment.Moment;
-  events: DayEvent[]
-}
-
 @Injectable()
 export class CalendarStore {
   types: string[];
-  private store: { [key: string]: IDateInfo } = {};
-
+  private store: { [key: string]: DayEvent[] } = {};
 
   private stream = new Subject<number>();
 
-  constructor() {
-
-  }
 
   get eventStream(): Observable<number> {
     return this.stream.asObservable();
   }
 
-  getInfo(date: any) {
-    const dateAsUTC = moment(date).valueOf();
-    return this.store[dateAsUTC] || null;
+  getEventsById(dateId: number): DayEvent[] {
+    return this.store[dateId] || [];
   }
 
-  getEvents(date: any): DayEvent[] {
-    return this.getInfo(date) ? this.getInfo(date).events : [];
+  getEventsByDate(date: any): DayEvent[] {
+    const dateId = this.getDateId(date);
+    return this.getEventsById(dateId);
   }
 
   removeEvent(date: moment.Moment, eventToDelete: DayEvent) {
-    const dateAsUTC = date.valueOf();
-    _.remove(this.store[dateAsUTC].events, {id: eventToDelete.id});
+    const dateAsUTC = this.getDateId(date);
+    _.remove(this.store[dateAsUTC], {id: eventToDelete.id});
     this.stream.next(dateAsUTC);
   }
 
   addEvent(date: any, event: DayEvent) {
 
-    const dateAsUTC = moment(date).valueOf();
+    const dateId = this.getDateId(date);
 
-    if (this.store[dateAsUTC]) {
-      this.store[dateAsUTC].events.push(event);
+    if (this.store[dateId]) {
+      this.store[dateId].push(event);
     } else {
-      this.store[dateAsUTC] = {date: moment(date), events: [event]};
+      this.store[dateId] = [event];
     }
-    this.stream.next(dateAsUTC);
+
+    this.stream.next(dateId);
   }
 
   clearInfo(date: any) {
-    const dateAsUTC = moment(date).valueOf();
-    this.store[dateAsUTC] = null;
-    this.stream.next(dateAsUTC);
+    const dateId = this.getDateId(date);
+    this.store[dateId] = [];
+
+    this.stream.next(dateId);
   }
 
-  addType(name: string) {
-    this.types.push(name);
-  }
-
-  getTypes(): string[] {
-    return this.types;
+  getDateId(date: moment.Moment): number {
+    return moment(date).hours(0).minutes(0).seconds(0).milliseconds(0).valueOf();
   }
 }

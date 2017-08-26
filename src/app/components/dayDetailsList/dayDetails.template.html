@@ -1,8 +1,8 @@
-<div *ngIf="!!info">
-  <ion-card *ngFor="let event of info.events">
+<div *ngIf="!!events">
+  <ion-card *ngFor="let event of events">
 
     <ion-card-header>
-      {{info.date.format('DD MMMM YYYY')}}
+      {{date.format('DD MMMM YYYY')}}
       <ion-icon float-right class="trash-btn" name="trash" float-right (click)="removeEvent(event)"></ion-icon>
     </ion-card-header>
 
