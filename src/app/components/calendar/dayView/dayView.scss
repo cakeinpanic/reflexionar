@@ -10,6 +10,7 @@ day-view {
 
 day-view {
   width: 14.25%;
+  vertical-align: bottom;
 }
 
 .day {
@@ -37,6 +38,11 @@ day-view {
     }
   }
 
+  &-small {
+    .date {
+      font-size: 9px;
+    }
+  }
 }
 
 .date {

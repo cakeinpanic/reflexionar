@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import {Component, OnInit, Input, Inject, ElementRef} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {NavController} from 'ionic-angular';
@@ -9,7 +9,7 @@ const DAYS_IN_WEEK = 7;
 
 interface IDayViewInfo {
   date: moment.Moment;
-  notCurrentMonth?: boolean;
+  notDayOfCurrentMonth?: boolean;
 }
 
 @Component({
@@ -20,6 +20,7 @@ export class MonthView implements OnInit {
   @Input('month') currentDate: moment.Moment;
   @Input() yearView = false;
 
+  size: string;
   days: any[];
   weeks: any[];
 
@@ -29,12 +30,14 @@ export class MonthView implements OnInit {
 
 
   constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
+              @Inject(ElementRef) private el: ElementRef,
               @Inject(NavController) private navController: NavController) {
 
   }
 
   ngOnInit() {
     this.fillWeeks();
+    this.size = Math.floor(this.el.nativeElement.offsetWidth / 7) + 'px';
   }
 
   goToMonth() {

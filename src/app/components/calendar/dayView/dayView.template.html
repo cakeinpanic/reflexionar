@@ -3,6 +3,7 @@
      [style.width]="elementSize"
      [style.height]="elementSize">
   <div class="day day-{{className}}"
+       [class.day-small]="yearView"
        [class.day-background]="!yearView"
        [class.day-anotherMonth]="notThisMonth"
        [class.day-today]="isToday"

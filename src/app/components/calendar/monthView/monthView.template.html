@@ -4,7 +4,8 @@
 
     <div *ngFor="let week of weeks" class="week">
       <day-view *ngFor="let day of week.days"
-                [notThisMonth]="day.notCurrentMonth"
+                [elementSize]="size"
+                [notThisMonth]="day.notDayOfCurrentMonth"
                 [date]="day.date"
                 [yearView]="yearView">
       </day-view>

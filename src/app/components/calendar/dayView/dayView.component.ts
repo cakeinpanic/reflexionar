@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, Inject} from '@angular/core';
 import * as moment from 'moment';
 import {CalendarStore} from '../../models/calendar.store';
 import {DayEvent} from '../../models/dayEvent.model';
@@ -16,13 +16,12 @@ export class DayView implements OnInit {
   @Input() yearView: boolean = false;
   @Input() notThisMonth: boolean = false;
 
+  @Input() elementSize: string;
   isToday = false;
   events: DayEvent[] = [];
   day: number;
-  elementSize: string;
 
-  constructor(@Inject(ElementRef) private el: ElementRef,
-              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
+  constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(CalendarStore) private calendarStore: CalendarStore,
               @Inject(NavController) private navController: NavController) {
   }
@@ -31,8 +30,6 @@ export class DayView implements OnInit {
     this.day = this.date.date();
     this.updateEvents();
     this.setToday();
-
-    this.elementSize = this.el.nativeElement.offsetWidth + 'px';
   }
 
   openDetails() {
@@ -43,12 +40,12 @@ export class DayView implements OnInit {
   }
 
   updateEvents() {
-
-    const dayId = this.calendarStore.getDateId(this.date);
-
-    this.events = this.calendarStore.getEventsById(dayId);
-
     if (!this.yearView) {
+      const dayId = this.calendarStore.getDateId(this.date);
+
+      this.events = this.calendarStore.getEventsById(dayId);
+
+
       this.calendarStore.eventStream
         .filter((timestamp) => timestamp === dayId)
         .subscribe(() => {
@@ -57,6 +54,7 @@ export class DayView implements OnInit {
     }
 
   }
+
   private setToday() {
     if (!this.yearView) {
       const diff = moment().diff(this.date, 'hours');
