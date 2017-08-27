@@ -1,21 +1,26 @@
 @import '../../../../theme/variables.scss';
 
 month-view {
-  width :100%;
+  width: 100%;
   display: block;
 }
 
+.day-view {
+  display: inline-block;
+  width: 14.25%;
+  vertical-align: bottom;
+}
+
 calendar {
-  width :100%;
+  width: 100%;
 }
 
 .datesContainer {
   width: 100%;
-  .no-background {
-    day-view{
-      .day {
-        background: none;
-      }
+  &-yearView {
+    .day-view {
+      font-size: 9px;
+      text-align: right;
     }
   }
 }
@@ -29,8 +34,11 @@ calendar {
 .monthName {
   margin: 20px 0;
   width: 100%;
+  font-size: 18px;
+  font-weight: bold;
   &-small {
     margin: 7px 0;
+    font-size: 10px;
   }
 }
 

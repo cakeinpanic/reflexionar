@@ -84,7 +84,7 @@ export class MonthView implements OnInit {
       const momentDate = moment(date).date(i + 1);
       return {
         date: momentDate,
-        notCurrentMonth: this.currentDate.month() !== momentDate.month()
+        notDayOfCurrentMonth: this.currentDate.month() !== momentDate.month()
       };
     });
   }

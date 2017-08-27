@@ -1,14 +1,37 @@
 <div (click)="goToMonth()">
-  <ion-title class="monthName" [class.monthName-small]="yearView">{{currentMonthName}}</ion-title>
-  <div class="datesContainer">
+  <div class="monthName"
+       [class.monthName-small]="yearView">
+    {{currentMonthName}}
+  </div>
 
-    <div *ngFor="let week of weeks" class="week">
+  <div *ngIf="!yearView"
+       class="datesContainer">
+
+    <div *ngFor="let week of weeks"
+         class="week">
       <day-view *ngFor="let day of week.days"
+                class="day-view"
                 [elementSize]="size"
                 [notThisMonth]="day.notDayOfCurrentMonth"
                 [date]="day.date"
-                [yearView]="yearView">
-      </day-view>
+                [yearView]="yearView"></day-view>
+    </div>
+  </div>
+
+  <!--optimizing performance by not using component for logic-less moment-->
+  <div *ngIf="yearView"
+       class="datesContainer datesContainer-yearView">
+
+    <div *ngFor="let week of weeks"
+         class="week">
+      <div *ngFor="let day of week.days"
+           class="day-view">
+        <div [hidden]="day.notDayOfCurrentMonth"
+             [style.width]="size"
+             [style.height]="size">
+          {{day.date.date()}}
+        </div>
+      </div>
     </div>
   </div>
 </div>
