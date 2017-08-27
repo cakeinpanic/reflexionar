@@ -11,26 +11,26 @@ import {CreateEventFormComponent} from '../createEventForm/createEventForm.compo
 import {YearViewComponent} from './yearView/yearView.component';
 
 @NgModule({
-  imports: [CommonModule, IonicModule],
-  exports: [
-    MonthView,
-    DayDetails,
-    ColorSample,
-    YearViewComponent,
-    CreateEventFormComponent
-  ],
-  declarations: [
-    MonthView,
-    DayView,
-    DayDetails,
-    ColorSample,
-    YearViewComponent,
-    CreateEventFormComponent
-  ],
-  providers: [
-    CalendarStore,
-    EventTypeService
-  ]
+    imports: [CommonModule, IonicModule],
+    exports: [
+        MonthView,
+        DayDetails,
+        ColorSample,
+        YearViewComponent,
+        CreateEventFormComponent
+    ],
+    declarations: [
+        MonthView,
+        DayView,
+        DayDetails,
+        ColorSample,
+        YearViewComponent,
+        CreateEventFormComponent
+    ],
+    providers: [
+        CalendarStore,
+        EventTypeService
+    ]
 })
 export class MonthViewModule {
 }

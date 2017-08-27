@@ -14,39 +14,38 @@ import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.com
 import {EventTypeList} from './components/eventTypesList/eventTypeList.component';
 import {CurrentCalendarViewService} from './components/models/currentClendarView.service';
 
-
 @NgModule({
-  declarations: [
-    MyApp,
-    MonthViewPage,
-    YearViewPage,
-    DayViewPage,
-    EventEditorPage,
-    EventTypeEditor,
-    EventTypeList
-
-  ],
-  imports: [
-    BrowserModule,
-    MonthViewModule,
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    MonthViewPage,
-    YearViewPage,
-    DayViewPage,
-    EventEditorPage,
-    EventTypeEditor,
-    EventTypeList
-  ],
-  providers: [
-    CurrentCalendarViewService,
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+    declarations: [
+        MyApp,
+        MonthViewPage,
+        YearViewPage,
+        DayViewPage,
+        EventEditorPage,
+        EventTypeEditor,
+        EventTypeList
+    
+    ],
+    imports: [
+        BrowserModule,
+        MonthViewModule,
+        IonicModule.forRoot(MyApp)
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        MonthViewPage,
+        YearViewPage,
+        DayViewPage,
+        EventEditorPage,
+        EventTypeEditor,
+        EventTypeList
+    ],
+    providers: [
+        CurrentCalendarViewService,
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ]
 })
 export class AppModule {
 }
