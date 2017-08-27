@@ -24,9 +24,17 @@ export class EventType {
   color: string = '#000000';
   inputs: EventInput[] = [];
 
+  _id: number;
+
   constructor(params = {}) {
     _.merge(this, params);
+    this._id = Date.now();
   }
+
+  get id(): number {
+    return this._id;
+  }
+
 }
 
 @Injectable()
@@ -50,7 +58,6 @@ export class EventTypeService {
     return this.stream.asObservable()
   }
 
-
   saveType(type: EventType) {
     let existingType = _.find(this.types, {title: type.title});
 
@@ -68,8 +75,8 @@ export class EventTypeService {
     return this.types;
   }
 
-  removeType(typeToRemove: EventType) {
-    _.remove(this.types, (type) => type.title === typeToRemove.title);
+  removeType(typeId: number) {
+    _.remove(this.types, {id: typeId});
     this.stream.next();
   }
 

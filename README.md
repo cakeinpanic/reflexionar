@@ -7,6 +7,7 @@ Universal calendar with manageable event types and analytics.
 * multiple inputs of same time
 * different input fields for each input
 * colorpicker input
+* add router
 
 * infinite scroll for month view
 

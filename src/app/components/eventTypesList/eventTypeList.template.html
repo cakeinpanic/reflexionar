@@ -1,10 +1,15 @@
-<div padding>
-  <ion-title>Types:</ion-title>
-  <ion-list>
-    <div ion-item *ngFor="let type of types" (click)="edit(type)">
-      {{ type.title }}
-      <ion-icon class="trash-btn" name="trash" float-right (click)="removeType(type)"></ion-icon>
-      <color-sample float-right [color]="type.color"></color-sample>
-    </div>
-  </ion-list>
-</div>
+<ion-title>Types:</ion-title>
+<ion-list>
+  <div ion-item
+       *ngFor="let type of types"
+       (click)="edit(type)">
+    {{ type.title }}
+    <ion-icon class="trash-btn"
+              name="trash"
+              item-end
+              (click)="removeType(type)"></ion-icon>
+    <color-sample item-start
+                  [color]="type.color"></color-sample>
+  </div>
+</ion-list>
+
