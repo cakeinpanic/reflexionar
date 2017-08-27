@@ -1,8 +1,9 @@
-<div (click)="goToMonth()">
-  <div class="monthName"
-       [class.monthName-small]="yearView">
-    {{currentMonthName}}
-  </div>
+<div (click)="goToMonth()"
+     [class.yearView]="yearView">
+
+  <h4 ion-text
+      [class.title-small]="yearView">
+    {{currentMonthName}} </h4>
 
   <div *ngIf="!yearView"
        class="datesContainer">

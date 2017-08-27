@@ -1,40 +1,57 @@
-<div padding>
-  <div *ngIf="creatingNew">Creating new</div>
-  <div *ngIf="!creatingNew">Editing existent</div>
-  <form (ngSubmit)="saveType()">
-    <ion-list>
-      <ion-item>
-        <color-sample item-right [color]="type.color"></color-sample>
-        <ion-input placeholder="Event title" [(ngModel)]="type.title" name="title"></ion-input>
-      </ion-item>
+<h4 ion-text
+    *ngIf="creatingNew">Creating new</h4>
 
-      <ion-item *ngFor="let input of inputs">
-        <button item-right type="button" (click)="removeInput(input)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
+<h4 ion-text
+    *ngIf="!creatingNew">Editing existent</h4>
 
-        <ion-input placeholder="title" [(ngModel)]="input.title" name="{{input.title}}Title"></ion-input>
-        <ion-label fixed>
-          <ion-icon [name]="getInputIcon(input)"></ion-icon>
-        </ion-label>
-      </ion-item>
+<form (ngSubmit)="saveType()">
+  <ion-list>
+    <ion-item>
+      <color-sample item-right
+                    [color]="type.color"></color-sample>
+      <ion-input placeholder="Event title"
+                 [(ngModel)]="type.title"
+                 name="title"></ion-input>
+    </ion-item>
 
-    </ion-list>
+    <ion-item *ngFor="let input of inputs">
+      <button item-right
+              type="button"
+              (click)="removeInput(input)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
 
-    <button padding ion-button [disabled]="!type.title" type="submit">Save</button>
-    <button padding ion-button (click)="close()" type="reset">Cancel</button>
+      <ion-input placeholder="title"
+                 [(ngModel)]="input.title"
+                 name="{{input.title}}Title"></ion-input>
+      <ion-label fixed>
+        <ion-icon [name]="getInputIcon(input)"></ion-icon>
+      </ion-label>
+    </ion-item>
 
-  </form>
+  </ion-list>
 
-  <!--adding new inputs-->
-  <button *ngFor="let inputType of availableInputs"
-          (click)="addInput(inputType)"
+  <button padding
           ion-button
-          icon-only
-          small
-          color="light" >
-    <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
-    {{inputTypeDetails[inputType].addTitle}}
+          [disabled]="!type.title"
+          type="submit">Save
+  </button>
+  <button padding
+          ion-button
+          (click)="close()"
+          type="reset">Cancel
   </button>
 
-</div>
+</form>
+
+<!--adding new inputs-->
+<button *ngFor="let inputType of availableInputs"
+        (click)="addInput(inputType)"
+        ion-button
+        icon-only
+        small
+        color="light">
+  <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
+  {{inputTypeDetails[inputType].addTitle}}
+</button>
+
