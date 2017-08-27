@@ -22,7 +22,7 @@ export class EventTypeEditor implements OnChanges {
   }
 
   get formValid(): boolean {
-    return !!this.type.title && this.inputs.every((input) => !!input.title)
+    return !!this.type.title && this.inputs.every((input) => !!input.title);
   }
 
   ngOnChanges() {
@@ -35,7 +35,6 @@ export class EventTypeEditor implements OnChanges {
   }
 
   saveType() {
-    this.type.color = this.type.color || this.getColor();
     this.type.inputs = this.inputs;
     this.typeService.saveType(this.type);
     this.close();
@@ -58,16 +57,6 @@ export class EventTypeEditor implements OnChanges {
 
   getInputPlaceholder(input: EventInput) {
     return this.inputTypeDetails[input.inputKind].placeholder;
-  }
-
-  private getColor() {
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-
-    return color;
   }
 
   private getTypeDetails(inputType: INPUTS) {

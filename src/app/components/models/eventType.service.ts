@@ -3,6 +3,16 @@ import * as _ from 'lodash';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 
+export function getColor() {
+  let letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+
+  return color;
+}
+
 export enum INPUTS { Time, Story }
 
 export const INPUT_TYPES = [INPUTS.Time, INPUTS.Story];
@@ -26,8 +36,11 @@ export class EventType {
 
   _id: number;
 
-  constructor(params = {}) {
+  constructor(params:any = {}) {
     _.merge(this, params);
+    if (!params.color) {
+      this.color = getColor();
+    }
     this._id = Date.now();
   }
 

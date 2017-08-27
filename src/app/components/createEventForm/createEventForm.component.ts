@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore} from '../models/calendar.store';
 import {NavController} from 'ionic-angular';
-import {EventTypeService, EventType, EventInput} from '../models/eventType.service';
+import {EventTypeService, EventType, EventInput, INPUTS} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 import {CurrentCalendarViewService} from '../models/currentClendarView.service';
@@ -63,4 +63,10 @@ export class CreateEventFormComponent implements OnInit {
     this.eventInputs = type.inputs.map((input: EventInput) => _.assign({}, input, {value: ''}));
   }
 
+  isTimeInput(input: EventInput) {
+    return input.inputKind === INPUTS.Time;
+  }
+  isStoryInput(input: EventInput) {
+    return input.inputKind === INPUTS.Story;
+  }
 }
