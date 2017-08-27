@@ -1,4 +1,13 @@
-<h4 ion-text>Types:</h4>
+<h4 ion-text>Types:
+  <button class="add-btn"
+          (click)="addNewEventType()"
+          ion-button
+          icon-only
+          float-right
+          clear>
+    <ion-icon name="add"></ion-icon>
+  </button>
+</h4>
 <ion-list>
   <div ion-item
        *ngFor="let type of types"

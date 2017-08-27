@@ -8,6 +8,7 @@ import {EventTypeService, EventType} from '../models/eventType.service';
 export class EventTypeList implements OnInit {
 
   @Output() onTypeSelect = new EventEmitter<EventType>();
+  @Output() onAddNewClick = new EventEmitter<EventType>();
   types: EventType[];
 
   constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
@@ -31,5 +32,9 @@ export class EventTypeList implements OnInit {
 
   removeType(type: EventType) {
     this.typeService.removeType(type.id);
+  }
+
+  addNewEventType() {
+    this.onAddNewClick.emit();
   }
 }
