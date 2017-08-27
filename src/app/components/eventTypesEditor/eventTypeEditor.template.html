@@ -3,11 +3,10 @@
 
 <h4 ion-text
     *ngIf="!creatingNew">Editing existent</h4>
-
 <form (ngSubmit)="saveType()">
-  <ion-list>
+  <ion-list class="inputs-list">
     <ion-item>
-      <color-sample item-right
+      <color-sample item-start
                     [color]="type.color"></color-sample>
       <ion-input placeholder="Event title"
                  [(ngModel)]="type.title"
@@ -15,25 +14,26 @@
     </ion-item>
 
     <ion-item *ngFor="let input of inputs">
-      <button item-right
-              type="button"
-              (click)="removeInput(input)">
-        <ion-icon name="trash"></ion-icon>
-      </button>
 
-      <ion-input placeholder="title"
+      <ion-icon class="trash-btn"
+                name="trash"
+                item-end
+                (click)="removeInput(input)"></ion-icon>
+
+      <ion-input [placeholder]="getInputPlaceholder(input)"
                  [(ngModel)]="input.title"
+                 required="true"
                  name="{{input.title}}Title"></ion-input>
-      <ion-label fixed>
-        <ion-icon [name]="getInputIcon(input)"></ion-icon>
-      </ion-label>
+      <ion-icon [name]="getInputIcon(input)"
+                item-start></ion-icon>
+
     </ion-item>
 
   </ion-list>
 
   <button padding
           ion-button
-          [disabled]="!type.title"
+          [disabled]="!formValid"
           type="submit">Save
   </button>
   <button padding
@@ -42,16 +42,19 @@
           type="reset">Cancel
   </button>
 
-</form>
 
-<!--adding new inputs-->
-<button *ngFor="let inputType of availableInputs"
-        (click)="addInput(inputType)"
-        ion-button
-        icon-only
-        small
-        color="light">
-  <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
-  {{inputTypeDetails[inputType].addTitle}}
-</button>
+  <div class="input-buttons">
+    <!--adding new inputs-->
+    <button *ngFor="let inputType of availableInputs"
+            (click)="addInput(inputType)"
+            class="addInput-btn"
+            color="secondary"
+            type='"button'
+            ion-button>
+      <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
+      {{inputTypeDetails[inputType].addTitle}}
+    </button>
+  </div>
+
+</form>
 

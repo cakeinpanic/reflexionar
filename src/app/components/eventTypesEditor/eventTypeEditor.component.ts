@@ -21,6 +21,10 @@ export class EventTypeEditor implements OnChanges {
     return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind));
   }
 
+  get formValid(): boolean {
+    return !!this.type.title && this.inputs.every((input) => !!input.title)
+  }
+
   ngOnChanges() {
     this.creatingNew = !this.type.title;
     this.inputs = _.clone(this.type.inputs);
@@ -44,12 +48,16 @@ export class EventTypeEditor implements OnChanges {
   addInput(inputType: INPUTS) {
     this.inputs.push(new EventInput({
       inputKind: inputType,
-      title: this.inputTypeDetails[inputType].placeholder
+      title: ''
     }));
   }
 
   getInputIcon(input: EventInput) {
     return this.inputTypeDetails[input.inputKind].icon;
+  }
+
+  getInputPlaceholder(input: EventInput) {
+    return this.inputTypeDetails[input.inputKind].placeholder;
   }
 
   private getColor() {
