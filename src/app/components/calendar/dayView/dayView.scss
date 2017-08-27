@@ -1,57 +1,56 @@
 @import '../../../../theme/variables.scss';
 
-
 .day-container {
-  position: relative;
+    position: relative;
 }
 
 .day {
-  width: 90%;
-  height: 90%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 10%;
-  margin: 5%;
-  box-sizing: border-box;
-  cursor: pointer;
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10%;
+    margin: 5%;
+    box-sizing: border-box;
+    cursor: pointer;
 
-  &-background {
-    background: rgba(0, 0, 0, .04);
-  }
-  &-today {
-    background: rgba(0, 0, 0, .3);
-  }
-
-  &-anotherMonth {
-    background: rgba(0, 0, 0, .01);
-    .date {
-      opacity: .3;
+    &-background {
+        background: rgba(0, 0, 0, .04);
     }
-  }
-
-  &-small {
-    .date {
-      font-size: 9px;
+    &-today {
+        background: rgba(0, 0, 0, .3);
     }
-  }
+
+    &-anotherMonth {
+        background: rgba(0, 0, 0, .01);
+        .date {
+            opacity: .3;
+        }
+    }
+
+    &-small {
+        .date {
+            font-size: 9px;
+        }
+    }
 }
 
 .date {
-  font-family: inherit;
-  color: black;
-  font-size: 12px;
-  display: inline-block;
-  position: relative;
-  height: 0;
-  top: 5%;
-  left: 7%;
+    font-family: inherit;
+    color: black;
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+    height: 0;
+    top: 5%;
+    left: 7%;
 }
 
 .events {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 50px;
-  color: #ffba7d;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 50px;
+    color: #ffba7d;
 }

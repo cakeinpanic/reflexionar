@@ -1,43 +1,45 @@
 @import '../../../../theme/variables.scss';
 
 month-view {
-  width: 100%;
-  display: block;
-
-
-  .month {
-    margin-top: 13px;
-
-    &-yearView {
-      margin-top: 0;
-    }
-  }
-
-  .day-view {
-    display: inline-block;
-    width: 14.25%;
-    vertical-align: bottom;
-  }
-
-  .title-small {
-    text-align: right;
-    font-size: 1em;
-    margin: 5px 0;
-  }
-  .datesContainer {
     width: 100%;
-    &-yearView {
-      .day-view {
-        font-size: 8px;
+    display: block;
+
+    .month {
+        margin: 16px 0;
+
+        &-yearView {
+            margin-top: 0;
+        }
+    }
+
+    .monthTitle {
+        margin: 16px 0;
+    }
+    .day-view {
+        display: inline-block;
+        width: 14.25%;
+        vertical-align: bottom;
+    }
+
+    .title-small {
         text-align: right;
-      }
+        font-size: 1em;
+        margin: 5px 0;
     }
-  }
+    .datesContainer {
+        width: 100%;
+        &-yearView {
+            .day-view {
+                font-size: 8px;
+                text-align: right;
+            }
+        }
+    }
 
-  .week {
-    width: 100%;
-    padding: 0;
-    position: relative;
-  }
+    .week {
+        width: 100%;
+        padding: 0;
+        position: relative;
+    }
 
 }

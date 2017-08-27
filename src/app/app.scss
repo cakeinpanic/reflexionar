@@ -14,15 +14,16 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .header {
-  .toolbar-background {
-    background: none;
-    border: none;
-  }
+    .toolbar-background {
+        background: none;
+        border: none;
+    }
 }
+
 .content {
-  background: color($colors, background);
+    background: color($colors, background);
 }
 
 html {
-  font-size: 9px;
+    font-size: 9px;
 }
