@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {Content, NavController, NavParams} from 'ionic-angular';
+import {Content, NavController} from 'ionic-angular';
 import * as moment from 'moment';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
@@ -13,8 +13,7 @@ export class YearViewPage implements OnInit {
   @ViewChild(Content) content: Content;
 
   constructor(@Inject(NavController) public navController: NavController,
-              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-              @Inject(NavParams) private navParams: NavParams) {
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService) {
 
   }
 

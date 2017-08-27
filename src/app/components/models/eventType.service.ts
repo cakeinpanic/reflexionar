@@ -55,7 +55,7 @@ export class EventTypeService {
   }
 
   get updateStream(): Observable<void> {
-    return this.stream.asObservable()
+    return this.stream.asObservable();
   }
 
   saveType(type: EventType) {

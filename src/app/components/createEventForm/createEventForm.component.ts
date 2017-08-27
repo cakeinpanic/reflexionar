@@ -2,7 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore} from '../models/calendar.store';
-import {NavParams, NavController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {EventTypeService, EventType, EventInput} from '../models/eventType.service';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
@@ -26,8 +26,7 @@ export class CreateEventFormComponent implements OnInit {
   selectedType: EventType;
   eventTypesPage: any;
 
-  constructor(@Inject(NavParams) private navParams: NavParams,
-              @Inject(NavController) private navController: NavController,
+  constructor(@Inject(NavController) private navController: NavController,
               @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(EventTypeService) private typeService: EventTypeService,
               @Inject(CalendarStore) private calendarStore: CalendarStore) {

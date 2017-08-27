@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {EventType} from '../../app/components/models/eventType.service';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
 @Component({
@@ -10,8 +10,8 @@ import {CurrentCalendarViewService} from '../../app/components/models/currentCle
 export class EventEditorPage implements OnInit {
   editingType: EventType;
 
-  constructor(@Inject(NavParams) private navParams: NavParams,
-              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
+  constructor(
+    @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
               @Inject(NavController) private navController: NavController) {
 
   }

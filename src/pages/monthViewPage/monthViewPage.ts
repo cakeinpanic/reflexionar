@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Content, NavController, NavParams} from 'ionic-angular';
+import {Content, NavController} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
@@ -17,8 +17,7 @@ export class MonthViewPage implements OnInit, OnDestroy {
 
 
   constructor(@Inject(NavController) private navController: NavController,
-              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-              @Inject(NavParams) private navParams: NavParams) {
+              @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService) {
   }
 
   ngOnInit() {
@@ -45,7 +44,7 @@ export class MonthViewPage implements OnInit, OnDestroy {
 
   showNext() {
     this.currentCalendarView.currentDate.add(1, 'year');
-    this.setMonths()
+    this.setMonths();
   }
 
   showPrev() {

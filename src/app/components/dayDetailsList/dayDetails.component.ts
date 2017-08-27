@@ -38,7 +38,7 @@ export class DayDetails implements OnInit {
       .filter((timestamp) => timestamp === dayId)
       .subscribe(() => {
         this.events = this.calendarStore.getEventsById(dayId);
-      })
+      });
   }
 
   removeEvent(event: DayEvent) {

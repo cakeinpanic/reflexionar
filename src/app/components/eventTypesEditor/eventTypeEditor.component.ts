@@ -18,7 +18,7 @@ export class EventTypeEditor implements OnChanges {
   }
 
   get availableInputs(): any[] {
-    return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind))
+    return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind));
   }
 
   ngOnChanges() {

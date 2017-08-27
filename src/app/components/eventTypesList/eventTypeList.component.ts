@@ -18,11 +18,11 @@ export class EventTypeList implements OnInit {
     this.updateTypes();
     this.typeService.updateStream.subscribe(() => {
       this.updateTypes();
-    })
+    });
   }
 
   edit(type: EventType) {
-    this.onTypeSelect.emit(type)
+    this.onTypeSelect.emit(type);
   }
 
   updateTypes() {
