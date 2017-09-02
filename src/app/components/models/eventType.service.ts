@@ -88,6 +88,10 @@ export class EventTypeService {
         return this.types;
     }
     
+    getTypeByID(id: number): EventType {
+        return _.find(this.types, {id});
+    }
+    
     removeType(typeId: number) {
         _.remove(this.types, {id: typeId});
         this.stream.next();

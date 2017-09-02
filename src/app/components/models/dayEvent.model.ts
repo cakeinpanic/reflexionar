@@ -3,13 +3,15 @@ import * as _ from 'lodash';
 
 export class DayEvent {
     id: number;
-    type: EventType;
+    private type: EventType;
     
     private data: { [key: string]: string } = {};
     
-    constructor(type: EventType) {
+    constructor(type: EventType, override: any = {}) {
         this.id = Date.now();
         this.type = type;
+        this.id = override.id || this.id;
+        this.data = override.data || this.data;
         this.makeDataFields();
     }
     
@@ -36,6 +38,7 @@ export class DayEvent {
             data: this.data
         }
     }
+    
     private hasThisInput(inputKind: INPUTS): boolean {
         if (_.isNil(this.data[inputKind])) {
             throw new Error(`no field ${inputKind} in event ${this.type}`);
