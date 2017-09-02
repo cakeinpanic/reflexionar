@@ -32,13 +32,20 @@ export class DayDetails implements OnInit {
     ngOnInit() {
         const dayId = this.calendarStore.getDateId(this.date);
         
-        this.events = this.calendarStore.getEventsById(dayId);
+        this.getEvents(dayId);
         
         this.calendarStore.eventStream
             .filter((timestamp) => timestamp === dayId)
             .subscribe(() => {
-                this.events = this.calendarStore.getEventsById(dayId);
+                this.getEvents(dayId);
             });
+    }
+    
+    
+    private getEvents(dayId) {
+        this.calendarStore.getEventsById(dayId).then((data)=>{
+            this.events = data;
+        });
     }
     
     removeEvent(event: DayEvent) {

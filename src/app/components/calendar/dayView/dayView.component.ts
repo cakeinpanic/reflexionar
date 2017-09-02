@@ -42,16 +42,21 @@ export class DayView implements OnInit {
     updateEvents() {
         if (!this.yearView) {
             const dayId = this.calendarStore.getDateId(this.date);
-            
-            this.events = this.calendarStore.getEventsById(dayId);
+            this.getEvents(dayId);
             
             this.calendarStore.eventStream
                 .filter((timestamp) => timestamp === dayId)
                 .subscribe(() => {
-                    this.events = this.calendarStore.getEventsById(dayId);
+                    this.getEvents(dayId);
                 });
         }
         
+    }
+    
+    private getEvents(dayId) {
+        this.calendarStore.getEventsById(dayId).then((data) => {
+            this.events = data;
+        });
     }
     
     private setToday() {

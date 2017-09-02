@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 export class DayEvent {
     id: number;
-    private type: EventType;
+    type: EventType;
     
     private data: { [key: string]: string } = {};
     
@@ -29,6 +29,13 @@ export class DayEvent {
         }
     }
     
+    get dataAsJSON() {
+        return {
+            id: this.id,
+            typeId: this.type.id,
+            data: this.data
+        }
+    }
     private hasThisInput(inputKind: INPUTS): boolean {
         if (_.isNil(this.data[inputKind])) {
             throw new Error(`no field ${inputKind} in event ${this.type}`);

@@ -16,11 +16,11 @@ export class CalendarStore {
         return this.stream.asObservable();
     }
     
-    getEventsById(dateId: number): DayEvent[] {
-        return this.store[dateId] || [];
+    getEventsById(dateId: number): Promise<DayEvent[]> {
+        return Promise.resolve(this.store[dateId] || []);
     }
     
-    getEventsByDate(date: any): DayEvent[] {
+    getEventsByDate(date: any): Promise<DayEvent[]> {
         const dateId = this.getDateId(date);
         return this.getEventsById(dateId);
     }
