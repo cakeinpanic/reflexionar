@@ -13,6 +13,7 @@ import {MonthViewModule} from './components/calendar/calendar.module';
 import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.component';
 import {EventTypeList} from './components/eventTypesList/eventTypeList.component';
 import {CurrentCalendarViewService} from './components/models/currentClendarView.service';
+import {IonicStorageModule} from '@ionic/Storage';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {CurrentCalendarViewService} from './components/models/currentClendarView
     imports: [
         BrowserModule,
         MonthViewModule,
+        IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp)
     ],
     bootstrap: [IonicApp],

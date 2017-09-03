@@ -29,7 +29,7 @@ export class EventTypeList implements OnInit {
     updateTypes() {
         this.typeService.getAllTypes().then(types => {
             this.types = types;
-        })
+        });
     }
     
     removeType(type: EventType) {

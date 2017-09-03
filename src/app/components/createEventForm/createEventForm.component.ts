@@ -31,16 +31,17 @@ export class CreateEventFormComponent implements OnInit {
                 @Inject(EventTypeService) private typeService: EventTypeService,
                 @Inject(CalendarStore) private calendarStore: CalendarStore) {
         this.eventTypesPage = EventEditorPage;
-    }
-    
-    ngOnInit() {
-        this.date = this.currentCalendarView.currentDate;
-        this.updateEvents();
         this.navController.viewWillEnter
             .filter(({component}) => component === DayViewPage)
             .subscribe(() => {
                 this.updateEvents();
             });
+    }
+    
+    ngOnInit() {
+        this.date = this.currentCalendarView.currentDate;
+        //this.updateEvents();
+       
     }
     
     private updateEvents() {

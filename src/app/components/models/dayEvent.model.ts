@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 
 export interface  DayEventData {
     id: number;
-    data:  { [key: string]: string },
-    typeId: number
+    data:  { [key: string]: string };
+    typeId: number;
 }
 export class DayEvent {
     id: number;
@@ -41,7 +41,7 @@ export class DayEvent {
             id: this.id,
             typeId: this.type.id,
             data: this.data
-        }
+        };
     }
     
     private hasThisInput(inputKind: INPUTS): boolean {
