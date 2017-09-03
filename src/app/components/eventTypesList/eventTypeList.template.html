@@ -16,7 +16,7 @@
     <ion-icon class="trash-btn"
               name="trash"
               item-end
-              (click)="removeType(type)"></ion-icon>
+              (click)="removeType($event, type)"></ion-icon>
     <color-sample item-start
                   [color]="type.color"></color-sample>
   </div>

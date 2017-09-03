@@ -139,7 +139,7 @@ export class EventTypeService {
     }
     
     removeType(typeId: number) {
-        this.storage.remove(`event${typeId}`)
+        this.storage.remove(`type${typeId}`)
             .then(() => this.sendNext());
         
     }

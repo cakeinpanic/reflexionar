@@ -51,9 +51,9 @@ export class CalendarStore {
         
         this.storage.get(`event${dateId}`).then(data => {
                 if (data) {
-                    return this.storage.set(`event${dateId}`, data.concat(eventAsJSON))
+                    return this.storage.set(`event${dateId}`, data.concat(eventAsJSON));
                 } else {
-                    return this.storage.set(`event${dateId}`, [eventAsJSON])
+                    return this.storage.set(`event${dateId}`, [eventAsJSON]);
                 }
                 
             })

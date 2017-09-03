@@ -40,7 +40,7 @@ export class DayView implements OnInit {
     }
     
     updateEvents() {
-        if (!this.yearView) {
+        if (!this.yearView && !this.notThisMonth) {
             const dayId = this.calendarStore.getDateId(this.date);
             this.getEvents(dayId);
             

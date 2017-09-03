@@ -32,7 +32,8 @@ export class EventTypeList implements OnInit {
         });
     }
     
-    removeType(type: EventType) {
+    removeType(event: MouseEvent, type: EventType) {
+        event.stopPropagation();
         this.typeService.removeType(type.id);
     }
     
