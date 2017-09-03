@@ -18,7 +18,7 @@ interface IEventInputAndValue extends EventInput {
     templateUrl: './createEventForm.template.html'
 })
 export class CreateEventFormComponent implements OnInit {
-    types: EventType[];
+    types: EventType[] = [];
     date: moment.Moment;
     
     eventInputs: IEventInputAndValue[];
@@ -44,9 +44,12 @@ export class CreateEventFormComponent implements OnInit {
     }
     
     private updateEvents() {
-        this.types = this.typeService.getAllTypes();
-        this.selectedType = this.types[0];
-        this.makeInputs();
+        this.typeService.getAllTypes().then((types) => {
+            this.types = types;
+            this.selectedType = this.types[0];
+            this.makeInputs();
+        });
+        
     }
     
     addEvent() {

@@ -1,10 +1,10 @@
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import {DayEvent} from './dayEvent.model';
+import {DayEvent, DayEventData} from './dayEvent.model';
 import {Inject, Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Observable} from 'rxjs/Observable';
-import {EventTypeService} from './eventType.service';
+import {EventType, EventTypeService} from './eventType.service';
 
 @Injectable()
 export class CalendarStore {
@@ -24,7 +24,7 @@ export class CalendarStore {
     getEventsById(dateId: number): Promise<DayEvent[]> {
         return Promise.resolve(
             this.store[dateId]
-                ? this.store[dateId].map((event) => this.dayEventFromJSON(event))
+                ? Promise.all(this.store[dateId].map((event) => this.dayEventFromJSON(event)))
                 : []
         );
     }
@@ -53,8 +53,9 @@ export class CalendarStore {
         return moment(date).hours(0).minutes(0).seconds(0).milliseconds(0).valueOf();
     }
     
-    private dayEventFromJSON(json: any) {
-        const type = this.typeService.getTypeByID(json.typeId);
-        return new DayEvent(type, json);
+    private dayEventFromJSON(json: DayEventData): Promise<DayEvent> {
+        return this.typeService.getTypeByID(json.typeId).then((type: EventType) => {
+            return new DayEvent(type, json);
+        });
     }
 }

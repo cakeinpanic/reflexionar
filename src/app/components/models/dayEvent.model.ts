@@ -1,6 +1,11 @@
 import {EventType, EventInput, INPUTS} from './eventType.service';
 import * as _ from 'lodash';
 
+export interface  DayEventData {
+    id: number;
+    data:  { [key: string]: string },
+    typeId: number
+}
 export class DayEvent {
     id: number;
     private type: EventType;

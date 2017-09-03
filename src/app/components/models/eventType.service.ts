@@ -61,10 +61,10 @@ export class EventTypeService {
             new EventInput({inputKind: INPUTS.Time, title: 'Time'}),
             new EventInput({inputKind: INPUTS.Story, title: 'Distance'})
         );
-        
-        this.saveType(new EventType({title: 'Saw airplane', color: '#0caa37'}))
-            .inputs.push(new EventInput({inputKind: INPUTS.Time, title: 'When'}));
-        
+        //
+        // this.saveType(new EventType({title: 'Saw airplane', color: '#0caa37'}))
+        //     .inputs.push(new EventInput({inputKind: INPUTS.Time, title: 'When'}));
+        //
     }
     
     get updateStream(): Observable<void> {
@@ -72,7 +72,7 @@ export class EventTypeService {
     }
     
     saveType(type: EventType) {
-        let existingType = _.find(this.types, {title: type.title});
+        let existingType = _.find(this.types, {id: type.id});
         
         if (!existingType) {
             this.types.push(type);
@@ -84,12 +84,12 @@ export class EventTypeService {
         return existingType || type;
     }
     
-    getAllTypes(): EventType[] {
-        return this.types;
+    getAllTypes(): Promise<EventType[]> {
+        return Promise.resolve(this.types);
     }
     
-    getTypeByID(id: number): EventType {
-        return _.find(this.types, {id});
+    getTypeByID(id: number): Promise<EventType> {
+        return Promise.resolve(_.find(this.types, {id}));
     }
     
     removeType(typeId: number) {
