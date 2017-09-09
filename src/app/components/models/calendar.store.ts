@@ -26,7 +26,11 @@ export class CalendarStore {
         return this.storage.get(`event${dateId}`)
             .then(data => {
                     if (data) {
-                        return Promise.all(data.map((event) => this.dayEventFromJSON(event)));
+                        return Promise.all(data
+                            .map((event) => this.dayEventFromJSON(event)))
+                            .then((events) => {
+                                return events.filter(e => !!e);
+                            });
                     }
                     return [];
                 }
@@ -69,6 +73,8 @@ export class CalendarStore {
         return this.typeService.getTypeByID(json.typeId)
             .then((type: EventType) => {
                 return new DayEvent(type, json);
+            }).catch(() => {
+                return null;
             });
     }
     
