@@ -9,13 +9,36 @@ import {Storage} from '@ionic/Storage';
 
 @Injectable()
 export class CalendarStore {
-    types: string[];
     
+    private store: { [key: string]: DayEvent[] } = {};
     private stream = new Subject<number>();
+    
+    private affectedIds: number[] = [];
     
     constructor(@Inject(EventTypeService) private typeService: EventTypeService,
                 @Inject(Storage) private storage: Storage) {
-        
+    }
+    
+    init(): Promise<any> {
+        return this.getAllFromStore()
+            .then(() => {
+                console.log(this.store);
+                this.affectedIds.length = 0;
+            });
+    }
+    
+    syncData(): Promise<any> {
+        return Promise.all(
+            this.affectedIds.map((id) => {
+                const key = this.getKeyFromId(id);
+                if (this.store[id]) {
+                    return this.storage.set(key, this.store[id].map((event) => event.dataAsJSON));
+                }
+                return this.storage.remove(key);
+            }))
+            .then(() => {
+                this.affectedIds.length = 0;
+            });
     }
     
     get eventStream(): Observable<number> {
@@ -23,45 +46,34 @@ export class CalendarStore {
     }
     
     getEventsById(dateId: number): Promise<DayEvent[]> {
-        return this.storage.get(`event${dateId}`)
-            .then(data => {
-                    if (data) {
-                        return Promise.all(data
-                            .map((event) => this.dayEventFromJSON(event)))
-                            .then((events) => {
-                                return events.filter(e => !!e);
-                            });
-                    }
-                    return [];
-                }
-            );
+        return Promise.resolve(
+            this.store[dateId]
+                ? this.store[dateId]
+                : []
+        );
     }
     
     removeEvent(date: moment.Moment, eventToDelete: DayEvent) {
         const dateId = this.getDateId(date);
-        this.storage.get(`event${dateId}`).then(data => {
-            _.remove(data, {id: eventToDelete.id});
-            this.storage.set(`event${dateId}`, data)
-                .then(() => this.sendNext(dateId));
-            
-        });
+        this.affectedIds.push(dateId);
+        _.remove(this.store[dateId], {id: eventToDelete.id});
         
+        this.sendNext(dateId);
+        this.syncData();
     }
     
     addEvent(date: any, event: DayEvent) {
-        
         const dateId = this.getDateId(date);
-        let eventAsJSON = event.dataAsJSON;
+        this.affectedIds.push(dateId);
         
-        this.storage.get(`event${dateId}`).then(data => {
-                if (data) {
-                    return this.storage.set(`event${dateId}`, data.concat(eventAsJSON));
-                } else {
-                    return this.storage.set(`event${dateId}`, [eventAsJSON]);
-                }
-                
-            })
-            .then(() => this.sendNext(dateId));
+        if (this.store[dateId]) {
+            this.store[dateId].push(event);
+        } else {
+            this.store[dateId] = [event];
+        }
+        
+        this.syncData();
+        this.sendNext(dateId);
         
     }
     
@@ -75,7 +87,24 @@ export class CalendarStore {
             .forEach((key) => {
                 this.storage.remove(key);
             })
-        )
+        );
+    }
+    
+    private getAllFromStore(): Promise<any> {
+        return this.storage.keys()
+            .then(keys => keys.filter((key) => key.indexOf('event') > -1))
+            .then(keys => Promise.all(keys.map((key) => this.getDataFromStorageByKey(key))));
+    }
+    
+    private getDataFromStorageByKey(key: string): Promise<DayEvent[]> {
+        let dayId = this.getDateFormKey(key);
+        return this.storage.get(key)
+            .then((dayEventsData) => {
+                return Promise.all(dayEventsData.map(json => this.dayEventFromJSON(json)));
+            })
+            .then((events: DayEvent[]) => {
+                return this.store[dayId] = events;
+            });
     }
     
     private dayEventFromJSON(json: DayEventData): Promise<DayEvent> {
@@ -90,4 +119,13 @@ export class CalendarStore {
     private sendNext(dateId) {
         this.stream.next(dateId);
     }
+    
+    private getDateFormKey(key: string): string {
+        return /event(\d+)/.exec(key)[1];
+    }
+    
+    private getKeyFromId(id: number): string {
+        return `event${id}`;
+    }
+    
 }
