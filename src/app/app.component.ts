@@ -5,7 +5,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoadingController} from 'ionic-angular';
 
 import {YearViewPage} from '../pages/yearViewPage/yearViewPage';
-import {MonthViewPage} from '../pages/monthViewPage/monthViewPage';
 import {CalendarStore} from './components/models/calendar.store';
 import {EventTypeService} from './components/models/eventType.service';
 
@@ -37,10 +36,14 @@ export class MyApp {
         });
         
         loading.present();
-        this.calendarStore.init().then(() => {
-            this.dataLoaded = true;
-            loading.dismiss();
-        });
+        
+        // order is IMPORTANT, TYPES FIRST
+        this.eventTypeService.init()
+            .then(() => this.calendarStore.init())
+            .then(() => {
+                this.dataLoaded = true;
+                loading.dismiss();
+            });
         
     }
     

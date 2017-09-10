@@ -73,6 +73,7 @@ export class EventType {
 export class EventTypeService {
     
     private stream = new Subject<void>();
+    private types: EventType[] = [];
     
     constructor(@Inject(Storage) private storage: Storage) {
         // this.storage.clear();
@@ -89,48 +90,36 @@ export class EventTypeService {
         //
     }
     
+    init(): Promise<any> {
+        return this.getAllDataFromStore().then(()=>{
+            console.log(this.types);
+        });
+    }
+    
     get updateStream(): Observable<void> {
         return this.stream.asObservable();
     }
     
-    saveType(type: EventType): Promise<EventType> {
-        return this.storage.get(`type${type.id}`).then(typeasJSON => {
-            if (!typeasJSON) {
-                this.storage.set(`type${type.id}`, type.getDataAsJSON())
-                    .then(() => this.sendNext());
-                return type;
-                
-            }
-            let updatedType = new EventType(typeasJSON);
-            _.merge(updatedType, type);
-            
-            this.storage.set(`type${type.id}`, updatedType.getDataAsJSON())
-                .then(() => this.sendNext());
-            
-            return updatedType;
-        });
-        
-    }
-    
-    getAllTypes(): Promise<EventType[]> {
-        return this.storage.keys()
-            .then(keys => {
-                return Promise.all(
-                    keys.filter(key => key.indexOf('type') > -1)
-                        .map((key) => {
-                            const id = /type(\d+)/.exec(key)[1];
-                            
-                            return this.getTypeByID(+id);
-                        }));
+    syncData(): Promise<any> {
+        return this.clearAllTypesFromStorage()
+            .then(() => {
+                return Promise.all(this.types.map((type) => this.storage.set(`` + type.id, type.getDataAsJSON)));
             });
     }
     
-    getTypeByID(id: number): Promise<EventType> {
-        return this.storage.get(`type${id}`).then(data => {
+    private getAllDataFromStore(): Promise<EventType[]> {
+        return this.getAllStorageKeys()
+            .then((keys) =>
+                Promise.all(keys.map(key => this.getTypeFromStorage(key)))
+            );
+    }
+    
+    private getTypeFromStorage(key: string): Promise<EventType> {
+        return this.storage.get(key).then(data => {
             if (!data) {
                 return null;
             }
-            return new EventType(data);
+            this.types.push(new EventType(data));
         });
     }
     
@@ -138,10 +127,46 @@ export class EventTypeService {
         this.stream.next();
     }
     
-    removeType(typeId: number) {
-        this.storage.remove(`type${typeId}`)
-            .then(() => this.sendNext());
-        
+    clearAllTypesFromStorage(): Promise<any> {
+        return this.getAllStorageKeys()
+            .then((keys) => Promise.all(keys.map(key => this.storage.remove(key))));
     }
     
+    saveType(type: EventType) {
+        let existingType = _.find(this.types, {id: type.id});
+        
+        if (!existingType) {
+            this.types.push(type);
+        } else {
+            _.merge(existingType, type);
+        }
+        
+        this.syncData();
+        this.stream.next();
+        return existingType || type;
+    }
+    
+    getAllTypes(): Promise<EventType[]> {
+        return Promise.resolve(this.types);
+    }
+    
+    getTypeByID(id: number): Promise<EventType> {
+        return Promise.resolve(_.find(this.types, {id}));
+    }
+    
+    removeType(typeId: number) {
+        _.remove(this.types, {id: typeId});
+        
+        this.syncData();
+        this.stream.next();
+    }
+    
+    private getEventIdFromKey(key: string): string {
+        return /type(\d+)/.exec(key)[1];
+    }
+    
+    private getAllStorageKeys(): Promise<string[]> {
+        return this.storage.keys()
+            .then(keys => keys.filter(key => key.indexOf('type') > -1));
+    }
 }
