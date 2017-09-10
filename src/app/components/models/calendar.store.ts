@@ -69,6 +69,15 @@ export class CalendarStore {
         return moment(date).hours(0).minutes(0).seconds(0).milliseconds(0).valueOf();
     }
     
+    clearAll() {
+        this.storage.keys().then(keys => keys
+            .filter((key) => key.indexOf('event') > -1)
+            .forEach((key) => {
+                this.storage.remove(key);
+            })
+        )
+    }
+    
     private dayEventFromJSON(json: DayEventData): Promise<DayEvent> {
         return this.typeService.getTypeByID(json.typeId)
             .then((type: EventType) => {
