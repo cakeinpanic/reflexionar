@@ -6,7 +6,7 @@ import {LoadingController} from 'ionic-angular';
 
 import {YearViewPage} from '../pages/yearViewPage/yearViewPage';
 import {CalendarStore} from './components/models/calendar.store';
-import {EventTypeService} from './components/models/eventType.service';
+import {EventTypeStore} from './components/models/eventType.store';
 
 @Component({
     templateUrl: 'app.html'
@@ -19,7 +19,7 @@ export class MyApp {
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
                 public loading: LoadingController,
                 public calendarStore: CalendarStore,
-                public eventTypeService: EventTypeService) {
+                public eventTypeStore: EventTypeStore) {
         platform.ready()
             .then(() => this.updateData())
             .then(() => {
@@ -38,7 +38,7 @@ export class MyApp {
         loading.present();
         
         // order is IMPORTANT, TYPES FIRST
-        this.eventTypeService.init()
+        this.eventTypeStore.init()
             .then(() => this.calendarStore.init())
             .then(() => {
                 this.dataLoaded = true;

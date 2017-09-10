@@ -4,7 +4,7 @@ import {DayEvent, DayEventData} from './dayEvent.model';
 import {Inject, Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Observable} from 'rxjs/Observable';
-import {EventType, EventTypeService} from './eventType.service';
+import {EventType, EventTypeStore} from './eventType.store';
 import {Storage} from '@ionic/Storage';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CalendarStore {
     
     private affectedIds: number[] = [];
     
-    constructor(@Inject(EventTypeService) private typeService: EventTypeService,
+    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
                 @Inject(Storage) private storage: Storage) {
     }
     
@@ -108,7 +108,7 @@ export class CalendarStore {
     }
     
     private dayEventFromJSON(json: DayEventData): Promise<DayEvent> {
-        return this.typeService.getTypeByID(json.typeId)
+        return this.eventTypeStore.getTypeByID(json.typeId)
             .then((type: EventType) => {
                 return new DayEvent(type, json);
             }).catch(() => {

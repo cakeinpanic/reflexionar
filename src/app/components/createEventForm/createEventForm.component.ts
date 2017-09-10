@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore} from '../models/calendar.store';
 import {NavController} from 'ionic-angular';
-import {EventTypeService, EventType, EventInput, INPUTS} from '../models/eventType.service';
+import {EventTypeStore, EventType, EventInput, INPUTS} from '../models/eventType.store';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 import {CurrentCalendarViewService} from '../models/currentClendarView.service';
@@ -28,7 +28,7 @@ export class CreateEventFormComponent implements OnInit {
     
     constructor(@Inject(NavController) private navController: NavController,
                 @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-                @Inject(EventTypeService) private typeService: EventTypeService,
+                @Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
                 @Inject(CalendarStore) private calendarStore: CalendarStore) {
         this.eventTypesPage = EventEditorPage;
         this.navController.viewWillEnter
@@ -45,7 +45,7 @@ export class CreateEventFormComponent implements OnInit {
     }
     
     private updateEvents() {
-        this.typeService.getAllTypes().then((types) => {
+        this.eventTypeStore.getAllTypes().then((types) => {
             this.types = types;
             this.selectedType = this.types[0];
             this.makeInputs();

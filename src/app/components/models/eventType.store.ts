@@ -70,7 +70,7 @@ export class EventType {
 }
 
 @Injectable()
-export class EventTypeService {
+export class EventTypeStore {
     
     private stream = new Subject<void>();
     private types: EventType[] = [];
@@ -142,7 +142,7 @@ export class EventTypeService {
         }
         
         this.syncData();
-        this.stream.next();
+        this.sendNext();
         return existingType || type;
     }
     
@@ -158,11 +158,7 @@ export class EventTypeService {
         _.remove(this.types, {id: typeId});
         
         this.syncData();
-        this.stream.next();
-    }
-    
-    private getEventIdFromKey(key: string): string {
-        return /type(\d+)/.exec(key)[1];
+        this.sendNext();
     }
     
     private getAllStorageKeys(): Promise<string[]> {

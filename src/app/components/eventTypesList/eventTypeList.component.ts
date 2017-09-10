@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
-import {EventTypeService, EventType} from '../models/eventType.service';
+import {EventTypeStore, EventType} from '../models/eventType.store';
 
 @Component({
     selector: 'event-type-list',
@@ -11,13 +11,13 @@ export class EventTypeList implements OnInit {
     @Output() onAddNewClick = new EventEmitter<EventType>();
     types: EventType[];
     
-    constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
+    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore) {
     
     }
     
     ngOnInit() {
         this.updateTypes();
-        this.typeService.updateStream.subscribe(() => {
+        this.eventTypeStore.updateStream.subscribe(() => {
             this.updateTypes();
         });
     }
@@ -27,14 +27,14 @@ export class EventTypeList implements OnInit {
     }
     
     updateTypes() {
-        this.typeService.getAllTypes().then(types => {
+        this.eventTypeStore.getAllTypes().then(types => {
             this.types = types;
         });
     }
     
     removeType(event: MouseEvent, type: EventType) {
         event.stopPropagation();
-        this.typeService.removeType(type.id);
+        this.eventTypeStore.removeType(type.id);
     }
     
     addNewEventType() {

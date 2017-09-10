@@ -1,5 +1,5 @@
 import {Component, Inject, Input, Output, EventEmitter, OnChanges} from '@angular/core';
-import {EventTypeService, EventType, INPUTS, EventInput, INPUT_TYPES} from '../models/eventType.service';
+import {EventTypeStore, EventType, INPUTS, EventInput, INPUT_TYPES} from '../models/eventType.store';
 import * as _ from 'lodash';
 
 @Component({
@@ -14,7 +14,7 @@ export class EventTypeEditor implements OnChanges {
     inputs: EventInput[];
     inputTypeDetails = INPUT_TYPES.map((inputType) => this.getTypeDetails(inputType));
     
-    constructor(@Inject(EventTypeService) private typeService: EventTypeService) {
+    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore) {
     }
     
     get availableInputs(): any[] {
@@ -36,7 +36,7 @@ export class EventTypeEditor implements OnChanges {
     
     saveType() {
         this.type.inputs = this.inputs;
-        this.typeService.saveType(this.type);
+        this.eventTypeStore.saveType(this.type);
         this.close();
     }
     

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {EventType} from '../../app/components/models/eventType.service';
+import {EventType} from '../../app/components/models/eventType.store';
 import {NavController} from 'ionic-angular';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 

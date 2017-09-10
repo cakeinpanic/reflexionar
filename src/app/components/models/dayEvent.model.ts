@@ -1,4 +1,4 @@
-import {EventType, EventInput, INPUTS} from './eventType.service';
+import {EventType, EventInput, INPUTS} from './eventType.store';
 import * as _ from 'lodash';
 
 export interface  DayEventData {

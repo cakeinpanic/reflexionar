@@ -5,7 +5,7 @@ import {IonicModule} from 'ionic-angular';
 import {DayView} from './dayView/dayView.component';
 import {CalendarStore} from '../models/calendar.store';
 import {DayDetails} from '../dayDetailsList/dayDetails.component';
-import {EventTypeService} from '../models/eventType.service';
+import {EventTypeStore} from '../models/eventType.store';
 import {ColorSample} from '../colorSample/colorSample.component';
 import {CreateEventFormComponent} from '../createEventForm/createEventForm.component';
 import {YearViewComponent} from './yearView/yearView.component';
@@ -32,7 +32,7 @@ import {YearViewComponent} from './yearView/yearView.component';
     ],
     providers: [
         CalendarStore,
-        EventTypeService
+        EventTypeStore
     ]
 })
 export class MonthViewModule {

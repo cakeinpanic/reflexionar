@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject, Input} from '@angular/core';
 import * as moment from 'moment';
 import {CalendarStore} from '../models/calendar.store';
-import {EventType, EventInput} from '../models/eventType.service';
+import {EventType, EventInput} from '../models/eventType.store';
 import {DayEvent} from '../models/dayEvent.model';
 import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 
