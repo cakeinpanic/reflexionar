@@ -25,6 +25,10 @@ export class EventTypeEditor implements OnChanges {
         return !!this.type.title && this.inputs.every((input) => !!input.title);
     }
     
+    changeColor(newColor: string) {
+        this.type.color = newColor;
+    }
+    
     ngOnChanges() {
         this.creatingNew = !this.type.title;
         this.inputs = _.clone(this.type.inputs);

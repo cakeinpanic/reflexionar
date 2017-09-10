@@ -1,0 +1,6 @@
+<div class="colors-container">
+    <color-sample *ngFor='let color of colors'
+                  (click)="select(color)"
+                  [popover]="true"
+                  [color]="color"></color-sample>
+</div>

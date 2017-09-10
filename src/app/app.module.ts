@@ -9,11 +9,13 @@ import {YearViewPage} from '../pages/yearViewPage/yearViewPage';
 import {DayViewPage} from '../pages/dayViewPage/dayViewPage';
 import {EventEditorPage} from '../pages/eventEditorPage/eventEditorPage';
 
-import {MonthViewModule} from './components/calendar/calendar.module';
+import {CalendarModule} from './components/calendar/calendar.module';
 import {EventTypeEditor} from './components/eventTypesEditor/eventTypeEditor.component';
 import {EventTypeList} from './components/eventTypesList/eventTypeList.component';
 import {CurrentCalendarViewService} from './components/models/currentClendarView.service';
 import {IonicStorageModule} from '@ionic/Storage';
+import {ColorpickerPopoverComponent} from './components/colorSample/colorpickerPopover.component';
+import {ColorSampleModule} from './components/colorSample/colorSample.module';
 
 @NgModule({
     declarations: [
@@ -24,11 +26,11 @@ import {IonicStorageModule} from '@ionic/Storage';
         EventEditorPage,
         EventTypeEditor,
         EventTypeList
-    
     ],
     imports: [
         BrowserModule,
-        MonthViewModule,
+        CalendarModule,
+        ColorSampleModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp)
     ],
@@ -40,7 +42,8 @@ import {IonicStorageModule} from '@ionic/Storage';
         DayViewPage,
         EventEditorPage,
         EventTypeEditor,
-        EventTypeList
+        EventTypeList,
+        ColorpickerPopoverComponent
     ],
     providers: [
         CurrentCalendarViewService,

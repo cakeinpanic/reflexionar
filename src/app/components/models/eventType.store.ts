@@ -4,14 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Storage} from '@ionic/Storage';
 
+export const COLORS = [
+    '#092140', '#024959', '#F2C777', '#F24738', '#BF2A2A', '#FE938C',
+    '#FE938C', '#EAD2AC', '#E6B89C', '#4281A4', '#9CAFB7', '#CF4232',
+    '#EB7F23', '#FAC023', '#068675', '#6B202E'
+];
+
 export function getColor() {
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    
-    return color;
+    const index = Math.floor(Math.random() * COLORS.length);
+    console.log(index);
+    return COLORS[index];
 }
 
 export enum INPUTS { Time, Story }
