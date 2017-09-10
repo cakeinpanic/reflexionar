@@ -88,17 +88,21 @@ export class CalendarStore {
     }
     
     clearAll() {
-        this.storage.keys().then(keys => keys
-            .filter((key) => key.indexOf('event') > -1)
-            .forEach((key) => {
-                this.storage.remove(key);
-            })
-        );
+        this.getEventKeys()
+            .then(keys =>
+                keys.forEach((key) => {
+                    this.storage.remove(key);
+                })
+            );
+    }
+    
+    private getEventKeys(): Promise<string[]> {
+        return this.storage.keys()
+            .then(keys => keys.filter((key) => key.indexOf('event') > -1));
     }
     
     private getAllFromStore(): Promise<any> {
-        return this.storage.keys()
-            .then(keys => keys.filter((key) => key.indexOf('event') > -1))
+        return this.getEventKeys()
             .then(keys => Promise.all(keys.map((key) => this.getDataFromStorageByKey(key))));
     }
     

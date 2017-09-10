@@ -40,15 +40,16 @@ export class CreateEventFormComponent implements OnInit {
     
     ngOnInit() {
         this.date = this.currentCalendarView.currentDate;
-        //this.updateEvents();
        
     }
     
     private updateEvents() {
         this.eventTypeStore.getAllTypes().then((types) => {
             this.types = types;
-            this.selectedType = this.types[0];
-            this.makeInputs();
+            if (types.length > 0) {
+                this.selectedType = this.types[0];
+                this.makeInputs();
+            }
         });
         
     }

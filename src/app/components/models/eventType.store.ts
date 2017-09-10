@@ -60,7 +60,7 @@ export class EventType {
         return this._id;
     }
     
-    getDataAsJSON() {
+    get dataAsJSON() {
         return {
             id: this._id,
             title: this.title, color: this.color,
@@ -103,7 +103,8 @@ export class EventTypeStore {
     syncData(): Promise<any> {
         return this.clearAllTypesFromStorage()
             .then(() => {
-                return Promise.all(this.types.map((type) => this.storage.set(`` + type.id, type.getDataAsJSON)));
+                return Promise.all(this.types.map((type) =>
+                    this.storage.set(this.makeKeyFromId(type.id), type.dataAsJSON)));
             });
     }
     
@@ -164,5 +165,9 @@ export class EventTypeStore {
     private getAllStorageKeys(): Promise<string[]> {
         return this.storage.keys()
             .then(keys => keys.filter(key => key.indexOf('type') > -1));
+    }
+    
+    private makeKeyFromId(id: number): string {
+        return `type${id}`;
     }
 }
