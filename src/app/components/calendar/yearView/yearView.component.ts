@@ -12,7 +12,6 @@ export class YearViewComponent implements OnInit {
     currentYearName: string;
     
     ngOnInit() {
-        this.currentYearName = this.currentDate.format('YYYY');
         let counter = 0;
         this.monthRows = _.times(4, () => {
             return _.times(3, () => {

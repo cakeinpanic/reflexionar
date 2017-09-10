@@ -1,15 +1,31 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Reflexory
-    </ion-title>
-    <ion-buttons start>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Reflexory
+        </ion-title>
+        <ion-buttons start></ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="showPrev()">Previous year</button>
-  <month-view *ngFor="let month of months" [month]="month" [attr.month-number]="month.month()"></month-view>
-  <button ion-button (click)="showNext()">Next year</button>
+
+    <button ion-button
+            icon-only
+            clear
+            full
+            (click)="showPrev()">
+        <ion-icon ios="ios-arrow-dropup"
+                  md="md-arrow-dropup"></ion-icon>
+    </button>
+    <month-view *ngFor="let month of months"
+                [month]="month"
+                [attr.month-number]="month.month()"></month-view>
+    <button ion-button
+            icon-only
+            clear
+            full
+            (click)="showNext()">
+        <ion-icon ios="ios-arrow-dropdown"
+                  md="md-arrow-dropdown"></ion-icon>
+    </button>
 </ion-content>

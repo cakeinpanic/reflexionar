@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {Nav, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoadingController} from 'ionic-angular';
@@ -13,7 +13,7 @@ import {EventTypeStore} from './components/models/eventType.store';
 })
 export class MyApp {
     rootPage: any = YearViewPage;
-    @ViewChild(Nav) nav;
+    @ViewChild(Nav) nav: NavController;
     dataLoaded = false;
     
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
@@ -38,11 +38,12 @@ export class MyApp {
         loading.present();
         
         // order is IMPORTANT, TYPES FIRST
-        this.eventTypeStore.init()
+        return this.eventTypeStore.init()
             .then(() => this.calendarStore.init())
             .then(() => {
-                this.dataLoaded = true;
+                
                 loading.dismiss();
+                return this.dataLoaded = true;
             });
         
     }
