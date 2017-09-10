@@ -7,6 +7,7 @@ import {LoadingController} from 'ionic-angular';
 import {YearViewPage} from '../pages/yearViewPage/yearViewPage';
 import {CalendarStore} from './components/models/calendar.store';
 import {EventTypeStore} from './components/models/eventType.store';
+import {MonthViewPage} from '../pages/monthViewPage/monthViewPage';
 
 @Component({
     templateUrl: 'app.html'
@@ -27,6 +28,7 @@ export class MyApp {
                 // Here you can do any higher level native things you might need.
                 statusBar.styleDefault();
                 splashScreen.hide();
+                this.nav.push(MonthViewPage,{},{animate:false, duration: 0});
             });
     }
     

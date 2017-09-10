@@ -10,6 +10,8 @@ import {CurrentCalendarViewService} from '../../app/components/models/currentCle
 export class YearViewPage implements OnInit {
     years: moment.Moment[] = [];
     currentYearName: string;
+    
+    private currentYear: number;
     @ViewChild(Content) content: Content;
     
     constructor(@Inject(NavController) public navController: NavController,
@@ -28,8 +30,11 @@ export class YearViewPage implements OnInit {
     
     private setYear() {
         const year = this.currentCalendarView.currentDate.year();
-        this.currentYearName = this.currentCalendarView.currentDate.format('YYYY');
-        this.years = [moment().year(year)];
+        if (this.currentYear !== year) {
+            this.currentYear = year;
+            this.currentYearName = this.currentCalendarView.currentDate.format('YYYY');
+            this.years = [moment().year(year)];
+        }
     }
 }
 

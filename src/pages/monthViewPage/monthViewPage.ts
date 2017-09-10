@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 import {Subject} from 'rxjs/Subject';
+import {YearViewPage} from '../yearViewPage/yearViewPage';
 
 @Component({
     selector: 'month-view-page',
@@ -12,6 +13,7 @@ import {Subject} from 'rxjs/Subject';
 export class MonthViewPage implements OnInit, OnDestroy {
     months: moment.Moment[] = [];
     onDestroy = new Subject();
+    currentYear: number;
     
     @ViewChild(Content) content: Content;
     
@@ -33,8 +35,11 @@ export class MonthViewPage implements OnInit, OnDestroy {
             .takeUntil(this.onDestroy)
             .filter(({component}) => component === MonthViewPage)
             .subscribe(() => {
-                this.scrollTo();
+                if (this.navController.getPrevious().component === YearViewPage) {
+                    this.scrollTo();
+                }
             });
+        
     }
     
     ngOnDestroy() {
@@ -53,10 +58,13 @@ export class MonthViewPage implements OnInit, OnDestroy {
     
     private setMonths() {
         const year = this.currentCalendarView.currentDate.year();
-        this.months = _.times(12, (i) => {
-            return moment().year(year).month(i);
-        });
-        this.setBackButton();
+        if (this.currentYear !== year) {
+            this.currentYear = year;
+            this.months = _.times(12, (i) => {
+                return moment().year(year).month(i);
+            });
+            this.setBackButton();
+        }
     }
     
     // private addNext() {
