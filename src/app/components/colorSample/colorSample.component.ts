@@ -24,7 +24,7 @@ export class ColorSample {
                 ev: clickEvent
             });
             popover.onDidDismiss((selectedColor: string) => {
-                if (this.color !== selectedColor) {
+                if (selectedColor && this.color !== selectedColor) {
                     this.onColorChange.emit(selectedColor);
                 }
             });
