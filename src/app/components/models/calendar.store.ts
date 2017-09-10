@@ -32,7 +32,7 @@ export class CalendarStore {
             this.affectedIds.map((id) => {
                 const key = this.getKeyFromId(id);
                 if (this.store[id]) {
-                    return this.storage.set(key, this.store[id].map((event) => event.dataAsJSON));
+                    return this.storage.set(key, this.store[id].map((event:DayEvent) => event.dataAsJSON));
                 }
                 return this.storage.remove(key);
             }))

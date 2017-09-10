@@ -1,23 +1,24 @@
-<button ion-button (click)="clearAll()">Clear all</button>
 <div *ngIf="!!events">
-  <ion-card *ngFor="let event of events">
+    <ion-card *ngFor="let event of events">
 
-    <ion-card-header>
-      {{date.format('DD MMMM YYYY')}}
-      <ion-icon float-right class="trash-btn" name="trash" float-right (click)="removeEvent(event)"></ion-icon>
-    </ion-card-header>
+        <ion-card-header>
+            <color-sample float-left
+                          class="event-icon"
+                          [color]="event.type.color"></color-sample>
+               {{event.type.title}}
+            <ion-icon float-right
+                      class="trash-btn"
+                      name="trash"
+                      float-right
+                      (click)="removeEvent(event)"></ion-icon>
+        </ion-card-header>
 
-    <ion-card-content>
+        <ion-card-content *ngIf="getInputsList(event).length">
+            <div *ngFor="let input of getInputsList(event)">
+                <b>{{input.title}}:</b> {{event.getInputData(input.inputKind)}}
+            </div>
 
-      <color-sample float-right [color]="event.type.color"></color-sample>
-      {{ event.type.title}}
+        </ion-card-content>
 
-      <div *ngFor="let input of getInputsList(event)">
-        {{input.title}}
-        {{event.getInputData(input.inputKind)}}
-      </div>
-
-    </ion-card-content>
-
-  </ion-card>
+    </ion-card>
 </div>

@@ -30,6 +30,6 @@ export class DayViewPage implements OnInit {
     }
     
     private setBackButton() {
-        this.navController.getActive().getNavbar().setBackButtonText(this.date.format('MMMM'));
+        this.navController.getActive().getNavbar().setBackButtonText(this.date.format('YYYY'));
     }
 }

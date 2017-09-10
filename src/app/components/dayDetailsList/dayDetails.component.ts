@@ -41,10 +41,6 @@ export class DayDetails implements OnInit {
             });
     }
     
-    clearAll() {
-        this.calendarStore.clearAll();
-    }
-    
     private getEvents(dayId) {
         this.calendarStore.getEventsById(dayId).then((data) => {
             this.events = data;

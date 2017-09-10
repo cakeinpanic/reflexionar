@@ -42,6 +42,7 @@ export class DayEvent {
     }
     
     get dataAsJSON() {
+        console.log(this.data);
         return {
             id: this.id,
             typeId: this.type.id,
@@ -58,7 +59,7 @@ export class DayEvent {
     
     private makeDataFields() {
         this.type.inputs.forEach((input: EventInput) => {
-            this.data[input.inputKind] = '';
+            this.data[input.inputKind] = this.data[input.inputKind] || '';
         });
     }
     

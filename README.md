@@ -7,7 +7,7 @@ Universal calendar with manageable event types and analytics.
 * colorpicker input
 * add router
 * add event filtering on month view
-
+* add overflow display on month view
  
 * infinite scroll for month view
 

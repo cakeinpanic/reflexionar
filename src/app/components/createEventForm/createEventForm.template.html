@@ -3,9 +3,6 @@
 
 <form (ngSubmit)="addEvent()">
   <ion-item *ngIf="types.length">
-    <ion-label color="primary"
-               fixed>Event type
-    </ion-label>
     <ion-select class="select-event"
                 [(ngModel)]="selectedType"
                 name="types"
@@ -13,7 +10,10 @@
                 (ngModelChange)="makeInputs()">
       <ion-option *ngFor="let type of types"
                   [value]="type">
-        {{type.title}}
+          <ion-icon class="trash-btn"
+                    name="trash"
+                    ></ion-icon>
+          {{type.title}}
       </ion-option>
 
     </ion-select>
