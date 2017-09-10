@@ -1,5 +1,7 @@
 import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
 import {EventTypeStore, EventType} from '../models/eventType.store';
+import {AlertController} from 'ionic-angular';
+import {CalendarStore} from '../models/calendar.store';
 
 @Component({
     selector: 'event-type-list',
@@ -11,8 +13,10 @@ export class EventTypeList implements OnInit {
     @Output() onAddNewClick = new EventEmitter<EventType>();
     types: EventType[];
     
-    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore) {
-    
+    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
+                @Inject(AlertController) private alertCtrl: AlertController,
+                @Inject(CalendarStore) private calendarStore: CalendarStore) {
+        
     }
     
     ngOnInit() {
@@ -34,7 +38,21 @@ export class EventTypeList implements OnInit {
     
     removeType(event: MouseEvent, type: EventType) {
         event.stopPropagation();
-        this.eventTypeStore.removeType(type.id);
+        this.calendarStore.hasEventsOfType(type.id)
+            .then((hasEvents: boolean) => {
+                if (hasEvents) {
+                    let alert = this.alertCtrl.create({
+                        title: 'Can\'t remove type',
+                        subTitle: 'There are event of this type',
+                        buttons: ['Ok']
+                    });
+                    
+                    alert.present();
+                    return;
+                }
+                this.eventTypeStore.removeType(type.id);
+            });
+        
     }
     
     addNewEventType() {

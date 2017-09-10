@@ -1,11 +1,12 @@
 import {EventType, EventInput, INPUTS} from './eventType.store';
 import * as _ from 'lodash';
 
-export interface  DayEventData {
+export interface DayEventData {
     id: number;
-    data:  { [key: string]: string };
+    data: { [key: string]: string };
     typeId: number;
 }
+
 export class DayEvent {
     id: number;
     private type: EventType;
@@ -18,6 +19,10 @@ export class DayEvent {
         this.id = override.id || this.id;
         this.data = override.data || this.data;
         this.makeDataFields();
+    }
+    
+    isOfTypeId(typeId: number): boolean {
+        return this.type.id === typeId;
     }
     
     changeInputData(inputKind: INPUTS, value: string) {

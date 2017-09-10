@@ -91,7 +91,7 @@ export class EventTypeStore {
     }
     
     init(): Promise<any> {
-        return this.getAllDataFromStore().then(()=>{
+        return this.getAllDataFromStore().then(() => {
             console.log(this.types);
         });
     }

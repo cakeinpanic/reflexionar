@@ -41,6 +41,12 @@ export class CalendarStore {
             });
     }
     
+    hasEventsOfType(typeId: number): Promise<boolean> {
+        return Promise.resolve(
+            _.some(this.store, (events) => events.filter((event: DayEvent) => event.isOfTypeId(typeId)))
+        );
+    }
+    
     get eventStream(): Observable<number> {
         return this.stream.asObservable();
     }
