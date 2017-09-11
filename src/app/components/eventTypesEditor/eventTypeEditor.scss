@@ -1,5 +1,6 @@
 event-type-editor {
-    margin-top: 20px;
+    height: 100%;
+    background: $background-color;
     display: block;
 
     .inputs-list {
@@ -17,5 +18,9 @@ event-type-editor {
     .input-buttons {
         display: block;
         width: 100%;
+    }
+
+    color-sample {
+       padding: 10px
     }
 }

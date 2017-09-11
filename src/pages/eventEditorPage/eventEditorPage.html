@@ -9,7 +9,4 @@
 
 <ion-content padding>
   <event-type-list (onTypeSelect)="startEdit($event)" (onAddNewClick)="addNew()"></event-type-list>
-  <event-type-editor *ngIf="editingType" [type]="editingType" (onClose)="onClose()">
-
-  </event-type-editor>
 </ion-content>

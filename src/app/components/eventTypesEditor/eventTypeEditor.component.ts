@@ -1,20 +1,22 @@
-import {Component, Inject, Input, Output, EventEmitter, OnChanges} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {EventTypeStore, EventType, INPUTS, EventInput, INPUT_TYPES} from '../models/eventType.store';
 import * as _ from 'lodash';
+import {NavParams, ViewController} from 'ionic-angular';
 
 @Component({
     selector: 'event-type-editor',
     templateUrl: './eventTypeEditor.template.html'
 })
-export class EventTypeEditor implements OnChanges {
+export class EventTypeEditor implements OnInit {
     @Input() type: EventType;
-    @Output() onClose = new EventEmitter<void>();
     
     creatingNew = false;
     inputs: EventInput[];
     inputTypeDetails = INPUT_TYPES.map((inputType) => this.getTypeDetails(inputType));
     
-    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore) {
+    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
+                private viewCtrl: ViewController,
+                private params: NavParams) {
     }
     
     get availableInputs(): any[] {
@@ -29,14 +31,16 @@ export class EventTypeEditor implements OnChanges {
         this.type.color = newColor;
     }
     
-    ngOnChanges() {
+    ngOnInit() {
+        this.type = this.params.get('type');
         this.creatingNew = !this.type.title;
         this.inputs = _.clone(this.type.inputs);
     }
     
     close() {
-        this.onClose.emit();
+        this.viewCtrl.dismiss().catch(() => {});
     }
+    
     
     saveType() {
         this.type.inputs = this.inputs;
@@ -66,9 +70,9 @@ export class EventTypeEditor implements OnChanges {
     private getTypeDetails(inputType: INPUTS) {
         switch (inputType) {
             case INPUTS.Time:
-                return {icon: 'clock', addTitle: 'Add time input', placeholder: 'New time input'};
+                return {icon: 'clock-outline', addTitle: 'Add time input', placeholder: 'New time input'};
             case INPUTS.Story:
-                return {icon: 'clipboard', addTitle: 'Add story input', placeholder: 'New story input'};
+                return {icon: 'clipboard-outline', addTitle: 'Add text input', placeholder: 'New text input'};
         }
     }
     

@@ -1,49 +1,45 @@
-<h4 ion-text>
-  Add new event </h4>
-
 <form (ngSubmit)="addEvent()">
-  <ion-item *ngIf="types.length">
-    <ion-select class="select-event"
-                [(ngModel)]="selectedType"
-                name="types"
-                interface="action-sheet"
-                (ngModelChange)="makeInputs()">
-      <ion-option *ngFor="let type of types"
-                  [value]="type">
-          <ion-icon class="trash-btn"
-                    name="trash"
-                    ></ion-icon>
-          {{type.title}}
-      </ion-option>
+    <ion-item *ngIf="types.length">
+        <ion-select class="select-event"
+                    [(ngModel)]="selectedType"
+                    name="types"
+                    interface="action-sheet"
+                    (ngModelChange)="makeInputs()">
+            <ion-option *ngFor="let type of types"
+                        [value]="type">
+                <ion-icon class="trash-btn"
+                          name="ios-trash-outline"></ion-icon>
+                {{type.title}}
+            </ion-option>
 
-    </ion-select>
+        </ion-select>
 
-  </ion-item>
+    </ion-item>
 
-  <ion-item *ngFor="let input of eventInputs">
-    <ion-input *ngIf="isStoryInput(input)"
-               placeholder="title"
-               [(ngModel)]="input.value"
-               name="{{input.title}}Title"></ion-input>
+    <ion-item *ngFor="let input of eventInputs">
+        <ion-input *ngIf="isStoryInput(input)"
+                   placeholder="title"
+                   [(ngModel)]="input.value"
+                   name="{{input.title}}Title"></ion-input>
 
-    <ion-datetime *ngIf="isTimeInput(input)"
-                  placeholder="12:00"
-                  displayFormat="HH:mm"
-                  [(ngModel)]="input.value"
-                  name="{{input.title}}Title"></ion-datetime>
+        <ion-datetime *ngIf="isTimeInput(input)"
+                      placeholder="12:00"
+                      displayFormat="HH:mm"
+                      [(ngModel)]="input.value"
+                      name="{{input.title}}Title"></ion-datetime>
 
-    <ion-label fixed>
-      {{input.title}}
-    </ion-label>
-  </ion-item>
+        <ion-label fixed>
+            {{input.title}}
+        </ion-label>
+    </ion-item>
 
-  <button *ngIf="types.length"
-          ion-button
-          type="submit">Add event
-  </button>
-  <button ion-button
-          float-right
-          [navPush]="eventTypesPage">Manage types
-  </button>
+    <button *ngIf="types.length"
+            ion-button
+            type="submit">Add event
+    </button>
+    <button ion-button
+            float-right
+            [navPush]="eventTypesPage">Manage types
+    </button>
 
 </form>

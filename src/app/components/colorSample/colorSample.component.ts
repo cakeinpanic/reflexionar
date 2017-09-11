@@ -9,6 +9,7 @@ import {ColorpickerPopoverComponent} from './colorpickerPopover.component';
 export class ColorSample {
     @Input() color: string;
     @Input() small: boolean;
+    @Input() big: boolean;
     @Input() popover: boolean;
     @Input() clickable = false;
     
