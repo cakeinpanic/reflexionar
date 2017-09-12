@@ -1,7 +1,7 @@
 <div class="monthsContainer">
   <ion-grid>
     <ion-row *ngFor="let fewMonths of monthRows">
-      <ion-col *ngFor="let month of fewMonths" col-4>
+      <ion-col class="month-col" *ngFor="let month of fewMonths" col-4>
         <month-view class="year-month"  [month]="month" [yearView]="true">
         </month-view>
       </ion-col>

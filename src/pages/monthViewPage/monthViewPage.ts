@@ -39,7 +39,6 @@ export class MonthViewPage implements OnInit, OnDestroy {
                     this.scrollTo();
                 }
             });
-        
     }
     
     ngOnDestroy() {
@@ -86,7 +85,7 @@ export class MonthViewPage implements OnInit, OnDestroy {
             const monthPosition = element.getBoundingClientRect();
             const containerPosition = this.content.getElementRef().nativeElement.getBoundingClientRect();
             // todo get number offset from layout
-            this.content.scrollTo(0, monthPosition.top - containerPosition.top - 60);
+            this.content.scrollTo(0, monthPosition.top - containerPosition.top - 60, 200);
         }
     }
     

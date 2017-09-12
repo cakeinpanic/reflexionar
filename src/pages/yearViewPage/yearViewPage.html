@@ -1,11 +1,14 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-        {{currentYearName}}
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            {{currentYearName}}
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <year-view *ngFor="let year of years" [year]="year"></year-view>
+<ion-content class="page-content"
+             no-bounce
+             (swipe)="swipeEvent($event)">
+    <year-view *ngFor="let year of years"
+               [year]="year"></year-view>
 </ion-content>

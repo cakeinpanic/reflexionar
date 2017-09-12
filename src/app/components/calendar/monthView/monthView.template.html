@@ -30,8 +30,8 @@
       <div *ngFor="let day of week"
            class="day-view">
         <div [hidden]="day.notDayOfCurrentMonth"
-             [style.width]="size"
-             [style.height]="size">
+
+        >
           {{day.date.date()}}
         </div>
       </div>

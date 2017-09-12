@@ -24,14 +24,18 @@ month-view {
     .title-small {
         text-align: right;
         font-size: 1em;
-        margin: 5px 0;
+        margin: 0;
     }
     .datesContainer {
         width: 100%;
         &-yearView {
+            .week {
+                line-height: 1;
+            }
             .day-view {
                 font-size: 8px;
                 text-align: right;
+                margin-top: -3px;
             }
         }
     }

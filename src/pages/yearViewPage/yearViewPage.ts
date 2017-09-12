@@ -28,6 +28,11 @@ export class YearViewPage implements OnInit {
             });
     }
     
+    swipeEvent(event: Event) {
+        this.currentCalendarView.currentDate.add(1, 'year');
+        this.setYear();
+    }
+    
     private setYear() {
         const year = this.currentCalendarView.currentDate.year();
         if (this.currentYear !== year) {
@@ -36,5 +41,6 @@ export class YearViewPage implements OnInit {
             this.years = [moment().year(year)];
         }
     }
+    
 }
 
