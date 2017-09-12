@@ -1,8 +1,18 @@
 event-type-editor {
+    margin-top: 10px;
     height: 100%;
     background: $background-color;
     display: block;
 
+    .title {
+        display: inline-block;
+        width: 160px;
+        h6 {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
     .inputs-list {
         margin-bottom: 10px;
     }

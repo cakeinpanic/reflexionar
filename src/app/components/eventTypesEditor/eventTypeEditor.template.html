@@ -3,11 +3,14 @@
         <div class="inputs-list">
             <div>
                 <color-sample float-left
-
                               [big]='true'
                               (onColorChange)="changeColor($event)"
                               [clickable]="true"
                               [color]="type.color"></color-sample>
+                <span class="title">
+                    <h6>{{type.title}}</h6>
+                </span>
+
                 <button ion-button
                         icon-only
                         float-right
