@@ -28,8 +28,13 @@ export class YearViewPage implements OnInit {
             });
     }
     
-    swipeEvent(event: Event) {
+    showNext() {
         this.currentCalendarView.currentDate.add(1, 'year');
+        this.setYear();
+    }
+    
+    showPrev() {
+        this.currentCalendarView.currentDate.subtract(1, 'year');
         this.setYear();
     }
     

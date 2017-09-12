@@ -8,7 +8,7 @@ month-view {
         margin: 16px 0;
 
         &-yearView {
-            margin: 0;
+            margin: 5px 0;
         }
     }
 
@@ -24,7 +24,7 @@ month-view {
     .title-small {
         text-align: right;
         font-size: 1em;
-        margin: 0;
+        margin: 0 0 5px 0;
     }
     .datesContainer {
         width: 100%;

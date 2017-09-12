@@ -1,14 +1,40 @@
 <ion-header>
     <ion-navbar>
+        <ion-buttons start class="header-buttons">
+
+            <button ion-button
+                    icon-only
+                    clear
+                    full
+                    end
+                    (click)="showNext()">
+                <ion-icon ios="ios-arrow-dropdown"
+                          md="md-arrow-dropdown"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons end  class="header-buttons">
+            <button ion-button
+                    icon-only
+                    start
+                    clear
+                    full
+                    (click)="showPrev()">
+                <ion-icon ios="ios-arrow-dropup"
+                          md="md-arrow-dropup"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>
+
+
             {{currentYearName}}
+
+
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class="page-content"
-             no-bounce
-             (swipe)="swipeEvent($event)">
+             no-bounce>
     <year-view *ngFor="let year of years"
                [year]="year"></year-view>
 </ion-content>
