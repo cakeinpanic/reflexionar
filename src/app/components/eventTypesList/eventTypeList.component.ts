@@ -13,12 +13,11 @@ import * as moment from 'moment';
 export class EventTypeList implements OnInit {
 
     @Output() onTypeSelect = new EventEmitter<EventType>();
-    @Output() onAddNewClick = new EventEmitter<EventType>();
     types: EventType[];
 
     constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
-                @Inject(AlertController) private alertCtrl: AlertController,
-                @Inject(CalendarStore) private calendarStore: CalendarStore) {
+        @Inject(AlertController) private alertCtrl: AlertController,
+        @Inject(CalendarStore) private calendarStore: CalendarStore) {
 
     }
 
@@ -37,29 +36,29 @@ export class EventTypeList implements OnInit {
         this.eventTypeStore.getAllTypes().then(types => {
             this.types = types;
         });
+
     }
 
     removeType(event: MouseEvent, type: EventType) {
         event.stopPropagation();
-        this.calendarStore.getEventsOfType(type.id)
-            .then((events: moment.Moment[]) => {
-                if (events.length) {
-                    console.log(events);
-                    let daysList = _.take(events, 2).map(event => event.format('DD/MM/YY')).join(',');
-                    if (daysList.length > 2) {
-                        daysList += '...';
-                    }
-                    let alert = this.alertCtrl.create({
-                        title: 'Can\'t remove type',
-                        subTitle: `There are event(s) of this type on days:${daysList}`,
-                        buttons: ['Ok']
-                    });
-
-                    alert.present();
-                    return;
+        this.calendarStore.getEventsOfType(type.id).then((events: moment.Moment[]) => {
+            if (events.length) {
+                console.log(events);
+                let daysList = _.take(events, 2).map(event => event.format('DD/MM/YY')).join(',');
+                if (daysList.length > 2) {
+                    daysList += '...';
                 }
-                this.eventTypeStore.removeType(type.id);
-            });
+                let alert = this.alertCtrl.create({
+                    title: 'Can\'t remove type',
+                    subTitle: `There are event(s) of this type on days:${daysList}`,
+                    buttons: ['Ok']
+                });
+
+                alert.present();
+                return;
+            }
+            this.eventTypeStore.removeType(type.id);
+        });
 
     }
 
