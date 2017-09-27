@@ -10,7 +10,7 @@
        (click)="openDetails()">
 
     <div class="date">{{day}}</div>
-    <color-sample *ngFor="let event of events" small="true" [color]="event.type.color"></color-sample>
+    <color-sample *ngFor="let event of displayEvents" small="true" [color]="event.type.color"></color-sample>
 
   </div>
 </div>

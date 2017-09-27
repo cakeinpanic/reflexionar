@@ -1,1 +1,8 @@
-<ion-nav></ion-nav>
+<ion-menu side="right"
+          [content]="mainContent">
+    <ion-content>
+       <filter-menu></filter-menu>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #mainContent></ion-nav>

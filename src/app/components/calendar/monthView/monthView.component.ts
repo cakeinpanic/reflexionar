@@ -120,6 +120,7 @@ export class MonthView implements OnInit {
         return Promise.all(dates.map((date)=>{
             const dayId = this.calendarStore.getDateId(date.date);
             return this.calendarStore.getEventsById(dayId).then((data) => {
+                date.events = data;
                 date.hasEvents = data.length > 0;
                 return date;
             });

@@ -1,21 +1,23 @@
-import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Inject, Output, EventEmitter, Input} from '@angular/core';
 import {EventTypeStore, EventType} from '../models/eventType.store';
 import {AlertController} from 'ionic-angular';
 import {CalendarStore} from '../models/calendar.store';
-import {DayEvent} from '../models/dayEvent.model';
+
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import {CurrentCalendarViewService} from '../models/currentClendarView.service';
 
 @Component({
     selector: 'event-type-list',
     templateUrl: './eventTypeList.template.html'
 })
 export class EventTypeList implements OnInit {
-
+    @Input() filterMenuMode = false;
     @Output() onTypeSelect = new EventEmitter<EventType>();
     types: EventType[];
 
     constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
+        @Inject(CurrentCalendarViewService) private currentViewService: CurrentCalendarViewService,
         @Inject(AlertController) private alertCtrl: AlertController,
         @Inject(CalendarStore) private calendarStore: CalendarStore) {
 
@@ -26,6 +28,11 @@ export class EventTypeList implements OnInit {
         this.eventTypeStore.updateStream.subscribe(() => {
             this.updateTypes();
         });
+    }
+
+    isCurrentFilteredType(type: EventType){
+        console.log(this.currentViewService.filterEventId);
+        return this.currentViewService.filterEventId === type.id;
     }
 
     edit(type: EventType) {

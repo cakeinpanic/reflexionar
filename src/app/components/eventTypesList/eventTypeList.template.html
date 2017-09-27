@@ -1,24 +1,28 @@
-<h4 ion-text>Types:
-  <button class="add-btn"
-          (click)="addNewEventType()"
-          ion-button
-          icon-only
-          float-right
-          clear>
-    <ion-icon name="add"></ion-icon>
-  </button>
+<h4 ion-text
+    *ngIf="!filterMenuMode">
+    Types:
+    <button class="add-btn"
+            (click)="addNewEventType()"
+            ion-button
+            icon-only
+            float-right
+            clear>
+        <ion-icon name="add"></ion-icon>
+    </button>
 </h4>
 <ion-list>
-  <div ion-item
-       *ngFor="let type of types"
-       (click)="edit(type)">
-    {{ type.title }}
-    <ion-icon class="trash-btn"
-              name="ios-trash-outline"
-              item-end
-              (click)="removeType($event, type)"></ion-icon>
-    <color-sample item-start
-                  [color]="type.color"></color-sample>
-  </div>
+    <div ion-item
+         *ngFor="let type of types"
+         [class.current-type]="filterMenuMode && isCurrentFilteredType(type)"
+         (click)="edit(type)">
+        {{ type.title }}
+        <ion-icon class="trash-btn"
+                  name="ios-trash-outline"
+                  item-end
+                  *ngIf="!filterMenuMode"
+                  (click)="removeType($event, type)"></ion-icon>
+        <color-sample item-start
+                      [color]="type.color"></color-sample>
+    </div>
 </ion-list>
 
