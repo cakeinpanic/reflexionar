@@ -19,7 +19,8 @@
         border: none;
     }
 }
-.page-content .scroll-content{
+
+.page-content .scroll-content {
     padding: 0 10px;
 }
 
@@ -29,4 +30,23 @@
 
 html {
     //font-size: 9px;
+}
+
+body.preview-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #faf8f8;
+
+
+    .preview-container {
+        width: 320px;
+        height: 580px;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        align-self: center;
+        box-shadow: 2px 6px 24px -9px rgba(0,0,0,0.83);
+    }
 }
