@@ -5,7 +5,9 @@ import {DayEvent} from '../../models/dayEvent.model';
 import {NavController} from 'ionic-angular';
 import {DayViewPage} from '../../../../pages/dayViewPage/dayViewPage';
 import {CurrentCalendarViewService} from '../../models/currentClendarView.service';
+import * as _ from 'lodash';
 
+const MAX_DISPLAY_EVENTS = 5;
 @Component({
     selector: 'day-view',
     templateUrl: './dayView.template.html'
@@ -20,6 +22,7 @@ export class DayView implements OnInit {
 
     displayEvents: DayEvent[] = [];
 
+    lotOfEvents = false;
     day: number;
     isToday = false;
 
@@ -71,6 +74,12 @@ export class DayView implements OnInit {
     private filterEvents() {
         this.displayEvents =
             this.events.filter((event: DayEvent) => !this.filteredType || event.isOfTypeId(this.filteredType));
+        this.lotOfEvents = false;
+
+        if (this.displayEvents.length > MAX_DISPLAY_EVENTS) {
+            this.displayEvents = _.take(this.displayEvents, MAX_DISPLAY_EVENTS);
+            this.lotOfEvents = true;
+        }
 
     }
 

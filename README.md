@@ -6,7 +6,6 @@ Universal calendar with manageable event types and analytics.
 * add filtering by multiple types
 * multiple inputs on the same time
 * add router
-* add overflow display on month view
 
 * infinite scroll for month view
 
