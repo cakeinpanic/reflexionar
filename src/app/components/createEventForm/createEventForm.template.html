@@ -33,13 +33,15 @@
         </ion-label>
     </ion-item>
 
-    <button *ngIf="types.length"
-            ion-button
-            type="submit">Add event
-    </button>
-    <button ion-button
-            float-right
-            [navPush]="eventTypesPage">Manage types
-    </button>
-
+    <ion-buttons padding-vertical>
+        <button *ngIf="types.length"
+                padding
+                ion-button
+                type="submit">Add event
+        </button>
+        <button ion-button
+                float-right
+                [navPush]="eventTypesPage">Manage types
+        </button>
+    </ion-buttons>
 </form>

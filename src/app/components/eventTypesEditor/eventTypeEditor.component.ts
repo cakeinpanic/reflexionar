@@ -21,7 +21,8 @@ export class EventTypeEditor implements OnInit {
     }
 
     get availableInputs(): any[] {
-        return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind));
+        return INPUT_TYPES;
+        //_.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind));
     }
 
     get formValid(): boolean {

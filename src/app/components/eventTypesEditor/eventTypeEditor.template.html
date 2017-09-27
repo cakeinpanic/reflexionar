@@ -66,8 +66,10 @@
                     (click)="addInput(inputType)"
                     class="addInput-btn"
                     color="secondary"
-                    type='"button'
-                    ion-button>
+                    type='button'
+                    ion-button
+                    full
+            >
                 <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
                 {{inputTypeDetails[inputType].addTitle}}
             </button>
