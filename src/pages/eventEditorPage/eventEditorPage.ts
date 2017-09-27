@@ -10,14 +10,13 @@ import {EventTypeEditor} from '../../app/components/eventTypesEditor/eventTypeEd
     templateUrl: './eventEditorPage.html'
 })
 export class EventEditorPage implements OnInit {
-    editingType: EventType;
-    
+
     constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
                 @Inject(ModalController) private modalController: ModalController,
                 @Inject(NavController) private navController: NavController) {
-        
+
     }
-    
+
     ngOnInit() {
         this.setBackButton();
         this.navController.viewWillEnter
@@ -25,27 +24,21 @@ export class EventEditorPage implements OnInit {
             .subscribe(() => {
                 this.setBackButton();
             });
-        
+
     }
-    
-    addNew() {
-        this.editingType = new EventType();
-    }
-    
+
     onClose() {
-        this.editingType = null;
     }
-    
+
     startEdit(type: EventType) {
-        this.editingType = type;
-        let modal = this.modalController.create(EventTypeEditor, {type: this.editingType});
+        let modal = this.modalController.create(EventTypeEditor, {type});
         modal.present();
-        // modal.onDidDismiss(() => this.onClose());
+        modal.onDidDismiss(() => this.onClose());
     }
-    
+
     private setBackButton() {
         const date = this.currentCalendarView.currentDate;
         this.navController.getActive().getNavbar().setBackButtonText(`${date.format('DD.MM')}`);
     }
-    
+
 }

@@ -9,64 +9,66 @@ import {NavParams, ViewController} from 'ionic-angular';
 })
 export class EventTypeEditor implements OnInit {
     @Input() type: EventType;
-    
-    creatingNew = false;
+
     inputs: EventInput[];
     inputTypeDetails = INPUT_TYPES.map((inputType) => this.getTypeDetails(inputType));
-    
+
+    title: string;
+
     constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
                 private viewCtrl: ViewController,
                 private params: NavParams) {
     }
-    
+
     get availableInputs(): any[] {
-        return _.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind));
+        return INPUT_TYPES;
+        //_.difference(INPUT_TYPES, this.inputs.map((inputType) => inputType.inputKind));
     }
-    
+
     get formValid(): boolean {
-        return !!this.type.title && this.inputs.every((input) => !!input.title);
+        return !!this.title && this.inputs.every((input) => !!input.title);
     }
-    
+
     changeColor(newColor: string) {
         this.type.color = newColor;
     }
-    
+
     ngOnInit() {
         this.type = this.params.get('type');
-        this.creatingNew = !this.type.title;
-        this.inputs = _.clone(this.type.inputs);
+        this.title = this.type.title;
+        this.inputs = _.cloneDeep(this.type.inputs);
     }
-    
+
     close() {
         this.viewCtrl.dismiss().catch(() => {});
     }
-    
-    
+
     saveType() {
-        this.type.inputs = this.inputs;
+        this.type.inputs = _.cloneDeep(this.inputs);
+        this.type.title = this.title;
         this.eventTypeStore.saveType(this.type);
         this.close();
     }
-    
+
     removeInput(input) {
         _.remove(this.inputs, input);
     }
-    
+
     addInput(inputType: INPUTS) {
         this.inputs.push(new EventInput({
             inputKind: inputType,
             title: ''
         }));
     }
-    
+
     getInputIcon(input: EventInput) {
         return this.inputTypeDetails[input.inputKind].icon;
     }
-    
+
     getInputPlaceholder(input: EventInput) {
         return this.inputTypeDetails[input.inputKind].placeholder;
     }
-    
+
     private getTypeDetails(inputType: INPUTS) {
         switch (inputType) {
             case INPUTS.Time:
@@ -75,5 +77,5 @@ export class EventTypeEditor implements OnInit {
                 return {icon: 'clipboard-outline', addTitle: 'Add text input', placeholder: 'New text input'};
         }
     }
-    
+
 }

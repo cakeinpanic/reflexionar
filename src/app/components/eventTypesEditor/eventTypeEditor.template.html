@@ -1,5 +1,24 @@
 <ion-content class="page-content">
+
     <form (ngSubmit)="saveType()">
+        <h5 class="event-editor-header">Editing event type
+            <button ion-button
+                    icon-only
+                    float-right
+                    clear
+                    (click)="saveType()"
+                    [disabled]="!formValid"
+                    type="submit">
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+            <button ion-button
+                    icon-only
+                    clear
+                    float-right
+                    (click)="close()"
+                    type="reset">
+                <ion-icon name="close"></ion-icon>
+            </button></h5>
         <div class="inputs-list">
             <div>
                 <color-sample float-left
@@ -8,34 +27,16 @@
                               [clickable]="true"
                               [color]="type.color"></color-sample>
                 <span class="title">
-                    <h6>{{type.title}}</h6>
+                    <h6>{{title}}</h6>
                 </span>
 
-                <button ion-button
-                        icon-only
-                        float-right
-                        clear
-                        (click)="saveType()"
-                        [disabled]="!formValid"
-                        type="submit">
-                    <ion-icon name="checkmark"></ion-icon>
-                </button>
-                <button ion-button
-                        icon-only
-                        clear
-                        float-right
-                        (click)="close()"
-                        type="reset">
-                    <ion-icon name="close"></ion-icon>
-
-                </button>
             </div>
             <ion-list>
 
                 <ion-item>
                     <ion-label>Title</ion-label>
                     <ion-input placeholder="Event title"
-                               [(ngModel)]="type.title"
+                               [(ngModel)]="title"
                                name="title"></ion-input>
 
                 </ion-item>
@@ -67,8 +68,10 @@
                     (click)="addInput(inputType)"
                     class="addInput-btn"
                     color="secondary"
-                    type='"button'
-                    ion-button>
+                    type='button'
+                    ion-button
+                    full
+            >
                 <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>
                 {{inputTypeDetails[inputType].addTitle}}
             </button>

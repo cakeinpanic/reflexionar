@@ -1,0 +1,15 @@
+<h5 padding>Filter by type
+    <button ion-button
+            icon-only
+            clear
+            float-right
+            class="reset-button"
+            (click)="reset()"
+            type="reset">
+        <ion-icon name="close"></ion-icon>
+    </button>
+</h5>
+
+<event-type-list (onTypeSelect)="filterByType($event)"
+                 [filterMenuMode]="true">
+</event-type-list>

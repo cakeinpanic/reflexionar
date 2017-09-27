@@ -28,9 +28,9 @@
     <div *ngFor="let week of weeks"
          class="week">
       <div *ngFor="let day of week"
-           class="day-view">
+           class="day-view"
+           [class.has-event]="day.hasEvents">
         <div [hidden]="day.notDayOfCurrentMonth"
-
         >
           {{day.date.date()}}
         </div>

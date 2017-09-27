@@ -16,7 +16,7 @@ export class MyApp {
     rootPage: any = YearViewPage;
     @ViewChild(Nav) nav: NavController;
     dataLoaded = false;
-    
+
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
                 public loading: LoadingController,
                 public calendarStore: CalendarStore,
@@ -28,27 +28,28 @@ export class MyApp {
                 // Here you can do any higher level native things you might need.
                 statusBar.styleDefault();
                 splashScreen.hide();
-                this.nav.push(MonthViewPage,{},{animate:false, duration: 0});
+                this.nav.push(YearViewPage, {}, {animate:false, duration: 0});
+                this.nav.push(MonthViewPage, {}, {animate:false, duration: 0});
             });
     }
-    
+
     updateData() {
         let loading = this.loading.create({
             content: 'Updating data...'
         });
-        
+
         loading.present();
-        
+
         // order is IMPORTANT, TYPES FIRST
         return this.eventTypeStore.init()
             .then(() => this.calendarStore.init())
             .then(() => {
-                
+
                 loading.dismiss();
                 return this.dataLoaded = true;
             });
-        
+
     }
-    
+
 }
 

@@ -3,7 +3,11 @@ event-type-editor {
     height: 100%;
     background: $background-color;
     display: block;
-
+    .event-editor-header {
+        button {
+            height: auto;
+        }
+    }
     .title {
         display: inline-block;
         width: 160px;
@@ -17,9 +21,6 @@ event-type-editor {
         margin-bottom: 10px;
     }
     .addInput-btn {
-        width: 45%;
-        margin: 10px 2%;
-        height: 3em;
         ion-icon {
             padding-right: .5em;
         }
@@ -31,6 +32,6 @@ event-type-editor {
     }
 
     color-sample {
-       padding: 10px
+        padding: 10px
     }
 }

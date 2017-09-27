@@ -8,4 +8,9 @@ event-type-list {
     .add-btn {
         height: auto;
     }
+    .current-type {
+        $highlight: color($colors, secondary);
+
+        background: rgba($highlight, .2);
+    }
 }
