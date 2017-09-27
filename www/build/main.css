@@ -27506,6 +27506,36 @@ ion-navbar.toolbar {
   padding: 0 10px;
 }
 
+body.preview-mode {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: #faf8f8;
+}
+
+body.preview-mode .preview-container {
+  width: 320px;
+  height: 580px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-box-shadow: 2px 6px 24px -9px rgba(0, 0, 0, 0.83);
+  box-shadow: 2px 6px 24px -9px rgba(0, 0, 0, 0.83);
+}
+
 .ion-ios-add:before {
   content: "\f102";
 }
@@ -31358,6 +31388,13 @@ ion-icon::before {
 
 .day-small .date {
   font-size: 9px;
+}
+
+.day .lot-events {
+  display: inline-block;
+  font-size: 10px;
+  width: 7px;
+  height: 7px;
 }
 
 .date {
@@ -35236,6 +35273,11 @@ month-view .datesContainer-yearView .day-view {
   font-size: 8px;
   text-align: right;
   margin-top: -3px;
+}
+
+month-view .datesContainer-yearView .day-view.has-event {
+  background: rgba(106, 163, 133, 0.5);
+  border-radius: 10px;
 }
 
 month-view .week {
@@ -39130,6 +39172,10 @@ event-type-editor {
   display: block;
 }
 
+event-type-editor .event-editor-header button {
+  height: auto;
+}
+
 event-type-editor .title {
   display: inline-block;
   width: 160px;
@@ -39143,12 +39189,6 @@ event-type-editor .title h6 {
 
 event-type-editor .inputs-list {
   margin-bottom: 10px;
-}
-
-event-type-editor .addInput-btn {
-  width: 45%;
-  margin: 10px 2%;
-  height: 3em;
 }
 
 event-type-editor .addInput-btn ion-icon {
@@ -39173,5 +39213,13 @@ event-type-list .trash-btn {
 }
 
 event-type-list .add-btn {
+  height: auto;
+}
+
+event-type-list .current-type {
+  background: rgba(106, 163, 133, 0.2);
+}
+
+filter-menu .reset-button {
   height: auto;
 }
