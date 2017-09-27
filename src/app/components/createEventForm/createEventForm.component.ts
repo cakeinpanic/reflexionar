@@ -20,12 +20,12 @@ interface IEventInputAndValue extends EventInput {
 export class CreateEventFormComponent implements OnInit {
     types: EventType[] = [];
     date: moment.Moment;
-    
+
     eventInputs: IEventInputAndValue[];
-    
+
     selectedType: EventType;
     eventTypesPage: any;
-    
+
     constructor(@Inject(NavController) private navController: NavController,
                 @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
                 @Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
@@ -37,12 +37,12 @@ export class CreateEventFormComponent implements OnInit {
                 this.updateEvents();
             });
     }
-    
+
     ngOnInit() {
         this.date = this.currentCalendarView.currentDate;
-       
+
     }
-    
+
     private updateEvents() {
         this.eventTypeStore.getAllTypes().then((types) => {
             this.types = types;
@@ -51,27 +51,27 @@ export class CreateEventFormComponent implements OnInit {
                 this.makeInputs();
             }
         });
-        
+
     }
-    
+
     addEvent() {
         const event = new DayEvent(this.selectedType);
         this.eventInputs.forEach((eventInput: IEventInputAndValue) => {
             event.changeInputData(eventInput.inputKind, eventInput.value);
         });
-        
+
         this.calendarStore.addEvent(this.date, event);
     }
-    
+
     makeInputs() {
         const type = this.selectedType;
         this.eventInputs = type.inputs.map((input: EventInput) => _.assign({}, input, {value: ''}));
     }
-    
+
     isTimeInput(input: EventInput) {
         return input.inputKind === INPUTS.Time;
     }
-    
+
     isStoryInput(input: EventInput) {
         return input.inputKind === INPUTS.Story;
     }

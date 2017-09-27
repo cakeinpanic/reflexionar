@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import {CalendarStore} from '../models/calendar.store';
 import {EventType, EventInput} from '../models/eventType.store';
 import {DayEvent} from '../models/dayEvent.model';
-import {EventEditorPage} from '../../../pages/eventEditorPage/eventEditorPage';
 
 interface IEventInputAndValue extends EventInput {
     value: string;
@@ -14,45 +13,43 @@ interface IEventInputAndValue extends EventInput {
     templateUrl: './dayDetails.template.html'
 })
 export class DayDetails implements OnInit {
-    
+
     @Input() date: moment.Moment;
-    
+
     events: DayEvent[];
     types: EventType[];
-    
+
     eventInputs: IEventInputAndValue[];
-    
+
     eventTypeTitle: string;
-    eventTypesPage: any;
-    
+
     constructor(@Inject(CalendarStore) private calendarStore: CalendarStore) {
-        this.eventTypesPage = EventEditorPage;
     }
-    
+
     ngOnInit() {
         const dayId = this.calendarStore.getDateId(this.date);
-        
+
         this.getEvents(dayId);
-        
+
         this.calendarStore.eventStream
             .filter((timestamp) => timestamp === dayId)
             .subscribe(() => {
                 this.getEvents(dayId);
             });
     }
-    
+
     private getEvents(dayId) {
         this.calendarStore.getEventsById(dayId).then((data) => {
             this.events = data;
         });
     }
-    
+
     removeEvent(event: DayEvent) {
         this.calendarStore.removeEvent(this.date, event);
     }
-    
+
     getInputsList(dayEvent: DayEvent) {
         return dayEvent.getInputs();
     }
-    
+
 }

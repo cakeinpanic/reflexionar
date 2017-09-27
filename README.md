@@ -4,6 +4,7 @@ Universal calendar with manageable event types and analytics.
 
 ### todo:
 * add filtering by multiple types
+* add edititng existent event
 * add router
 
 * infinite scroll for month view
