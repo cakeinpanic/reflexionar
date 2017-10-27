@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {Content, NavController} from 'ionic-angular';
+import {Content, MenuController, NavController} from 'ionic-angular';
 import * as moment from 'moment';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
 
@@ -10,15 +10,16 @@ import {CurrentCalendarViewService} from '../../app/components/models/currentCle
 export class YearViewPage implements OnInit {
     years: moment.Moment[] = [];
     currentYearName: string;
-    
+
     private currentYear: number;
     @ViewChild(Content) content: Content;
-    
+
     constructor(@Inject(NavController) public navController: NavController,
+                @Inject(MenuController) public menuCtrl: MenuController,
                 @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService) {
-        
+
     }
-    
+
     ngOnInit() {
         this.setYear();
         this.navController.viewWillEnter
@@ -27,17 +28,21 @@ export class YearViewPage implements OnInit {
                 this.setYear();
             });
     }
-    
+
+    toggleMenu(){
+        this.menuCtrl.toggle();
+    }
+
     showNext() {
         this.currentCalendarView.currentDate.add(1, 'year');
         this.setYear();
     }
-    
+
     showPrev() {
         this.currentCalendarView.currentDate.subtract(1, 'year');
         this.setYear();
     }
-    
+
     private setYear() {
         const year = this.currentCalendarView.currentDate.year();
         if (this.currentYear !== year) {
@@ -46,6 +51,6 @@ export class YearViewPage implements OnInit {
             this.years = [moment().year(year)];
         }
     }
-    
+
 }
 

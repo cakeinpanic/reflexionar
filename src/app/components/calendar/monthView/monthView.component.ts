@@ -5,13 +5,14 @@ import {NavController} from 'ionic-angular';
 import {MonthViewPage} from '../../../../pages/monthViewPage/monthViewPage';
 import {CurrentCalendarViewService} from '../../models/currentClendarView.service';
 import {CalendarStore} from '../../models/calendar.store';
+import {DayEvent} from '../../models/dayEvent.model';
 
 const DAYS_IN_WEEK = 7;
 const DEFAULT_WEKS_NUM = 5;
 
 interface IDayViewInfo {
     date: moment.Moment;
-    hasEvent?: boolean;
+    hasEvents?: boolean;
     notDayOfCurrentMonth?: boolean;
 }
 
@@ -24,8 +25,8 @@ export class MonthView implements OnInit {
     @Input() yearView = false;
 
     size: string;
-    days: any[];
-    weeks: any[];
+    days: IDayViewInfo[];
+    weeks: IDayViewInfo[][];
 
     currentMonthName: string;
 
@@ -39,7 +40,11 @@ export class MonthView implements OnInit {
     ngOnInit() {
         this.fillWeeks();
         this.size = Math.floor(this.el.nativeElement.offsetWidth / 7) + 'px';
-        this.calendarStore.eventStream.subscribe(()=>{
+        this.calendarStore.eventStream.subscribe(() => {
+            this.countEvents(this.days);
+        });
+
+        this.currentCalendarView.filterEventStream.subscribe(() => {
             this.countEvents(this.days);
         });
     }
@@ -57,17 +62,15 @@ export class MonthView implements OnInit {
 
         this.weeks = [];
 
-        this.getDaysToDisplay(date)
-            .then((dates) => this.countEvents(dates))
-            .then(dates => {
-                this.days = dates;
-                dates.forEach((day, i) => {
-                    const weekNum = Math.floor(i / DAYS_IN_WEEK);
-                    if (!this.weeks[weekNum]) {
-                        this.weeks[weekNum] = [];
-                    }
-                    this.weeks[weekNum].push(day);
-                });
+        this.getDaysToDisplay(date).then((dates) => this.countEvents(dates)).then(dates => {
+            this.days = dates;
+            dates.forEach((day, i) => {
+                const weekNum = Math.floor(i / DAYS_IN_WEEK);
+                if (!this.weeks[weekNum]) {
+                    this.weeks[weekNum] = [];
+                }
+                this.weeks[weekNum].push(day);
+            });
         });
     }
 
@@ -114,14 +117,19 @@ export class MonthView implements OnInit {
     }
 
     private countEvents(dates) {
-        if(!this.yearView) {
+        if (!this.yearView) {
             return Promise.resolve(dates);
         }
-        return Promise.all(dates.map((date)=>{
+        return Promise.all(dates.map((date) => {
             const dayId = this.calendarStore.getDateId(date.date);
             return this.calendarStore.getEventsById(dayId).then((data) => {
+                const filteredType = this.currentCalendarView.filterEventId;
                 date.events = data;
                 date.hasEvents = data.length > 0;
+
+                date.hasEvents = !!filteredType
+                    ? data.filter((event: DayEvent) => event.isOfTypeId(filteredType)).length > 0
+                    : !!data.length;
                 return date;
             });
         }));
