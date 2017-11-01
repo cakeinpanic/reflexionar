@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, ElementRef} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {NavController} from 'ionic-angular';
@@ -30,10 +30,10 @@ export class MonthView implements OnInit {
 
     currentMonthName: string;
 
-    constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-        @Inject(ElementRef) private el: ElementRef,
-        @Inject(CalendarStore) private calendarStore: CalendarStore,
-        @Inject(NavController) private navController: NavController) {
+    constructor( private currentCalendarView: CurrentCalendarViewService,
+         private el: ElementRef,
+         private calendarStore: CalendarStore,
+         private navController: NavController) {
 
     }
 

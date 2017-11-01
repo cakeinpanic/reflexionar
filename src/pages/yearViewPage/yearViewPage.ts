@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Content, MenuController, NavController} from 'ionic-angular';
 import * as moment from 'moment';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
@@ -14,9 +14,9 @@ export class YearViewPage implements OnInit {
     private currentYear: number;
     @ViewChild(Content) content: Content;
 
-    constructor(@Inject(NavController) public navController: NavController,
-                @Inject(MenuController) public menuCtrl: MenuController,
-                @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService) {
+    constructor( public navController: NavController,
+                 public menuCtrl: MenuController,
+                 private currentCalendarView: CurrentCalendarViewService) {
 
     }
 

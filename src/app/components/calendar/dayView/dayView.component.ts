@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import * as moment from 'moment';
 import {CalendarStore} from '../../models/calendar.store';
 import {DayEvent} from '../../models/dayEvent.model';
@@ -30,9 +30,9 @@ export class DayView implements OnInit {
     private events: DayEvent[] = [];
     private filteredTypes: number[];
 
-    constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-        @Inject(CalendarStore) private calendarStore: CalendarStore,
-        @Inject(NavController) private navController: NavController) {
+    constructor(private currentCalendarView: CurrentCalendarViewService,
+        private calendarStore: CalendarStore,
+        private navController: NavController) {
     }
 
     ngOnInit() {

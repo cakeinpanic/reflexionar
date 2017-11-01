@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, Input} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import * as moment from 'moment';
 import {CalendarStore} from '../models/calendar.store';
 import {EventType, EventInput} from '../models/eventType.store';
@@ -23,7 +23,7 @@ export class DayDetails implements OnInit {
 
     eventTypeTitle: string;
 
-    constructor(@Inject(CalendarStore) private calendarStore: CalendarStore) {
+    constructor( private calendarStore: CalendarStore) {
     }
 
     ngOnInit() {

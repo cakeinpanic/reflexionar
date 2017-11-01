@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, } from '@angular/core';
 import {EventType} from '../models/eventType.store';
 import {CurrentCalendarViewService} from '../models/currentClendarView.service';
 import {MenuController} from 'ionic-angular';
@@ -9,8 +9,8 @@ import * as _ from 'lodash';
     templateUrl: './filterMenu.template.html'
 })
 export class FilterMenuComponent {
-    constructor(@Inject(MenuController) public menuCtrl: MenuController,
-        @Inject(CurrentCalendarViewService) private currentViewService: CurrentCalendarViewService) {
+    constructor( public menuCtrl: MenuController,
+         private currentViewService: CurrentCalendarViewService) {
 
     }
 

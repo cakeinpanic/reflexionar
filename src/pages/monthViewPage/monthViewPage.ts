@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Content, MenuController, NavController} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -17,9 +17,9 @@ export class MonthViewPage implements OnInit, OnDestroy {
 
     @ViewChild(Content) content: Content;
 
-    constructor(@Inject(NavController) private navController: NavController,
-        @Inject(MenuController) public menuCtrl: MenuController,
-        @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService) {
+    constructor( private navController: NavController,
+         public menuCtrl: MenuController,
+         private currentCalendarView: CurrentCalendarViewService) {
     }
 
     ngOnInit() {

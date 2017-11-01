@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {EventTypeStore, EventType, INPUTS, EventInput, INPUT_TYPES} from '../models/eventType.store';
 import * as _ from 'lodash';
 import {NavParams, ViewController} from 'ionic-angular';
@@ -15,7 +15,7 @@ export class EventTypeEditor implements OnInit {
 
     title: string;
 
-    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
+    constructor( private eventTypeStore: EventTypeStore,
                 private viewCtrl: ViewController,
                 private params: NavParams) {
     }

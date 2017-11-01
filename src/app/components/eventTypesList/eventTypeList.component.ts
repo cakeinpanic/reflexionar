@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, Output, EventEmitter, Input} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {EventTypeStore, EventType} from '../models/eventType.store';
 import {AlertController} from 'ionic-angular';
 import {CalendarStore} from '../models/calendar.store';
@@ -16,10 +16,10 @@ export class EventTypeList implements OnInit {
     @Output() onTypeSelect = new EventEmitter<EventType>();
     types: EventType[];
 
-    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
-        @Inject(CurrentCalendarViewService) private currentViewService: CurrentCalendarViewService,
-        @Inject(AlertController) private alertCtrl: AlertController,
-        @Inject(CalendarStore) private calendarStore: CalendarStore) {
+    constructor( private eventTypeStore: EventTypeStore,
+         private currentViewService: CurrentCalendarViewService,
+         private alertCtrl: AlertController,
+         private calendarStore: CalendarStore) {
 
     }
 

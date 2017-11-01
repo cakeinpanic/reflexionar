@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {DayEvent, DayEventData} from './dayEvent.model';
-import {Inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Observable} from 'rxjs/Observable';
 import {EventType, EventTypeStore} from './eventType.store';
@@ -15,16 +15,15 @@ export class CalendarStore {
 
     private affectedIds: number[] = [];
 
-    constructor(@Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
-                @Inject(Storage) private storage: Storage) {
+    constructor(private eventTypeStore: EventTypeStore,
+        private storage: Storage) {
     }
 
     init(): Promise<any> {
-        return this.getAllFromStore()
-            .then(() => {
-                console.log(this.store);
-                this.affectedIds.length = 0;
-            });
+        return this.getAllFromStore().then(() => {
+            console.log(this.store);
+            this.affectedIds.length = 0;
+        });
     }
 
     syncData(): Promise<any> {
@@ -32,13 +31,12 @@ export class CalendarStore {
             this.affectedIds.map((id) => {
                 const key = this.getKeyFromId(id);
                 if (this.store[id]) {
-                    return this.storage.set(key, this.store[id].map((event:DayEvent) => event.dataAsJSON));
+                    return this.storage.set(key, this.store[id].map((event: DayEvent) => event.dataAsJSON));
                 }
                 return this.storage.remove(key);
-            }))
-            .then(() => {
-                this.affectedIds.length = 0;
-            });
+            })).then(() => {
+            this.affectedIds.length = 0;
+        });
     }
 
     getEventsOfType(typeId: number): Promise<moment.Moment[]> {
@@ -46,9 +44,7 @@ export class CalendarStore {
             _.map(
                 this.store,
                 (events, key) => events.some((event: DayEvent) => event.isOfTypeId(typeId)) && key
-            )
-            .filter(data => !!data)
-            .map(dayID => {return moment(`/Date(${dayID})/`);})
+            ).filter(data => !!data).map(dayID => {return moment(`/Date(${dayID})/`);})
         );
     }
 
@@ -93,42 +89,36 @@ export class CalendarStore {
     }
 
     clearAll() {
-        this.getEventKeys()
-            .then(keys =>
-                keys.forEach((key) => {
-                    this.storage.remove(key);
-                })
-            );
+        this.getEventKeys().then(keys =>
+            keys.forEach((key) => {
+                this.storage.remove(key);
+            })
+        );
     }
 
     private getEventKeys(): Promise<string[]> {
-        return this.storage.keys()
-            .then(keys => keys.filter((key) => key.indexOf('event') > -1));
+        return this.storage.keys().then(keys => keys.filter((key) => key.indexOf('event') > -1));
     }
 
     private getAllFromStore(): Promise<any> {
-        return this.getEventKeys()
-            .then(keys => Promise.all(keys.map((key) => this.getDataFromStorageByKey(key))));
+        return this.getEventKeys().then(keys => Promise.all(keys.map((key) => this.getDataFromStorageByKey(key))));
     }
 
     private getDataFromStorageByKey(key: string): Promise<DayEvent[]> {
         let dayId = this.getDateFormKey(key);
-        return this.storage.get(key)
-            .then((dayEventsData) => {
-                return Promise.all(dayEventsData.map(json => this.dayEventFromJSON(json)));
-            })
-            .then((events: DayEvent[]) => {
-                return this.store[dayId] = events;
-            });
+        return this.storage.get(key).then((dayEventsData) => {
+            return Promise.all(dayEventsData.map(json => this.dayEventFromJSON(json)));
+        }).then((events: DayEvent[]) => {
+            return this.store[dayId] = events;
+        });
     }
 
     private dayEventFromJSON(json: DayEventData): Promise<DayEvent> {
-        return this.eventTypeStore.getTypeByID(json.typeId)
-            .then((type: EventType) => {
-                return new DayEvent(type, json);
-            }).catch(() => {
-                return null;
-            });
+        return this.eventTypeStore.getTypeByID(json.typeId).then((type: EventType) => {
+            return new DayEvent(type, json);
+        }).catch(() => {
+            return null;
+        });
     }
 
     private sendNext(dateId) {
