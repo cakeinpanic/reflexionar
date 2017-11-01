@@ -123,13 +123,11 @@ export class MonthView implements OnInit {
         return Promise.all(dates.map((date) => {
             const dayId = this.calendarStore.getDateId(date.date);
             return this.calendarStore.getEventsById(dayId).then((data) => {
-                const filteredType = this.currentCalendarView.filterEventId;
+                const filteredTypes = this.currentCalendarView.filterEventId;
                 date.events = data;
                 date.hasEvents = data.length > 0;
 
-                date.hasEvents = !!filteredType
-                    ? data.filter((event: DayEvent) => event.isOfTypeId(filteredType)).length > 0
-                    : !!data.length;
+                date.hasEvents = data.filter((event: DayEvent) => event.isOfAnyTypeId(filteredTypes)).length > 0;
                 return date;
             });
         }));

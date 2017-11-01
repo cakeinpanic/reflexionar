@@ -30,9 +30,8 @@ export class EventTypeList implements OnInit {
         });
     }
 
-    isCurrentFilteredType(type: EventType){
-        console.log(this.currentViewService.filterEventId);
-        return this.currentViewService.filterEventId === type.id;
+    isTypeFiltered(type: EventType){
+        return _.includes(this.currentViewService.filterEventId, type.id);
     }
 
     edit(type: EventType) {

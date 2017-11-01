@@ -48,7 +48,7 @@ export class CalendarStore {
                 (events, key) => events.some((event: DayEvent) => event.isOfTypeId(typeId)) && key
             )
             .filter(data => !!data)
-            .map(dayID => {return moment(`/Date(${dayID})/`)})
+            .map(dayID => {return moment(`/Date(${dayID})/`);})
         );
     }
 

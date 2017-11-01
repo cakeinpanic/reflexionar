@@ -25,6 +25,10 @@ export class DayEvent {
         return this.type.id === typeId;
     }
 
+    isOfAnyTypeId(typeIds: number[]): boolean {
+        return typeIds.some(type=>this.isOfTypeId(type));
+    }
+
     changeInputData(inputKind: INPUTS, value: string) {
         if (this.hasThisInput(inputKind)) {
             this.data[inputKind] = value;

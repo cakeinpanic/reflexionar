@@ -8,6 +8,7 @@ import {CurrentCalendarViewService} from '../../models/currentClendarView.servic
 import * as _ from 'lodash';
 
 const MAX_DISPLAY_EVENTS = 5;
+
 @Component({
     selector: 'day-view',
     templateUrl: './dayView.template.html'
@@ -27,7 +28,7 @@ export class DayView implements OnInit {
     isToday = false;
 
     private events: DayEvent[] = [];
-    private filteredType: number;
+    private filteredTypes: number[];
 
     constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
         @Inject(CalendarStore) private calendarStore: CalendarStore,
@@ -36,11 +37,11 @@ export class DayView implements OnInit {
 
     ngOnInit() {
         this.day = this.date.date();
-        this.filteredType = this.currentCalendarView.filterEventId;
+        this.filteredTypes = this.currentCalendarView.filterEventId;
         this.updateEvents();
         this.setToday();
-        this.currentCalendarView.filterEventStream.subscribe((newType: number) => {
-            this.filteredType = newType;
+        this.currentCalendarView.filterEventStream.subscribe((newTypes: number[]) => {
+            this.filteredTypes = newTypes;
             this.filterEvents();
         });
     }
@@ -73,7 +74,7 @@ export class DayView implements OnInit {
 
     private filterEvents() {
         this.displayEvents =
-            this.events.filter((event: DayEvent) => !this.filteredType || event.isOfTypeId(this.filteredType));
+            this.events.filter((event: DayEvent) => event.isOfAnyTypeId(this.filteredTypes));
         this.lotOfEvents = false;
 
         if (this.displayEvents.length > MAX_DISPLAY_EVENTS) {
