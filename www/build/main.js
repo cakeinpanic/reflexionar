@@ -14,17 +14,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var ionic_angular_1 = __webpack_require__(16);
 var moment = __webpack_require__(2);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var YearViewPage = YearViewPage_1 = (function () {
-    function YearViewPage(navController, currentCalendarView) {
+    function YearViewPage(navController, menuCtrl, currentCalendarView) {
         this.navController = navController;
+        this.menuCtrl = menuCtrl;
         this.currentCalendarView = currentCalendarView;
         this.years = [];
     }
@@ -39,6 +37,9 @@ var YearViewPage = YearViewPage_1 = (function () {
             .subscribe(function () {
             _this.setYear();
         });
+    };
+    YearViewPage.prototype.toggleMenu = function () {
+        this.menuCtrl.toggle();
     };
     YearViewPage.prototype.showNext = function () {
         this.currentCalendarView.currentDate.add(1, 'year');
@@ -64,11 +65,10 @@ __decorate([
 ], YearViewPage.prototype, "content", void 0);
 YearViewPage = YearViewPage_1 = __decorate([
     core_1.Component({
-        selector: 'year-view-page',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/yearViewPage/yearViewPage.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-buttons start class="header-buttons">\n\n            <button ion-button\n                    icon-only\n                    clear\n                    full\n                    end\n                    (click)="showNext()">\n                <ion-icon ios="ios-arrow-dropdown"\n                          md="md-arrow-dropdown"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-buttons end  class="header-buttons">\n            <button ion-button\n                    icon-only\n                    start\n                    clear\n                    full\n                    (click)="showPrev()">\n                <ion-icon ios="ios-arrow-dropup"\n                          md="md-arrow-dropup"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title>\n\n\n            {{currentYearName}}\n\n\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="page-content"\n             no-bounce>\n    <year-view *ngFor="let year of years"\n               [year]="year"></year-view>\n</ion-content>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/yearViewPage/yearViewPage.html"*/
+        selector: 'year-view-page',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/yearViewPage/yearViewPage.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-buttons start class="header-buttons">\n\n            <button ion-button\n                    icon-only\n                    clear\n                    full\n                    end\n                    (click)="showNext()">\n                <ion-icon ios="ios-arrow-dropdown"\n                          md="md-arrow-dropdown"></ion-icon>\n            </button>\n            <button ion-button\n                    icon-only\n                    start\n                    clear\n                    full\n                    (click)="showPrev()">\n                <ion-icon ios="ios-arrow-dropup"\n                          md="md-arrow-dropup"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-buttons end>\n        <button ion-button end icon-only (click)="toggleMenu()"><ion-icon name="menu"></ion-icon></button>\n        </ion-buttons>\n        <ion-title>\n\n\n            {{currentYearName}}\n\n\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="page-content"\n             no-bounce>\n    <year-view *ngFor="let year of years"\n               [year]="year"></year-view>\n</ion-content>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/yearViewPage/yearViewPage.html"*/
     }),
-    __param(0, core_1.Inject(ionic_angular_1.NavController)),
-    __param(1, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
     __metadata("design:paramtypes", [ionic_angular_1.NavController,
+        ionic_angular_1.MenuController,
         currentClendarView_service_1.CurrentCalendarViewService])
 ], YearViewPage);
 exports.YearViewPage = YearViewPage;
@@ -91,15 +91,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var ionic_angular_1 = __webpack_require__(16);
 var moment = __webpack_require__(2);
-var _ = __webpack_require__(30);
-var currentClendarView_service_1 = __webpack_require__(29);
+var _ = __webpack_require__(27);
+var currentClendarView_service_1 = __webpack_require__(26);
 var Subject_1 = __webpack_require__(11);
 var yearViewPage_1 = __webpack_require__(127);
 var MonthViewPage = MonthViewPage_1 = (function () {
@@ -189,9 +186,6 @@ MonthViewPage = MonthViewPage_1 = __decorate([
     core_1.Component({
         selector: 'month-view-page',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/monthViewPage/monthViewPage.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>\n            Reflexory\n        </ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="toggleMenu()"><ion-icon name="menu"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="page-content">\n\n    <button ion-button\n            icon-only\n            clear\n            full\n            (click)="showPrev()">\n        <ion-icon ios="ios-arrow-dropup"\n                  md="md-arrow-dropup"></ion-icon>\n    </button>\n    <month-view *ngFor="let month of months"\n                [month]="month"\n                [attr.month-number]="month.month()"></month-view>\n    <button ion-button\n            icon-only\n            clear\n            full\n            (click)="showNext()">\n        <ion-icon ios="ios-arrow-dropdown"\n                  md="md-arrow-dropdown"></ion-icon>\n    </button>\n</ion-content>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/monthViewPage/monthViewPage.html"*/
     }),
-    __param(0, core_1.Inject(ionic_angular_1.NavController)),
-    __param(1, core_1.Inject(ionic_angular_1.MenuController)),
-    __param(2, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
     __metadata("design:paramtypes", [ionic_angular_1.NavController,
         ionic_angular_1.MenuController,
         currentClendarView_service_1.CurrentCalendarViewService])
@@ -216,13 +210,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var ionic_angular_1 = __webpack_require__(16);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var DayViewPage = DayViewPage_1 = (function () {
     function DayViewPage(currentCalendarView, navController) {
         this.currentCalendarView = currentCalendarView;
@@ -251,8 +242,6 @@ DayViewPage = DayViewPage_1 = __decorate([
     core_1.Component({
         selector: 'day-view-page',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/dayViewPage/dayViewPage.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>\n            {{displayDate}}\n        </ion-title>\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="page-content">\n    <create-event-form></create-event-form>\n    <day-details-list [date]="date"></day-details-list>\n</ion-content>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/dayViewPage/dayViewPage.html"*/
     }),
-    __param(0, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
-    __param(1, core_1.Inject(ionic_angular_1.NavController)),
     __metadata("design:paramtypes", [currentClendarView_service_1.CurrentCalendarViewService,
         ionic_angular_1.NavController])
 ], DayViewPage);
@@ -326,7 +315,7 @@ webpackEmptyAsyncContext.id = 190;
 
 /***/ }),
 
-/***/ 29:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -347,6 +336,7 @@ var Subject_1 = __webpack_require__(11);
 var CurrentCalendarViewService = (function () {
     function CurrentCalendarViewService() {
         this.filterEventStream = new Subject_1.Subject();
+        this._filterEventId = [];
         this.currentDate = moment();
     }
     Object.defineProperty(CurrentCalendarViewService.prototype, "filterEventId", {
@@ -377,7 +367,7 @@ exports.CurrentCalendarViewService = CurrentCalendarViewService;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var DayEvent = (function () {
     function DayEvent(type, override) {
         if (override === void 0) { override = {}; }
@@ -390,6 +380,10 @@ var DayEvent = (function () {
     }
     DayEvent.prototype.isOfTypeId = function (typeId) {
         return this.type.id === typeId;
+    };
+    DayEvent.prototype.isOfAnyTypeId = function (typeIds) {
+        var _this = this;
+        return typeIds.some(function (type) { return _this.isOfTypeId(type); });
     };
     DayEvent.prototype.changeInputData = function (inputKind, value) {
         if (this.hasThisInput(inputKind)) {
@@ -448,13 +442,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var ionic_angular_1 = __webpack_require__(16);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var ionic_angular_2 = __webpack_require__(16);
 var eventTypeEditor_component_1 = __webpack_require__(376);
 var EventEditorPage = EventEditorPage_1 = (function () {
@@ -493,9 +484,6 @@ EventEditorPage = EventEditorPage_1 = __decorate([
     core_1.Component({
         selector: 'page-edit-event-types',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/eventEditorPage/eventEditorPage.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Manage event types\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="page-content">\n  <event-type-list (onTypeSelect)="startEdit($event)"></event-type-list>\n</ion-content>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/pages/eventEditorPage/eventEditorPage.html"*/
     }),
-    __param(0, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
-    __param(1, core_1.Inject(ionic_angular_2.ModalController)),
-    __param(2, core_1.Inject(ionic_angular_1.NavController)),
     __metadata("design:paramtypes", [currentClendarView_service_1.CurrentCalendarViewService,
         ionic_angular_2.ModalController,
         ionic_angular_1.NavController])
@@ -520,13 +508,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var eventType_store_1 = __webpack_require__(45);
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var ionic_angular_1 = __webpack_require__(16);
 var EventTypeEditor = (function () {
     function EventTypeEditor(eventTypeStore, viewCtrl, params) {
@@ -601,7 +586,6 @@ EventTypeEditor = __decorate([
     core_1.Component({
         selector: 'event-type-editor',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/eventTypesEditor/eventTypeEditor.template.html"*/'<ion-content class="page-content">\n\n    <form (ngSubmit)="saveType()">\n        <h5 class="event-editor-header">Editing event type\n            <button ion-button\n                    icon-only\n                    float-right\n                    clear\n                    (click)="saveType()"\n                    [disabled]="!formValid"\n                    type="submit">\n                <ion-icon name="checkmark"></ion-icon>\n            </button>\n            <button ion-button\n                    icon-only\n                    clear\n                    float-right\n                    (click)="close()"\n                    type="reset">\n                <ion-icon name="close"></ion-icon>\n            </button></h5>\n        <div class="inputs-list">\n            <div>\n                <color-sample float-left\n                              [big]=\'true\'\n                              (onColorChange)="changeColor($event)"\n                              [clickable]="true"\n                              [color]="type.color"></color-sample>\n                <span class="title">\n                    <h6>{{title}}</h6>\n                </span>\n\n            </div>\n            <ion-list>\n\n                <ion-item>\n                    <ion-label>Title</ion-label>\n                    <ion-input placeholder="Event title"\n                               [(ngModel)]="title"\n                               name="title"></ion-input>\n\n                </ion-item>\n            </ion-list>\n        </div>\n\n        <ion-list *ngIf=\'inputs.length\'>\n\n            <ion-list-header>Inputs</ion-list-header>\n            <ion-item *ngFor="let input of inputs">\n\n                <ion-icon class="trash-btn"\n                          name="ios-trash-outline"\n                          item-end\n                          (click)="removeInput(input)"></ion-icon>\n\n                <ion-input [placeholder]="getInputPlaceholder(input)"\n                           [(ngModel)]="input.title"\n                           required="true"\n                           name="{{input.title}}Title"></ion-input>\n                <ion-icon [name]="getInputIcon(input)"\n                          item-start></ion-icon>\n\n            </ion-item>\n        </ion-list>\n        <div class="input-buttons">\n            <!--adding new inputs-->\n            <button *ngFor="let inputType of availableInputs"\n                    (click)="addInput(inputType)"\n                    class="addInput-btn"\n                    color="secondary"\n                    type=\'button\'\n                    ion-button\n                    full\n            >\n                <ion-icon [name]="inputTypeDetails[inputType].icon"></ion-icon>\n                {{inputTypeDetails[inputType].addTitle}}\n            </button>\n        </div>\n\n    </form>\n</ion-content>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/eventTypesEditor/eventTypeEditor.template.html"*/
     }),
-    __param(0, core_1.Inject(eventType_store_1.EventTypeStore)),
     __metadata("design:paramtypes", [eventType_store_1.EventTypeStore,
         ionic_angular_1.ViewController,
         ionic_angular_1.NavParams])
@@ -691,7 +675,7 @@ var eventEditorPage_1 = __webpack_require__(375);
 var calendar_module_1 = __webpack_require__(700);
 var eventTypeEditor_component_1 = __webpack_require__(376);
 var eventTypeList_component_1 = __webpack_require__(707);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var Storage_1 = __webpack_require__(133);
 var colorpickerPopover_component_1 = __webpack_require__(136);
 var colorSample_module_1 = __webpack_require__(377);
@@ -769,17 +753,17 @@ var yearViewPage_1 = __webpack_require__(127);
 var calendar_store_1 = __webpack_require__(44);
 var eventType_store_1 = __webpack_require__(45);
 var monthViewPage_1 = __webpack_require__(134);
+var currentClendarView_service_1 = __webpack_require__(26);
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, loading, calendarStore, eventTypeStore) {
+    function MyApp(platform, statusBar, splashScreen, loading, calendarStore, currentViewService, eventTypeStore) {
         var _this = this;
         this.loading = loading;
         this.calendarStore = calendarStore;
+        this.currentViewService = currentViewService;
         this.eventTypeStore = eventTypeStore;
         this.rootPage = yearViewPage_1.YearViewPage;
         this.dataLoaded = false;
-        platform.ready()
-            .then(function () { return _this.updateData(); })
-            .then(function () {
+        platform.ready().then(function () { return _this.updateData(); }).then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
@@ -795,9 +779,10 @@ var MyApp = (function () {
         });
         loading.present();
         // order is IMPORTANT, TYPES FIRST
-        return this.eventTypeStore.init()
-            .then(function () { return _this.calendarStore.init(); })
-            .then(function () {
+        return this.eventTypeStore.init().then(function () { return _this.calendarStore.init(); }).then(function () {
+            _this.eventTypeStore.getAllTypes().then(function (types) {
+                _this.currentViewService.filterEventId = types.map(function (type) { return type.id; });
+            });
             loading.dismiss();
             return _this.dataLoaded = true;
         });
@@ -814,6 +799,7 @@ MyApp = __decorate([
     __metadata("design:paramtypes", [ionic_angular_1.Platform, status_bar_1.StatusBar, splash_screen_1.SplashScreen,
         ionic_angular_2.LoadingController,
         calendar_store_1.CalendarStore,
+        currentClendarView_service_1.CurrentCalendarViewService,
         eventType_store_1.EventTypeStore])
 ], MyApp);
 exports.MyApp = MyApp;
@@ -1088,12 +1074,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var moment = __webpack_require__(2);
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var dayEvent_model_1 = __webpack_require__(352);
 var core_1 = __webpack_require__(1);
 var rxjs_1 = __webpack_require__(428);
@@ -1109,8 +1092,7 @@ var CalendarStore = (function () {
     }
     CalendarStore.prototype.init = function () {
         var _this = this;
-        return this.getAllFromStore()
-            .then(function () {
+        return this.getAllFromStore().then(function () {
             console.log(_this.store);
             _this.affectedIds.length = 0;
         });
@@ -1123,15 +1105,12 @@ var CalendarStore = (function () {
                 return _this.storage.set(key, _this.store[id].map(function (event) { return event.dataAsJSON; }));
             }
             return _this.storage.remove(key);
-        }))
-            .then(function () {
+        })).then(function () {
             _this.affectedIds.length = 0;
         });
     };
     CalendarStore.prototype.getEventsOfType = function (typeId) {
-        return Promise.resolve(_.map(this.store, function (events, key) { return events.some(function (event) { return event.isOfTypeId(typeId); }) && key; })
-            .filter(function (data) { return !!data; })
-            .map(function (dayID) { return moment("/Date(" + dayID + ")/"); }));
+        return Promise.resolve(_.map(this.store, function (events, key) { return events.some(function (event) { return event.isOfTypeId(typeId); }) && key; }).filter(function (data) { return !!data; }).map(function (dayID) { return moment("/Date(" + dayID + ")/"); }));
     };
     Object.defineProperty(CalendarStore.prototype, "eventStream", {
         get: function () {
@@ -1169,36 +1148,30 @@ var CalendarStore = (function () {
     };
     CalendarStore.prototype.clearAll = function () {
         var _this = this;
-        this.getEventKeys()
-            .then(function (keys) {
+        this.getEventKeys().then(function (keys) {
             return keys.forEach(function (key) {
                 _this.storage.remove(key);
             });
         });
     };
     CalendarStore.prototype.getEventKeys = function () {
-        return this.storage.keys()
-            .then(function (keys) { return keys.filter(function (key) { return key.indexOf('event') > -1; }); });
+        return this.storage.keys().then(function (keys) { return keys.filter(function (key) { return key.indexOf('event') > -1; }); });
     };
     CalendarStore.prototype.getAllFromStore = function () {
         var _this = this;
-        return this.getEventKeys()
-            .then(function (keys) { return Promise.all(keys.map(function (key) { return _this.getDataFromStorageByKey(key); })); });
+        return this.getEventKeys().then(function (keys) { return Promise.all(keys.map(function (key) { return _this.getDataFromStorageByKey(key); })); });
     };
     CalendarStore.prototype.getDataFromStorageByKey = function (key) {
         var _this = this;
         var dayId = this.getDateFormKey(key);
-        return this.storage.get(key)
-            .then(function (dayEventsData) {
+        return this.storage.get(key).then(function (dayEventsData) {
             return Promise.all(dayEventsData.map(function (json) { return _this.dayEventFromJSON(json); }));
-        })
-            .then(function (events) {
+        }).then(function (events) {
             return _this.store[dayId] = events;
         });
     };
     CalendarStore.prototype.dayEventFromJSON = function (json) {
-        return this.eventTypeStore.getTypeByID(json.typeId)
-            .then(function (type) {
+        return this.eventTypeStore.getTypeByID(json.typeId).then(function (type) {
             return new dayEvent_model_1.DayEvent(type, json);
         }).catch(function () {
             return null;
@@ -1217,8 +1190,6 @@ var CalendarStore = (function () {
 }());
 CalendarStore = __decorate([
     core_1.Injectable(),
-    __param(0, core_1.Inject(eventType_store_1.EventTypeStore)),
-    __param(1, core_1.Inject(Storage_1.Storage)),
     __metadata("design:paramtypes", [eventType_store_1.EventTypeStore,
         Storage_1.Storage])
 ], CalendarStore);
@@ -1241,12 +1212,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var Subject_1 = __webpack_require__(11);
 var Storage_1 = __webpack_require__(133);
 exports.COLORS = [
@@ -1417,7 +1385,6 @@ var EventTypeStore = (function () {
 }());
 EventTypeStore = __decorate([
     core_1.Injectable(),
-    __param(0, core_1.Inject(Storage_1.Storage)),
     __metadata("design:paramtypes", [Storage_1.Storage])
 ], EventTypeStore);
 exports.EventTypeStore = EventTypeStore;
@@ -1498,16 +1465,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var moment = __webpack_require__(2);
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var ionic_angular_1 = __webpack_require__(16);
 var monthViewPage_1 = __webpack_require__(134);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var calendar_store_1 = __webpack_require__(44);
 var DAYS_IN_WEEK = 7;
 var DEFAULT_WEKS_NUM = 5;
@@ -1526,6 +1490,9 @@ var MonthView = (function () {
         this.calendarStore.eventStream.subscribe(function () {
             _this.countEvents(_this.days);
         });
+        this.currentCalendarView.filterEventStream.subscribe(function () {
+            _this.countEvents(_this.days);
+        });
     };
     MonthView.prototype.goToMonth = function () {
         if (this.yearView) {
@@ -1539,9 +1506,7 @@ var MonthView = (function () {
         if (date === void 0) { date = this.currentDate; }
         this.setMonthName(date);
         this.weeks = [];
-        this.getDaysToDisplay(date)
-            .then(function (dates) { return _this.countEvents(dates); })
-            .then(function (dates) {
+        this.getDaysToDisplay(date).then(function (dates) { return _this.countEvents(dates); }).then(function (dates) {
             _this.days = dates;
             dates.forEach(function (day, i) {
                 var weekNum = Math.floor(i / DAYS_IN_WEEK);
@@ -1585,8 +1550,10 @@ var MonthView = (function () {
         return Promise.all(dates.map(function (date) {
             var dayId = _this.calendarStore.getDateId(date.date);
             return _this.calendarStore.getEventsById(dayId).then(function (data) {
+                var filteredTypes = _this.currentCalendarView.filterEventId;
                 date.events = data;
                 date.hasEvents = data.length > 0;
+                date.hasEvents = data.filter(function (event) { return event.isOfAnyTypeId(filteredTypes); }).length > 0;
                 return date;
             });
         }));
@@ -1616,10 +1583,6 @@ MonthView = __decorate([
     core_1.Component({
         selector: 'month-view',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/calendar/monthView/monthView.template.html"*/'<div (click)="goToMonth()"\n     class="month"\n     [class.month-yearView]="yearView">\n\n  <h4 ion-text\n      class="monthTitle"\n      [class.title-small]="yearView">\n    {{currentMonthName}} </h4>\n\n  <div *ngIf="!yearView"\n       class="datesContainer">\n\n    <div *ngFor="let week of weeks"\n         class="week">\n      <day-view *ngFor="let day of week"\n                class="day-view"\n                [elementSize]="size"\n                [notThisMonth]="day.notDayOfCurrentMonth"\n                [date]="day.date"\n                [yearView]="yearView"></day-view>\n    </div>\n  </div>\n\n  <!--optimizing performance by not using component for logic-less moment-->\n  <div *ngIf="yearView"\n       class="datesContainer datesContainer-yearView">\n\n    <div *ngFor="let week of weeks"\n         class="week">\n      <div *ngFor="let day of week"\n           class="day-view"\n           [class.has-event]="day.hasEvents">\n        <div [hidden]="day.notDayOfCurrentMonth"\n        >\n          {{day.date.date()}}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/calendar/monthView/monthView.template.html"*/
     }),
-    __param(0, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
-    __param(1, core_1.Inject(core_1.ElementRef)),
-    __param(2, core_1.Inject(calendar_store_1.CalendarStore)),
-    __param(3, core_1.Inject(ionic_angular_1.NavController)),
     __metadata("design:paramtypes", [currentClendarView_service_1.CurrentCalendarViewService,
         core_1.ElementRef,
         calendar_store_1.CalendarStore,
@@ -1644,17 +1607,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var moment = __webpack_require__(2);
 var calendar_store_1 = __webpack_require__(44);
 var ionic_angular_1 = __webpack_require__(16);
 var dayViewPage_1 = __webpack_require__(135);
-var currentClendarView_service_1 = __webpack_require__(29);
-var _ = __webpack_require__(30);
+var currentClendarView_service_1 = __webpack_require__(26);
+var _ = __webpack_require__(27);
 var MAX_DISPLAY_EVENTS = 5;
 var DayView = (function () {
     function DayView(currentCalendarView, calendarStore, navController) {
@@ -1671,11 +1631,11 @@ var DayView = (function () {
     DayView.prototype.ngOnInit = function () {
         var _this = this;
         this.day = this.date.date();
-        this.filteredType = this.currentCalendarView.filterEventId;
+        this.filteredTypes = this.currentCalendarView.filterEventId;
         this.updateEvents();
         this.setToday();
-        this.currentCalendarView.filterEventStream.subscribe(function (newType) {
-            _this.filteredType = newType;
+        this.currentCalendarView.filterEventStream.subscribe(function (newTypes) {
+            _this.filteredTypes = newTypes;
             _this.filterEvents();
         });
     };
@@ -1705,7 +1665,7 @@ var DayView = (function () {
     DayView.prototype.filterEvents = function () {
         var _this = this;
         this.displayEvents =
-            this.events.filter(function (event) { return !_this.filteredType || event.isOfTypeId(_this.filteredType); });
+            this.events.filter(function (event) { return event.isOfAnyTypeId(_this.filteredTypes); });
         this.lotOfEvents = false;
         if (this.displayEvents.length > MAX_DISPLAY_EVENTS) {
             this.displayEvents = _.take(this.displayEvents, MAX_DISPLAY_EVENTS);
@@ -1744,9 +1704,6 @@ DayView = __decorate([
     core_1.Component({
         selector: 'day-view',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/calendar/dayView/dayView.template.html"*/'<div class="day-container"\n     [hidden]="yearView && notThisMonth"\n     [style.width]="elementSize"\n     [style.height]="elementSize">\n  <div class="day day-{{className}}"\n       [class.day-small]="yearView"\n       [class.day-background]="!yearView"\n       [class.day-anotherMonth]="notThisMonth"\n       [class.day-today]="isToday"\n       (click)="openDetails()">\n\n    <div class="date">{{day}}</div>\n    <color-sample *ngFor="let event of displayEvents" small="true" [color]="event.type.color"></color-sample>\n      <div class="lot-events" *ngIf="lotOfEvents">\n          <ion-icon name="arrow-dropright"></ion-icon>\n      </div>\n  </div>\n</div>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/calendar/dayView/dayView.template.html"*/
     }),
-    __param(0, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
-    __param(1, core_1.Inject(calendar_store_1.CalendarStore)),
-    __param(2, core_1.Inject(ionic_angular_1.NavController)),
     __metadata("design:paramtypes", [currentClendarView_service_1.CurrentCalendarViewService,
         calendar_store_1.CalendarStore,
         ionic_angular_1.NavController])
@@ -1769,9 +1726,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
@@ -1813,7 +1767,6 @@ DayDetails = __decorate([
     core_1.Component({
         selector: 'day-details-list',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/dayDetailsList/dayDetails.template.html"*/'<div *ngIf="!!events">\n    <ion-card *ngFor="let event of events">\n\n        <ion-card-header>\n            <color-sample float-left\n                          class="event-icon"\n                          [color]="event.type.color"></color-sample>\n               {{event.type.title}}\n            <ion-icon float-right\n                      class="trash-btn"\n                      name="ios-trash-outline"\n                      float-right\n                      (click)="removeEvent(event)"></ion-icon>\n        </ion-card-header>\n\n        <ion-card-content *ngIf="getInputsList(event).length">\n            <div *ngFor="let input of getInputsList(event)">\n                <b>{{input.title}}:</b> {{event.getInputData(input.inputKind)}}\n            </div>\n\n        </ion-card-content>\n\n    </ion-card>\n</div>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/dayDetailsList/dayDetails.template.html"*/
     }),
-    __param(0, core_1.Inject(calendar_store_1.CalendarStore)),
     __metadata("design:paramtypes", [calendar_store_1.CalendarStore])
 ], DayDetails);
 exports.DayDetails = DayDetails;
@@ -1835,18 +1788,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var calendar_store_1 = __webpack_require__(44);
 var ionic_angular_1 = __webpack_require__(16);
 var eventType_store_1 = __webpack_require__(45);
 var dayEvent_model_1 = __webpack_require__(352);
 var eventEditorPage_1 = __webpack_require__(375);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var dayViewPage_1 = __webpack_require__(135);
 var CreateEventFormComponent = (function () {
     function CreateEventFormComponent(navController, currentCalendarView, eventTypeStore, calendarStore) {
@@ -1902,10 +1852,6 @@ CreateEventFormComponent = __decorate([
     core_1.Component({
         selector: 'create-event-form',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/createEventForm/createEventForm.template.html"*/'<form (ngSubmit)="addEvent()">\n    <ion-item *ngIf="types.length">\n        <ion-select class="select-event"\n                    [(ngModel)]="selectedType"\n                    name="types"\n                    interface="action-sheet"\n                    (ngModelChange)="makeInputs()">\n            <ion-option *ngFor="let type of types"\n                        [value]="type">\n                <ion-icon class="trash-btn"\n                          name="ios-trash-outline"></ion-icon>\n                {{type.title}}\n            </ion-option>\n\n        </ion-select>\n\n    </ion-item>\n\n    <ion-item *ngFor="let input of eventInputs">\n        <ion-input *ngIf="isStoryInput(input)"\n                   placeholder="title"\n                   [(ngModel)]="input.value"\n                   name="{{input.title}}Title"></ion-input>\n\n        <ion-datetime *ngIf="isTimeInput(input)"\n                      placeholder="12:00"\n                      displayFormat="HH:mm"\n                      [(ngModel)]="input.value"\n                      name="{{input.title}}Title"></ion-datetime>\n\n        <ion-label fixed>\n            {{input.title}}\n        </ion-label>\n    </ion-item>\n\n    <ion-buttons padding-vertical>\n        <button *ngIf="types.length"\n                padding\n                ion-button\n                type="submit">Add event\n        </button>\n        <button ion-button\n                float-right\n                [navPush]="eventTypesPage">Manage types\n        </button>\n    </ion-buttons>\n</form>\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/createEventForm/createEventForm.template.html"*/
     }),
-    __param(0, core_1.Inject(ionic_angular_1.NavController)),
-    __param(1, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
-    __param(2, core_1.Inject(eventType_store_1.EventTypeStore)),
-    __param(3, core_1.Inject(calendar_store_1.CalendarStore)),
     __metadata("design:paramtypes", [ionic_angular_1.NavController,
         currentClendarView_service_1.CurrentCalendarViewService,
         eventType_store_1.EventTypeStore,
@@ -1933,7 +1879,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var moment = __webpack_require__(2);
-var _ = __webpack_require__(30);
+var _ = __webpack_require__(27);
 var YearViewComponent = (function () {
     function YearViewComponent() {
     }
@@ -2051,16 +1997,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var eventType_store_1 = __webpack_require__(45);
 var ionic_angular_1 = __webpack_require__(16);
 var calendar_store_1 = __webpack_require__(44);
-var _ = __webpack_require__(30);
-var currentClendarView_service_1 = __webpack_require__(29);
+var _ = __webpack_require__(27);
+var currentClendarView_service_1 = __webpack_require__(26);
 var EventTypeList = (function () {
     function EventTypeList(eventTypeStore, currentViewService, alertCtrl, calendarStore) {
         this.eventTypeStore = eventTypeStore;
@@ -2077,9 +2020,8 @@ var EventTypeList = (function () {
             _this.updateTypes();
         });
     };
-    EventTypeList.prototype.isCurrentFilteredType = function (type) {
-        console.log(this.currentViewService.filterEventId);
-        return this.currentViewService.filterEventId === type.id;
+    EventTypeList.prototype.isTypeFiltered = function (type) {
+        return _.includes(this.currentViewService.filterEventId, type.id);
     };
     EventTypeList.prototype.edit = function (type) {
         this.onTypeSelect.emit(type);
@@ -2126,12 +2068,8 @@ __decorate([
 ], EventTypeList.prototype, "onTypeSelect", void 0);
 EventTypeList = __decorate([
     core_1.Component({
-        selector: 'event-type-list',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/eventTypesList/eventTypeList.template.html"*/'<h4 ion-text\n    *ngIf="!filterMenuMode">\n    Types:\n    <button class="add-btn"\n            (click)="addNewEventType()"\n            ion-button\n            icon-only\n            float-right\n            clear>\n        <ion-icon name="add"></ion-icon>\n    </button>\n</h4>\n<ion-list>\n    <div ion-item\n         *ngFor="let type of types"\n         [class.current-type]="filterMenuMode && isCurrentFilteredType(type)"\n         (click)="edit(type)">\n        {{ type.title }}\n        <ion-icon class="trash-btn"\n                  name="ios-trash-outline"\n                  item-end\n                  *ngIf="!filterMenuMode"\n                  (click)="removeType($event, type)"></ion-icon>\n        <color-sample item-start\n                      [color]="type.color"></color-sample>\n    </div>\n</ion-list>\n\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/eventTypesList/eventTypeList.template.html"*/
+        selector: 'event-type-list',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/eventTypesList/eventTypeList.template.html"*/'<h4 ion-text\n    *ngIf="!filterMenuMode">\n    Types:\n    <button class="add-btn"\n            (click)="addNewEventType()"\n            ion-button\n            icon-only\n            float-right\n            clear>\n        <ion-icon name="add"></ion-icon>\n    </button>\n</h4>\n<ion-list>\n    <div ion-item\n         *ngFor="let type of types"\n         (click)="edit(type)">\n        <ion-label>{{ type.title }}</ion-label>\n\n        <ion-icon class="trash-btn"\n                  name="ios-trash-outline"\n                  item-end\n                  *ngIf="!filterMenuMode"\n                  (click)="removeType($event, type)"></ion-icon>\n        <ion-checkbox item-end\n                      icon-only\n                      [checked]="isTypeFiltered(type)"\n                      (click)="edit(type)"\n                      *ngIf="filterMenuMode"></ion-checkbox>\n        <color-sample item-start\n                      [color]="type.color"></color-sample>\n    </div>\n</ion-list>\n\n'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/eventTypesList/eventTypeList.template.html"*/
     }),
-    __param(0, core_1.Inject(eventType_store_1.EventTypeStore)),
-    __param(1, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
-    __param(2, core_1.Inject(ionic_angular_1.AlertController)),
-    __param(3, core_1.Inject(calendar_store_1.CalendarStore)),
     __metadata("design:paramtypes", [eventType_store_1.EventTypeStore,
         currentClendarView_service_1.CurrentCalendarViewService,
         ionic_angular_1.AlertController,
@@ -2156,24 +2094,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
-var currentClendarView_service_1 = __webpack_require__(29);
+var currentClendarView_service_1 = __webpack_require__(26);
 var ionic_angular_1 = __webpack_require__(16);
+var _ = __webpack_require__(27);
 var FilterMenuComponent = (function () {
     function FilterMenuComponent(menuCtrl, currentViewService) {
         this.menuCtrl = menuCtrl;
         this.currentViewService = currentViewService;
     }
     FilterMenuComponent.prototype.filterByType = function (event) {
-        this.currentViewService.filterEventId = event.id;
+        this.currentViewService.filterEventId = _.xor(this.currentViewService.filterEventId, [event.id]);
         this.menuCtrl.close();
     };
     FilterMenuComponent.prototype.reset = function () {
-        this.currentViewService.filterEventId = null;
+        this.currentViewService.filterEventId = [];
         this.menuCtrl.close();
     };
     return FilterMenuComponent;
@@ -2182,8 +2118,6 @@ FilterMenuComponent = __decorate([
     core_1.Component({
         selector: 'filter-menu',template:/*ion-inline-start:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/filterMenu/filterMenu.template.html"*/'<h5 padding>Filter by type\n    <button ion-button\n            icon-only\n            clear\n            float-right\n            class="reset-button"\n            (click)="reset()"\n            type="reset">\n        <ion-icon name="close"></ion-icon>\n    </button>\n</h5>\n\n<event-type-list (onTypeSelect)="filterByType($event)"\n                 [filterMenuMode]="true">\n</event-type-list>'/*ion-inline-end:"/Users/cakeinpanic/projects/reflectar/reflectar/src/app/components/filterMenu/filterMenu.template.html"*/
     }),
-    __param(0, core_1.Inject(ionic_angular_1.MenuController)),
-    __param(1, core_1.Inject(currentClendarView_service_1.CurrentCalendarViewService)),
     __metadata("design:paramtypes", [ionic_angular_1.MenuController,
         currentClendarView_service_1.CurrentCalendarViewService])
 ], FilterMenuComponent);
