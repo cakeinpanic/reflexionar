@@ -11,8 +11,6 @@
                 <ion-icon ios="ios-arrow-dropdown"
                           md="md-arrow-dropdown"></ion-icon>
             </button>
-        </ion-buttons>
-        <ion-buttons end  class="header-buttons">
             <button ion-button
                     icon-only
                     start
@@ -22,6 +20,9 @@
                 <ion-icon ios="ios-arrow-dropup"
                           md="md-arrow-dropup"></ion-icon>
             </button>
+        </ion-buttons>
+        <ion-buttons end>
+        <button ion-button end icon-only (click)="toggleMenu()"><ion-icon name="menu"></ion-icon></button>
         </ion-buttons>
         <ion-title>
 

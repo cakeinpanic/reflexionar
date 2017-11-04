@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore} from '../models/calendar.store';
@@ -26,10 +26,10 @@ export class CreateEventFormComponent implements OnInit {
     selectedType: EventType;
     eventTypesPage: any;
 
-    constructor(@Inject(NavController) private navController: NavController,
-                @Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-                @Inject(EventTypeStore) private eventTypeStore: EventTypeStore,
-                @Inject(CalendarStore) private calendarStore: CalendarStore) {
+    constructor( private navController: NavController,
+                 private currentCalendarView: CurrentCalendarViewService,
+                 private eventTypeStore: EventTypeStore,
+                 private calendarStore: CalendarStore) {
         this.eventTypesPage = EventEditorPage;
         this.navController.viewWillEnter
             .filter(({component}) => component === DayViewPage)

@@ -13,14 +13,19 @@
 <ion-list>
     <div ion-item
          *ngFor="let type of types"
-         [class.current-type]="filterMenuMode && isCurrentFilteredType(type)"
          (click)="edit(type)">
-        {{ type.title }}
+        <ion-label>{{ type.title }}</ion-label>
+
         <ion-icon class="trash-btn"
                   name="ios-trash-outline"
                   item-end
                   *ngIf="!filterMenuMode"
                   (click)="removeType($event, type)"></ion-icon>
+        <ion-checkbox item-end
+                      icon-only
+                      [checked]="isTypeFiltered(type)"
+                      (click)="edit(type)"
+                      *ngIf="filterMenuMode"></ion-checkbox>
         <color-sample item-start
                       [color]="type.color"></color-sample>
     </div>

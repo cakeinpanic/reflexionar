@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EventType} from '../../app/components/models/eventType.store';
 import {NavController} from 'ionic-angular';
 import {CurrentCalendarViewService} from '../../app/components/models/currentClendarView.service';
@@ -11,9 +11,9 @@ import {EventTypeEditor} from '../../app/components/eventTypesEditor/eventTypeEd
 })
 export class EventEditorPage implements OnInit {
 
-    constructor(@Inject(CurrentCalendarViewService) private currentCalendarView: CurrentCalendarViewService,
-                @Inject(ModalController) private modalController: ModalController,
-                @Inject(NavController) private navController: NavController) {
+    constructor( private currentCalendarView: CurrentCalendarViewService,
+                 private modalController: ModalController,
+                 private navController: NavController) {
 
     }
 
