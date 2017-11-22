@@ -46,10 +46,7 @@ export class MyApp {
         return this.eventTypeStore.init()
             .then(() => this.calendarStore.init())
             .then(() => {
-                this.eventTypeStore.getAllTypes()
-                    .then((types) => {
-                        this.currentViewService.filterEventId = types.map(type => type.id);
-                    });
+                        this.currentViewService.setAllEventsFiltered();
                 loading.dismiss();
 
                 return this.dataLoaded = true;

@@ -1,10 +1,12 @@
 <h5 padding>Filter by type
+    <button class="select-button" (click)="setAll()">All</button>
+    <button class="select-button" (click)="setNone()">None</button>
     <button ion-button
             icon-only
             clear
             float-right
             class="reset-button"
-            (click)="reset()"
+            (click)="close()"
             type="reset">
         <ion-icon name="close"></ion-icon>
     </button>
