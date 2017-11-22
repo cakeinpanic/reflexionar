@@ -1,0 +1,8 @@
+<h5 padding>Filter by type
+    <button ion-button clear small float-right class="select-button" (click)="setAll()">All</button>
+    <button ion-button clear small float-right class="select-button" (click)="setNone()">None</button>
+</h5>
+
+<event-type-list (onTypeSelect)="filterByType($event)"
+                 [filterMenuMode]="true">
+</event-type-list>

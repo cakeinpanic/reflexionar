@@ -16,7 +16,8 @@ import {CurrentCalendarViewService} from './components/models/currentClendarView
 import {IonicStorageModule} from '@ionic/Storage';
 import {ColorpickerPopoverComponent} from './components/colorSample/colorpickerPopover.component';
 import {ColorSampleModule} from './components/colorSample/colorSample.module';
-import {FilterMenuComponent} from './components/filterMenu/filterMenu.component';
+import {FilterMenuComponent} from './components/sideMenu/filterMenu/filterMenu.component';
+import {SideMenuComponent} from "./components/sideMenu/sideMenu.component";
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import {FilterMenuComponent} from './components/filterMenu/filterMenu.component'
         EventEditorPage,
         EventTypeEditor,
         EventTypeList,
-        FilterMenuComponent
+        FilterMenuComponent,
+        SideMenuComponent
     ],
     imports: [
         BrowserModule,
@@ -46,6 +48,7 @@ import {FilterMenuComponent} from './components/filterMenu/filterMenu.component'
         EventTypeEditor,
         EventTypeList,
         FilterMenuComponent,
+        SideMenuComponent,
         ColorpickerPopoverComponent
     ],
     providers: [
