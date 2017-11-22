@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
@@ -9,12 +9,6 @@ export const COLORS = [
     '#FE938C', '#EAD2AC', '#E6B89C', '#4281A4', '#9CAFB7', '#CF4232',
     '#EB7F23', '#FAC023', '#068675', '#6B202E'
 ];
-
-export function getColor() {
-    const index = Math.floor(Math.random() * COLORS.length);
-    console.log(index);
-    return COLORS[index];
-}
 
 export enum INPUTS { Time, Story }
 
@@ -42,7 +36,7 @@ export class EventInput {
 
 export class EventType {
     title: string = '';
-    color: string = '#000000';
+    color: string = COLORS[0];
     inputs: EventInput[] = [];
 
     _id: number;
@@ -50,7 +44,7 @@ export class EventType {
     constructor(params: any = {}) {
         _.merge(this, params);
         if (!params.color) {
-            this.color = getColor();
+            this.color = _.sample(COLORS);
         }
         this._id = params.id || Date.now();
         if (params.inputs) {
@@ -77,7 +71,7 @@ export class EventTypeStore {
     private stream = new Subject<void>();
     private types: EventType[] = [];
 
-    constructor( private storage: Storage) {
+    constructor(private storage: Storage) {
         // this.storage.clear();
         // this.saveType(new EventType({title: 'Running', color: '#991824'})).then((type) => {
         //     type.inputs.push(
@@ -93,9 +87,10 @@ export class EventTypeStore {
     }
 
     init(): Promise<any> {
-        return this.getAllDataFromStore().then(() => {
-            console.log(this.types);
-        });
+        return this.getAllDataFromStore()
+            .then(() => {
+                console.log(this.types);
+            });
     }
 
     get updateStream(): Observable<void> {
@@ -118,12 +113,13 @@ export class EventTypeStore {
     }
 
     private getTypeFromStorage(key: string): Promise<EventType> {
-        return this.storage.get(key).then(data => {
-            if (!data) {
-                return null;
-            }
-            this.types.push(new EventType(data));
-        });
+        return this.storage.get(key)
+            .then(data => {
+                if (!data) {
+                    return null;
+                }
+                this.types.push(new EventType(data));
+            });
     }
 
     private sendNext() {

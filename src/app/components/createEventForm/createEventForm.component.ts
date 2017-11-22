@@ -1,4 +1,4 @@
-import {Component, OnInit, } from '@angular/core';
+import {Component, OnInit,} from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CalendarStore} from '../models/calendar.store';
@@ -26,10 +26,10 @@ export class CreateEventFormComponent implements OnInit {
     selectedType: EventType;
     eventTypesPage: any;
 
-    constructor( private navController: NavController,
-                 private currentCalendarView: CurrentCalendarViewService,
-                 private eventTypeStore: EventTypeStore,
-                 private calendarStore: CalendarStore) {
+    constructor(private navController: NavController,
+                private currentCalendarView: CurrentCalendarViewService,
+                private eventTypeStore: EventTypeStore,
+                private calendarStore: CalendarStore) {
         this.eventTypesPage = EventEditorPage;
         this.navController.viewWillEnter
             .filter(({component}) => component === DayViewPage)
@@ -44,28 +44,31 @@ export class CreateEventFormComponent implements OnInit {
     }
 
     private updateEvents() {
-        this.eventTypeStore.getAllTypes().then((types) => {
-            this.types = types;
-            if (types.length > 0) {
-                this.selectedType = this.types[0];
-                this.makeInputs();
-            }
-        });
+        this.eventTypeStore.getAllTypes()
+            .then((types) => {
+                this.types = types;
+                if (types.length > 0) {
+                    this.selectedType = this.types[0];
+                    this.makeInputs();
+                }
+            });
 
     }
 
     addEvent() {
         const event = new DayEvent(this.selectedType);
-        this.eventInputs.forEach((eventInput: IEventInputAndValue) => {
-            event.changeInputData(eventInput.inputKind, eventInput.value);
-        });
+        this.eventInputs
+            .forEach((eventInput: IEventInputAndValue) => {
+                event.changeInputData(eventInput.inputKind, eventInput.value);
+            });
 
         this.calendarStore.addEvent(this.date, event);
     }
 
     makeInputs() {
         const type = this.selectedType;
-        this.eventInputs = type.inputs.map((input: EventInput) => _.assign({}, input, {value: ''}));
+        this.eventInputs = type.inputs
+            .map((input: EventInput) => _.assign({}, input, {value: ''}));
     }
 
     isTimeInput(input: EventInput) {

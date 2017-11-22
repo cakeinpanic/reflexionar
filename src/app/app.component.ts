@@ -19,18 +19,20 @@ export class MyApp {
     dataLoaded = false;
 
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-        public loading: LoadingController,
-        public calendarStore: CalendarStore,
-        public currentViewService: CurrentCalendarViewService,
-        public eventTypeStore: EventTypeStore) {
-        platform.ready().then(() => this.updateData()).then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            statusBar.styleDefault();
-            splashScreen.hide();
-            this.nav.push(YearViewPage, {}, {animate: false, duration: 0});
-            this.nav.push(MonthViewPage, {}, {animate: false, duration: 0});
-        });
+                public loading: LoadingController,
+                public calendarStore: CalendarStore,
+                public currentViewService: CurrentCalendarViewService,
+                public eventTypeStore: EventTypeStore) {
+        platform.ready()
+            .then(() => this.updateData())
+            .then(() => {
+                // Okay, so the platform is ready and our plugins are available.
+                // Here you can do any higher level native things you might need.
+                statusBar.styleDefault();
+                splashScreen.hide();
+                this.nav.push(YearViewPage, {}, {animate: false, duration: 0});
+                this.nav.push(MonthViewPage, {}, {animate: false, duration: 0});
+            });
     }
 
     updateData() {
@@ -41,13 +43,17 @@ export class MyApp {
         loading.present();
 
         // order is IMPORTANT, TYPES FIRST
-        return this.eventTypeStore.init().then(() => this.calendarStore.init()).then(() => {
-            this.eventTypeStore.getAllTypes().then((types) => {
-                this.currentViewService.filterEventId = types.map(type => type.id);
+        return this.eventTypeStore.init()
+            .then(() => this.calendarStore.init())
+            .then(() => {
+                this.eventTypeStore.getAllTypes()
+                    .then((types) => {
+                        this.currentViewService.filterEventId = types.map(type => type.id);
+                    });
+                loading.dismiss();
+
+                return this.dataLoaded = true;
             });
-            loading.dismiss();
-            return this.dataLoaded = true;
-        });
 
     }
 

@@ -21,9 +21,8 @@ export class DayDetails implements OnInit {
 
     eventInputs: IEventInputAndValue[];
 
-    eventTypeTitle: string;
 
-    constructor( private calendarStore: CalendarStore) {
+    constructor(private calendarStore: CalendarStore) {
     }
 
     ngOnInit() {
@@ -39,9 +38,10 @@ export class DayDetails implements OnInit {
     }
 
     private getEvents(dayId) {
-        this.calendarStore.getEventsById(dayId).then((data) => {
-            this.events = data;
-        });
+        this.calendarStore.getEventsById(dayId)
+            .then((data) => {
+                this.events = data;
+            });
     }
 
     removeEvent(event: DayEvent) {

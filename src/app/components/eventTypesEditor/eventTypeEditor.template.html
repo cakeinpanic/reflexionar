@@ -18,7 +18,8 @@
                     (click)="close()"
                     type="reset">
                 <ion-icon name="close"></ion-icon>
-            </button></h5>
+            </button>
+        </h5>
         <div class="inputs-list">
             <div>
                 <color-sample float-left
@@ -46,21 +47,25 @@
         <ion-list *ngIf='inputs.length'>
 
             <ion-list-header>Inputs</ion-list-header>
-            <ion-item *ngFor="let input of inputs">
-
+            <div *ngFor="let input of inputs">
                 <ion-icon class="trash-btn"
                           name="ios-trash-outline"
                           item-end
                           (click)="removeInput(input)"></ion-icon>
 
-                <ion-input [placeholder]="getInputPlaceholder(input)"
-                           [(ngModel)]="input.title"
-                           required="true"
-                           name="{{input.title}}Title"></ion-input>
                 <ion-icon [name]="getInputIcon(input)"
                           item-start></ion-icon>
 
-            </ion-item>
+                <ion-item item-start>
+
+
+                    <ion-input [placeholder]="getInputPlaceholder(input)"
+                               [(ngModel)]="input.title"
+                               required="true"
+                               name="{{input.title}}Title"></ion-input>
+
+                </ion-item>
+            </div>
         </ion-list>
         <div class="input-buttons">
             <!--adding new inputs-->

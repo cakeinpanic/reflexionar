@@ -8,7 +8,7 @@ import {CalendarStore} from '../../models/calendar.store';
 import {DayEvent} from '../../models/dayEvent.model';
 
 const DAYS_IN_WEEK = 7;
-const DEFAULT_WEKS_NUM = 5;
+const DEFAULT_WEEKS_NUM = 5;
 
 interface IDayViewInfo {
     date: moment.Moment;
@@ -30,23 +30,25 @@ export class MonthView implements OnInit {
 
     currentMonthName: string;
 
-    constructor( private currentCalendarView: CurrentCalendarViewService,
-         private el: ElementRef,
-         private calendarStore: CalendarStore,
-         private navController: NavController) {
+    constructor(private currentCalendarView: CurrentCalendarViewService,
+                private el: ElementRef,
+                private calendarStore: CalendarStore,
+                private navController: NavController) {
 
     }
 
     ngOnInit() {
         this.fillWeeks();
         this.size = Math.floor(this.el.nativeElement.offsetWidth / 7) + 'px';
-        this.calendarStore.eventStream.subscribe(() => {
-            this.countEvents(this.days);
-        });
+        this.calendarStore.eventStream
+            .subscribe(() => {
+                this.countEvents(this.days);
+            });
 
-        this.currentCalendarView.filterEventStream.subscribe(() => {
-            this.countEvents(this.days);
-        });
+        this.currentCalendarView.filterEventStream
+            .subscribe(() => {
+                this.countEvents(this.days);
+            });
     }
 
     goToMonth() {
@@ -62,16 +64,18 @@ export class MonthView implements OnInit {
 
         this.weeks = [];
 
-        this.getDaysToDisplay(date).then((dates) => this.countEvents(dates)).then(dates => {
-            this.days = dates;
-            dates.forEach((day, i) => {
-                const weekNum = Math.floor(i / DAYS_IN_WEEK);
-                if (!this.weeks[weekNum]) {
-                    this.weeks[weekNum] = [];
-                }
-                this.weeks[weekNum].push(day);
+        this.getDaysToDisplay(date)
+            .then((dates) => this.countEvents(dates))
+            .then(dates => {
+                this.days = dates;
+                dates.forEach((day, i) => {
+                    const weekNum = Math.floor(i / DAYS_IN_WEEK);
+                    if (!this.weeks[weekNum]) {
+                        this.weeks[weekNum] = [];
+                    }
+                    this.weeks[weekNum].push(day);
+                });
             });
-        });
     }
 
     private setMonthName(date: moment.Moment) {
@@ -83,12 +87,12 @@ export class MonthView implements OnInit {
     private calculateWeeksNum(thisMonth: moment.Moment): number {
         const startsWith = moment(thisMonth).date(1).isoWeekday() - 1;
 
-        return startsWith + thisMonth.daysInMonth() > DEFAULT_WEKS_NUM * DAYS_IN_WEEK
-            ? DEFAULT_WEKS_NUM + 1
-            : DEFAULT_WEKS_NUM;
+        return startsWith + thisMonth.daysInMonth() > DEFAULT_WEEKS_NUM * DAYS_IN_WEEK
+            ? DEFAULT_WEEKS_NUM + 1
+            : DEFAULT_WEEKS_NUM;
     }
 
-    private getDaysToDisplay(date: moment.Moment): Promise<moment.Moment[]> {
+    private getDaysToDisplay(date: moment.Moment): Promise<IDayViewInfo[]> {
         const weeksNum = this.calculateWeeksNum(date);
 
         const thisMonth = moment(date);
@@ -116,20 +120,21 @@ export class MonthView implements OnInit {
 
     }
 
-    private countEvents(dates) {
+    private countEvents(dates: IDayViewInfo[]): Promise<IDayViewInfo[]> {
         if (!this.yearView) {
             return Promise.resolve(dates);
         }
+
         return Promise.all(dates.map((date) => {
             const dayId = this.calendarStore.getDateId(date.date);
-            return this.calendarStore.getEventsById(dayId).then((data) => {
-                const filteredTypes = this.currentCalendarView.filterEventId;
-                date.events = data;
-                date.hasEvents = data.length > 0;
 
-                date.hasEvents = data.filter((event: DayEvent) => event.isOfAnyTypeId(filteredTypes)).length > 0;
-                return date;
-            });
+            return this.calendarStore.getEventsById(dayId)
+                .then((data: DayEvent[]) => {
+                    const filteredTypes = this.currentCalendarView.filterEventId;
+
+                    date.hasEvents = data.some((event: DayEvent) => event.isOfAnyTypeId(filteredTypes));
+                    return date;
+                });
         }));
     }
 

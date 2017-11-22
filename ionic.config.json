@@ -1,5 +1,6 @@
 {
   "name": "reflectar",
   "app_id": "a2df080a",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {}
 }

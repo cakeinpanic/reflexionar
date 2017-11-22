@@ -31,8 +31,8 @@ export class DayView implements OnInit {
     private filteredTypes: number[];
 
     constructor(private currentCalendarView: CurrentCalendarViewService,
-        private calendarStore: CalendarStore,
-        private navController: NavController) {
+                private calendarStore: CalendarStore,
+                private navController: NavController) {
     }
 
     ngOnInit() {
@@ -40,15 +40,20 @@ export class DayView implements OnInit {
         this.filteredTypes = this.currentCalendarView.filterEventId;
         this.updateEvents();
         this.setToday();
-        this.currentCalendarView.filterEventStream.subscribe((newTypes: number[]) => {
-            this.filteredTypes = newTypes;
-            this.filterEvents();
-        });
+
+        this.currentCalendarView.filterEventStream
+            .subscribe((newTypes: number[]) => {
+                this.filteredTypes = newTypes;
+                this.filterEvents();
+            });
     }
 
     openDetails() {
         if (!this.yearView) {
-            this.currentCalendarView.currentDate.date(this.day).month(this.date.month());
+            this.currentCalendarView.currentDate
+                .date(this.day)
+                .month(this.date.month());
+
             this.navController.push(DayViewPage);
         }
     }
@@ -58,23 +63,26 @@ export class DayView implements OnInit {
             const dayId = this.calendarStore.getDateId(this.date);
             this.getEvents(dayId);
 
-            this.calendarStore.eventStream.filter((timestamp) => timestamp === dayId).subscribe(() => {
-                this.getEvents(dayId);
-            });
+            this.calendarStore.eventStream
+                .filter((timestamp) => timestamp === dayId)
+                .subscribe(() => {
+                    this.getEvents(dayId);
+                });
         }
 
     }
 
     private getEvents(dayId) {
-        this.calendarStore.getEventsById(dayId).then((data) => {
-            this.events = data;
-            this.filterEvents();
-        });
+        this.calendarStore.getEventsById(dayId)
+            .then((data) => {
+                this.events = data;
+                this.filterEvents();
+            });
     }
 
     private filterEvents() {
-        this.displayEvents =
-            this.events.filter((event: DayEvent) => event.isOfAnyTypeId(this.filteredTypes));
+        this.displayEvents = this.events
+            .filter((event: DayEvent) => event.isOfAnyTypeId(this.filteredTypes));
         this.lotOfEvents = false;
 
         if (this.displayEvents.length > MAX_DISPLAY_EVENTS) {
